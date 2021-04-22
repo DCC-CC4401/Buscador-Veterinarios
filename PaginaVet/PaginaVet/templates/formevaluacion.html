@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta charset="UTF-8">
+        <title>Pagina Vet</title>
+        <style>
+
+            p.clasificacion {
+                position: relative;
+                overflow: hidden;
+                display: inline-block;
+            }
+
+            p.clasificacion input {
+              position: absolute;
+              top: -100px;
+            }
+
+            p.clasificacion label {
+              float: right;
+              color: #333;
+            }
+
+            p.clasificacion label:hover,
+            p.clasificacion label:hover ~ label,
+            p.clasificacion input:checked ~ label {
+              color: #dd4;
+            }
+
+            .doctor_evaluado {
+                position: relative;
+                left: 500px;
+                top: -270px;
+                width: 50%;
+            }
+            
+            form {
+                margin-left: 50px;
+                margin-top: 50px;
+            }
+
+            h1 {
+                margin-left: 50px;
+            }
+    
+
+            
+        </style>
+    </head>
+    <body>
+        <h1>Evaluacion</h1>
+        <div>
+        <form>
+            <p>
+                <input type="text" name="nombre" placeholder="Nombre">
+            </p>
+            
+
+            <div>Evalue su experiencia con este doctor</div>
+            <p class="clasificacion">
+                <input id="radio1" type="radio" name="estrellas" value="5">
+                <label for="radio1" name="estrellas">★</label>
+                <input id="radio2" type="radio" name="estrellas" value="4">
+                <label for="radio2" name="estrellas">★</label>
+                <input id="radio3" type="radio" name="estrellas" value="3">
+                <label for="radio3" name="estrellas">★</label>
+                <input id="radio4" type="radio" name="estrellas" value="2">
+                <label for="radio4" name="estrellas">★</label>
+                <input id="radio5" type="radio" name="estrellas" value="1">
+                <label for="radio5" name="estrellas">★</label>
+            </p>
+
+            <p>
+                ¿Fue resuelto su problema?
+                <input type="radio" id="si" name="problema_resuelto" value="si" checked>
+                <label for="si">Si</label>
+                <input type="radio" id="no" name="problema_resuelto" value="no">
+                <label for="si">No</label>
+            </p>
+            
+
+            <p>
+                <input type="text" name="razon_consulta" placeholder="Razon de su consulta">
+            </p>
+
+            <p>
+                <textarea placeholder="Deje su comentario aqui"></textarea>
+            </p>
+
+            <input type="submit" value="Enviar evaluacion">
+            
+        </form>
+        </div>
+
+        <div class="doctor_evaluado">
+            <p>Nombre Doctor</p>
+        </div>
+ 
+    </body>
+</html>
+
