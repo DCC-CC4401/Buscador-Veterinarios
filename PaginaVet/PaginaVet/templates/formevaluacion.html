@@ -9,6 +9,7 @@
                 position: relative;
                 overflow: hidden;
                 display: inline-block;
+                left: 20px;
             }
 
             p.clasificacion input {
@@ -19,6 +20,8 @@
             p.clasificacion label {
               float: right;
               color: #333;
+              font-size: 50px;
+              padding: 5px;
             }
 
             p.clasificacion label:hover,
@@ -29,9 +32,9 @@
 
             .doctor_evaluado {
                 position: relative;
-                left: 500px;
-                top: -270px;
-                width: 50%;
+                left: 800px;
+                top: -650px;
+                width: 30%;
             }
             
             form {
@@ -41,6 +44,36 @@
 
             h1 {
                 margin-left: 50px;
+            }
+
+            body {
+                font-size: 20px;
+            }
+             
+            input[name="nombre"], input[name="razon_consulta"] {
+                height: 30px;
+                font-size: 16px;
+                width: 350px;
+                border-width: 2px;
+            }
+
+            input[type="submit"]{
+                width: 200px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            textarea {
+                border-width: 2px;
+            }
+
+            p.problema input {
+                margin-left: 70px;
+            }
+
+            p.problema {
+                margin-top: 40px;
+                margin-bottom: 40px;
             }
     
 
@@ -71,6 +104,10 @@
             </p>
 
             <p>
+                <input type="text" name="razon_consulta" placeholder="Razon de su consulta">
+            </p>
+
+            <p class="problema">
                 ¿Fue resuelto su problema?
                 <input type="radio" id="si" name="problema_resuelto" value="si" checked>
                 <label for="si">Si</label>
@@ -80,11 +117,7 @@
             
 
             <p>
-                <input type="text" name="razon_consulta" placeholder="Razon de su consulta">
-            </p>
-
-            <p>
-                <textarea placeholder="Deje su comentario aqui"></textarea>
+                <textarea placeholder="Deje su comentario aqui" rows="10" cols="100"></textarea>
             </p>
 
             <input type="submit" value="Enviar evaluacion">
@@ -94,6 +127,7 @@
 
         <div class="doctor_evaluado">
             <p>Nombre Doctor</p>
+            <img src="imagen1.png" width="150" height="150">
         </div>
  
     </body>

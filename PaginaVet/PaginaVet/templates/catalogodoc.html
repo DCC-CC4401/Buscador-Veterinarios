@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta charset="UTF-8">
+        <title>Pagina Vet</title>
+        <style>
+            ul {
+                list-style-type: none;
+            }
+
+            .estrellas{
+                display: inline;
+            }
+
+            .box[name="foto"]{
+                float: left;
+                width: 10%;
+                padding: 50px;
+                height: 200px;
+                border: 2px solid black;
+            }
+
+            .box[name="datos"]{
+                float: left;
+                width: 50%;
+                padding: 50px;
+                height: 200px;
+                border: 2px solid black;
+            }
+
+            .evaluacion {
+                position: relative;
+                left: 200px;
+                top: -90px;
+            }
+
+            .button {
+                position: relative;
+                left: 300px;
+                top: -50px;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+        </style>
+    </head>
+    <body>
+      <div>
+          <div class="box" name="foto">
+              <p>Foto</p>
+          </div>
+          <div class="box" name="datos">
+              
+
+          <div>
+            <ul>
+                <li>Nombre doctor</li>
+                <li>Region, comuna</li>
+                <li>Urgencia</li>
+                <li>Atencion a domicilio</li>
+            </ul>
+           </div>
+           <div class="evaluacion">
+               <ul>
+                   <li class="estrellas">★</li>
+                   <li class="estrellas">★</li>
+                   <li class="estrellas">★</li>
+                   <li class="estrellas">★</li>
+                   <li class="estrellas">★</li>
+               </ul>
+           </div>
+           <div class="button">
+               <button>Ver perfil</button>
+           </div>
+            </div>
+      </div>
+ 
+    </body>
+</html>
+
