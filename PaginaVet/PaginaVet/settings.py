@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import gestionVeterinarios
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +30,7 @@ ALLOWED_HOSTS = []
 
 
 # Indicamos que el sistema de usuarios es en base al modelo User
-AUTH_USER_MODEL = 'todoapp.User'
+AUTH_USER_MODEL = 'gestionVeterinarios.User'
 
 
 # Application definition
