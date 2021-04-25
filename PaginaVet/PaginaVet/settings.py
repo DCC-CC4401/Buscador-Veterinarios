@@ -28,6 +28,10 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+# Indicamos que el sistema de usuarios es en base al modelo User
+AUTH_USER_MODEL = 'todoapp.User'
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'gestionVeterinarios',
 ]
 
 MIDDLEWARE = [
