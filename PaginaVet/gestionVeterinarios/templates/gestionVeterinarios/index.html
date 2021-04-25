@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <style>
+            .descripcion_index{
+                height: 150px;
+                color:#089c6b;
+                align-items: center;
+            }
+            .botones_index{
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+    {% include  "gestionVeterinarios/barra.html" %}
+
+    <div style="align-items: center;">
+        <div class="descripcion_index" style="text-align:center;padding: 50px;">
+            <h1>¿Qué es PetCare?</h4>
+            <p>Nuestro sitio almacena una base de datos con veterinarios a lo largo del país, 
+                con el fin de ayudarte a encontrar el mejor servicio para tu mascota según tus necesidades.</p>
+        </div>
+        <div class="botones_index">
+            <button style="text-align:center;" action="catalogoVeterinarios" id="boton_buscar" class="button" name="listado">Buscar Veterinario</button>
+        </div>
+        
+    </div>
+    </body>    
+</html>

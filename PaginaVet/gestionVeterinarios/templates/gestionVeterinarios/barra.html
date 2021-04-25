@@ -1,31 +1,69 @@
 <html>
+<head>
+    <style>
+        .barra {
+            background-color: #089c6b;
+            height: 120px;
+        }
 
-<style>
-    #barra{
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        text-transform: uppercase;
-    }
+        .logo{
+            text-align: left;
+            font-size: 25;
+            font-weight: 40;
+            font-family: cursive;
+            float: left;
+            margin-left: 40px;
+            margin-top: -10px;
+            margin-right: 300px;
+            border: 0;
+            color:rgb(255, 255, 255);
+        }
 
-    #barra li{
-        display: inline;
-        margin: 0 20px;
-    }
+        .button {
+            cursor: pointer;
+            margin-right: 10px;
+            margin-top: 30px;
+            margin-left: 40px;
+            border-radius: 10px;
+            padding: 15px 32px;
+            text-align: center;
+            background-color: rgb(29, 187, 134);
+            border: none;
+            color: white;
+            font-size: 16px;
+            transition-duration: 0.4s;
+            width: 220px;
+            float: left;
+            font-size: 25;
+            font-weight: 60;
+            font-family:sans-serif;
+        }
 
-    .logo{
-        font-weight: 100;
-    }
+        .button:hover {
+            background-color: #ffed80;
+            color: #089c6b;
+        }
 
-</style>
+        
+
+    </style>
+</head>
 
 <body>
+    <div class="barra" >
+        <div class ="logo" >
+            {% load static %}
+            <img src="{% static 'gestionVeterinarios/logo.png' %}" alt="Pet Care">
+        </div>
+        <div>
 
-    <ul id="barra">
-        <li class="logo">Logo</li>
-        <li>Registrarse</li>
-        <li>Veterinarios</li>
-    </ul>
+            <button class="button" type="submit" name="informar">Veterinarios</button>
+        
+            <button class="button" type="submit" name="listado">Registrarse</button>
+        
+        </div>   
+    </div>
+
 
 </body>
 </html>

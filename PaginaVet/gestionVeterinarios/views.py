@@ -6,6 +6,8 @@ from django.template.loader import get_template
 # Create your views here.
 from gestionVeterinarios.models import Veterinario, Reseña, User
 
+def index(request):
+    return render(request, "gestionVeterinarios/index.html")
 
 def formVeterinario(request): #the index view
    if request.method == "GET":
