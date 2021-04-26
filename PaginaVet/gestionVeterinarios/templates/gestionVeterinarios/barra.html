@@ -8,35 +8,30 @@
 
         .logo{
             text-align: left;
-            font-size: 25;
-            font-weight: 40;
-            font-family: cursive;
             float: left;
-            margin-left: 40px;
-            margin-top: -10px;
-            margin-right: 300px;
-            border: 0;
-            color:rgb(255, 255, 255);
+            margin-left: 25px;
+            margin-top: 10px;
         }
 
         .button {
             cursor: pointer;
-            margin-right: 10px;
-            margin-top: 30px;
-            margin-left: 40px;
             border-radius: 10px;
             padding: 15px 32px;
-            text-align: center;
             background-color: rgb(29, 187, 134);
             border: none;
             color: white;
             font-size: 16px;
             transition-duration: 0.4s;
             width: 220px;
-            float: left;
             font-size: 25;
             font-weight: 60;
             font-family:sans-serif;
+        }
+
+        .boton_barra{
+            float: right;
+            margin-right: 50px;
+            margin-top: 30px;
         }
 
         .button:hover {
@@ -53,13 +48,13 @@
     <div class="barra" >
         <div class ="logo" >
             {% load static %}
-            <img src="{% static 'gestionVeterinarios/logo.png' %}" alt="Pet Care">
+            <img src="{% static 'gestionVeterinarios/logo.png' %}" alt="Pet Care" height="100" width="290">
         </div>
         <div>
 
-            <button class="button" type="submit" name="informar">Veterinarios</button>
+            <button class="button boton_barra" type="submit" name="informar">Registrarse</button>
         
-            <button class="button" type="submit" name="listado">Registrarse</button>
+            <button class="button boton_barra" type="submit" name="listado">Veterinarios</button>
         
         </div>   
     </div>

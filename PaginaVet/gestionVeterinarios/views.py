@@ -51,4 +51,4 @@ def catalogoVeterinarios(request):
 
 def perfil(request):
 
-    return render(request, "gestionVeterinarios/base.html", {})
+    return render(request, "gestionVeterinarios/perfildoc.html", {})
