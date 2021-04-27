@@ -3,93 +3,179 @@
         <style>
 
             .caja{
-                border: 1px solid #000;
-                width:500px;
-                float: left;
+                background-color: rgb(29, 187, 134);
+                border-radius: 15px;
                 margin-left: 10px;
                 margin-right: 10px;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                padding-right: 15px;
+                padding-left: 15px;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                color: white;
+                font-family: sans-serif;
+                font-size: 14;
+            
             }
 
-            .segmento{
-                margin-top: 20px;
-                margin-bottom: 20px;
+            .leftdiv{
+                display: inline-block;
+                width: 60%;
             }
 
-            .barraVertical{
-                width: 200px;
-                float:left;
-                height: 1000px;
+            .rightdiv{
+                display: inline-block;
+                width: 30%;
+            }
+
+            .bottombox{
+                width: 40%;
+                display: inline-block;
+            }
+
+            .mainbody{
+                align-items: center;
+                background-color: #089c6b;
+                width: 80%;
+                margin-left: 10%;
+                margin-top: 50px;
+                border-radius: 15px;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                padding-left: 15px;
+                padding-right: 15px;
             }
 
         </style>
     </head>
     <body>
+
         {% include  "gestionVeterinarios/barra.html" %}
-        <div class="barraVertical">
-            hola
-        </div>
+
         <div class="mainBody">
-            <div class="segmento">
-                <div class="caja">
-                    <div><b>Dr. Nombre Apellido</b></div>
-                    <i>Nombre consulta</i>
-                    <div>&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+
+            <div class="topdiv">
+
+                <div class='leftdiv'>
+
+                    <!-- Dr. Nombre Apellido -->
+
+                    <div class="caja">
+                        <div class='leftdiv'>Foto</div>
+                        <div class='leftdiv'>
+                            <div><b>Dr. Nombre Apellido</b></div>
+                            <i>Nombre consulta</i>
+                            <div>&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Descripción -->
+    
+                    <div class="caja">
+                        <div><b>Descripción</b></div>
+                        <div>Texto que describe al doctor</div>
+                    </div>
+
+                    <!-- Datos de Contacto -->
+    
+                    <div class="caja">
+                        <div><b>Datos de Contacto:</b></div>
+                        <div>Región</div>
+                        <div>Comuna</div>
+                        <div>Dirección</div>
+                        <div>Teléfono</div>
+                        <div>Correo</div>
+                        <div>Sitio Web</div>
+                    </div>  
+                    
+                    <!-- Reseñas -->
+    
+                    <div class="caja">
+                        <div><b>Reseñas:</b></div>
+                        <div>Ionela escribió hace 15 minutos: "¡Excelente! Una gran experiencia"...
+                            Leer más
+                        </div>
+                    </div>
+    
                 </div>
-        
-                <div class="caja">
-                    <div><b>Servicios</b></div>
-                    <div>&#x2610; No hace visitas a domicilio</div>
-                    <div>&#x2611; Atiende urgencias</div>
-                </div>
-            </div>
-            
-            <div class="segmento">
-                <div class="caja">
-                    <div><b>Datos de Contacto:</b></div>
-                    <div>Región</div>
-                    <div>Comuna</div>
-                    <div>Dirección</div>
-                    <div>Teléfono</div>
-                    <div>Correo</div>
-                    <div>Sitio Web</div>
-                </div>
-                <div class="caja">
-                    <table class="table">
-                        <tr>
-                          <th>Día</th>
-                          <th>Horas</th>
-                        </tr>
-                        <tr>
-                          <td>Lun</td>
-                          <td>09:00 - 17:30</td>
-                        </tr>
-                        <tr>
-                          <td>Mar</td>
-                          <td>09:00 - 17:30</td>
-                        </tr>
-                        <tr>
-                          <td>Mié</td>
-                          <td>09:00 - 17:30</td>
-                        </tr>
-                        <tr>
-                          <td>Jue</td>
-                          <td>09:00 - 17:30</td>
-                        </tr>
-                        <tr>
-                          <td>Vie</td>
-                          <td>09:00 - 17:30</td>
-                        </tr>
-                        <tr>
-                            <td>Sáb</td>
+    
+                <div class="rightdiv">
+
+                     <!-- Servicios -->
+    
+                    <div class="caja">
+                        <div><b>Servicios</b></div>
+                        <div>&#x2610; Visitas a domicilio</div>
+                        <div>&#x2611; Urgencias</div>
+                    </div>
+
+                     <!-- Horario -->
+    
+                    <div class="caja">
+                        <table class="table">
+                            <tr>
+                            <th>Día</th>
+                            <th>Horas</th>
+                            </tr>
+                            <tr>
+                            <td>Lun</td>
                             <td>09:00 - 17:30</td>
-                        </tr>
-                        <tr>
-                            <td>Dom</td>
+                            </tr>
+                            <tr>
+                            <td>Mar</td>
                             <td>09:00 - 17:30</td>
-                        </tr>
-                      </table>
+                            </tr>
+                            <tr>
+                            <td>Mié</td>
+                            <td>09:00 - 17:30</td>
+                            </tr>
+                            <tr>
+                            <td>Jue</td>
+                            <td>09:00 - 17:30</td>
+                            </tr>
+                            <tr>
+                            <td>Vie</td>
+                            <td>09:00 - 17:30</td>
+                            </tr>
+                            <tr>
+                                <td>Sáb</td>
+                                <td>09:00 - 17:30</td>
+                            </tr>
+                            <tr>
+                                <td>Dom</td>
+                                <td>09:00 - 17:30</td>
+                            </tr>
+                        </table>
+                    </div>
+    
                 </div>
+
             </div>
+
+            <div class="bottomDiv">
+
+                <!-- Animales -->
+
+                <div class="caja bottombox">
+                    <div><b>Animales:</b></div>
+                    <div>&#x2611; Gatos</div>
+                    <div>&#x2611; Perros</div>
+                    <div>&#x2611; Conejos</div>
+                </div>
+
+                <!-- Especialización -->
+
+                <div class="caja bottombox">
+                    <div><b>Especialización:</b></div>
+                    <div>&#x2611; Anestesia</div>
+                    <div>&#x2611; Cardilogia</div>
+                    <div>&#x2611; ECG</div>
+                </div>
+
+            </div>
+
         </div>
+
     </body>
 </html>
