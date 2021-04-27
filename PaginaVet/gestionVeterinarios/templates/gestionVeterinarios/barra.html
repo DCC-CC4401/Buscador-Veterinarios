@@ -48,14 +48,17 @@
     <div class="barra" >
         <div class ="logo" >
             {% load static %}
-            <img src="{% static 'gestionVeterinarios/logo.png' %}" alt="Pet Care" height="100" width="290">
+            <a href="/">
+                <img src="{% static 'gestionVeterinarios/logo.png' %}" alt="Pet Care" height="100" width="290">
+            </a>
         </div>
         <div>
-
-            <button class="button boton_barra" type="submit" name="informar">Registrarse</button>
-        
-            <button class="button boton_barra" type="submit" name="listado">Veterinarios</button>
-        
+            <a href="/ingresoVeterinarios">
+                <button class="button boton_barra" type="submit" name="informar">Registrarse</button>
+            </a>
+            <a href="/catalogoVeterinarios">   
+                <button class="button boton_barra" type="submit" name="listado">Veterinarios</button>
+            </a>    
         </div>   
     </div>
 
