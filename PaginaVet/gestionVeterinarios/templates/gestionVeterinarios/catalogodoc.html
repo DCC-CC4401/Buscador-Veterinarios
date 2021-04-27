@@ -8,23 +8,66 @@
                 list-style-type: none;
             }
 
+            table{
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+
             .estrellas{
                 display: inline;
             }
 
+            .itemVet {
+                padding: 20px;
+                width: 100%;
+            }
+
+            .box[name="item"]{
+                margin-top: 10px;
+                margin-left: 10%;
+                width: 80%;
+                height: 200px;
+                box-sizing: border-box;
+            }
+
+            .box[name="foto"]{
+                position: relative;
+                float: left;
+                margin: auto;
+                width: 20%;
+                height: 90%;
+                border: 2px solid black;
+            }
+
+            .box[name="datos"]{
+                position: relative;
+                float: left;
+                margin: auto;
+                margin-left: 10px;
+                width: 40%;
+                height: 90%;
+                border: 2px solid black;
+            }
 
             .evaluacion {
                 position: relative;
-                top: -10px;
+                float: right;
+                top: -59%;
+                left: -45%;
             }
 
             .button {
                 position: relative;
-                left: 10px;
+                float: right;
+                top: -20%;
             }
             table{
                 border: 1px solid black;
                 border-collapse: collapse;
+            }
+
+            {
+                box-sizing: border-box;
             }
 
         </style>
@@ -35,10 +78,12 @@
 
 
     {% for doctor in doctores %}
-    <div>
-        <table>
-            <td><img src={{doctor.foto}}></td>
-            <td>
+    <div class= "box" name="item">
+        <div class="box" name="foto">
+            <img src={{doctor.foto}}></td>
+        </div>
+        <div class="box" name="datos">
+            <div>
                 <ul>
                     <li>{{doctor.nombre}}&nbsp; {{doctor.apellido}}</li>
                     <li>{{doctor.region}},&nbsp;{{doctor.comuna}}</li>
@@ -54,10 +99,8 @@
                         <li>No realiza visitas a domicilio</li>
                     {% endif %}
                 </ul>
-            </td>
-            <td>
-              
-                <div class="evaluacion">
+            </div>
+            <div class="evaluacion">
                 <ul>
                     <li class="estrellas">★</li>
                     <li class="estrellas">★</li>
@@ -69,9 +112,7 @@
             <div class="button">
                 <a href="{% url 'perfil_vet' doctor.id %}"><button>Ver perfil</button></a>
             </div>
-            </td>
-    
-        </table>
+        </div>
     </div>
     
     {% for evaluacion in evaluaciones %}
