@@ -47,16 +47,11 @@ def formEvaluacion(request):
 def catalogoVeterinarios(request):
     if request.method == "GET":
         doctores=Veterinario.objects.all()
+        
         return render(request, "gestionVeterinarios/catalogodoc.html", {"doctores":doctores})
-
-    #if request.method == "POST":
-     #   return redirect(perfil, id)
 
 def perfil(request, id_vet):
 
-    #if request.method == "GET":
-     #   doctores=Veterinario.objects.all()
-      #  return render(request, "gestionVeterinarios/perfildoc.html", {"doctores":doctores})
     if request.method == "GET":
         doctor=Veterinario.objects.get(id=id_vet)
         return render(request, "gestionVeterinarios/perfildoc.html", {"doctor":doctor})
