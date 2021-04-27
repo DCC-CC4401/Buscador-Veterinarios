@@ -10,21 +10,20 @@ class User(AbstractUser):
     Apodo = models.CharField(max_length=30)
 # Datos de veterinarios
 class Veterinario(models.Model):
-    pronombres = [('Dr', 'Dr.'), ('Dra','Dra.')]
+    pronombres_posibles = [('Dr', 'Dr.'), ('Dra','Dra.')]
     # Datos personales
     nombre = models.CharField(max_length=30)
     apellido = models.CharField(max_length=60)
-    pronombre = models.CharField(max_length=5,choices=pronombres)
+    pronombre = models.CharField(max_length=5,choices=pronombres_posibles)
     descripcion = models.CharField(max_length=500, blank=True)
-    foto = models.ImageField()
+    foto = models.ImageField(upload_to='fotos/{self.id}', blank=True)
 
     # Datos de trabajo
-    tipos_animales = [('Domesticos', 'Domesticos'), ('Equinos', 'Equinos'), ('Ganado', 'Ganado'), ('Exoticos', 'Exóticos')]
     nombre_consulta = models.CharField(max_length=80)
     region = models.CharField(max_length=80)
     comuna = models.CharField(max_length=80)
     especialidad = models.CharField(max_length=80)
-    animales = models.CharField(max_length=20, choices=pronombres)
+    animales = models.CharField(max_length=80)
     visitas_a_domicilio = models.BooleanField()
     urgencias = models.BooleanField()
 
@@ -38,6 +37,7 @@ class Veterinario(models.Model):
         return (self.nombre + self.apellido)
 
 class Reseña(models.Model):
+    id_veterinario = models.ForeignKey(Veterinario, related_name='Veterinario', on_delete=models.CASCADE, null=True)
     nombre = models.CharField(max_length=30)
     evaluacion = models.FloatField()
     problema_resuelto = models.BooleanField()
