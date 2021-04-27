@@ -45,6 +45,6 @@ class Reseña(models.Model):
     comentario = models.CharField(max_length=600)
 
     def __str__(self):
-        return (self.problema_resuelto)
+        return (self.nombre)
 
 

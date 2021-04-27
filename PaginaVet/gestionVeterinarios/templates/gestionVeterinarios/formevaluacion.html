@@ -83,7 +83,8 @@
     <body>
         <h1>Evaluacion</h1>
         <div>
-        <form>
+        <form method="POST">
+        {% csrf_token %}
             <p>
                 <input type="text" name="nombre" placeholder="Nombre">
             </p>
@@ -117,7 +118,7 @@
             
 
             <p>
-                <textarea placeholder="Deje su comentario aqui" rows="10" cols="100"></textarea>
+                <textarea name="comentario" placeholder="Deje su comentario aqui" rows="10" cols="100"></textarea>
             </p>
 
             <input type="submit" value="Enviar evaluacion">

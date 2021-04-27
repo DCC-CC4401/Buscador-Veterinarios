@@ -1,31 +1,64 @@
 <html>
+<head>
+    <style>
+        .barra {
+            background-color: #089c6b;
+            height: 120px;
+        }
 
-<style>
-    #barra{
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        text-transform: uppercase;
-    }
+        .logo{
+            text-align: left;
+            float: left;
+            margin-left: 25px;
+            margin-top: 10px;
+        }
 
-    #barra li{
-        display: inline;
-        margin: 0 20px;
-    }
+        .button {
+            cursor: pointer;
+            border-radius: 10px;
+            padding: 15px 32px;
+            background-color: rgb(29, 187, 134);
+            border: none;
+            color: white;
+            font-size: 16px;
+            transition-duration: 0.4s;
+            width: 220px;
+            font-size: 25;
+            font-weight: 60;
+            font-family:sans-serif;
+        }
 
-    .logo{
-        font-weight: 100;
-    }
+        .boton_barra{
+            float: right;
+            margin-right: 50px;
+            margin-top: 30px;
+        }
 
-</style>
+        .button:hover {
+            background-color: #ffed80;
+            color: #089c6b;
+        }
+
+        
+
+    </style>
+</head>
 
 <body>
+    <div class="barra" >
+        <div class ="logo" >
+            {% load static %}
+            <img src="{% static 'gestionVeterinarios/logo.png' %}" alt="Pet Care" height="100" width="290">
+        </div>
+        <div>
 
-    <ul id="barra">
-        <li class="logo">Logo</li>
-        <li>Registrarse</li>
-        <li>Veterinarios</li>
-    </ul>
+            <button class="button boton_barra" type="submit" name="informar">Registrarse</button>
+        
+            <button class="button boton_barra" type="submit" name="listado">Veterinarios</button>
+        
+        </div>   
+    </div>
+
 
 </body>
 </html>

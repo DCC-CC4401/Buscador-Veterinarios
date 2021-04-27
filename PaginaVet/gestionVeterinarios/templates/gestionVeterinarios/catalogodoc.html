@@ -12,7 +12,7 @@
                 display: inline;
             }
 
-            .box[name="foto"]{
+           /* .box[name="foto"]{
                 float: left;
                 width: 10%;
                 padding: 50px;
@@ -26,27 +26,30 @@
                 padding: 50px;
                 height: 200px;
                 border: 2px solid black;
-            }
+            }*/
 
             .evaluacion {
                 position: relative;
-                left: 200px;
-                top: -90px;
+                top: -10px;
             }
 
             .button {
                 position: relative;
-                left: 300px;
-                top: -50px;
+                left: 10px;
+            }
+            table{
+                border: 1px solid black;
+                border-collapse: collapse;
             }
 
-            * {
+            /** {
                 box-sizing: border-box;
-            }
+            }*/
 
         </style>
     </head>
     <body>
+   <!-- {% for doctor in doctores %}
       <div>
           <div class="box" name="foto">
               <p>Foto</p>
@@ -56,10 +59,10 @@
 
           <div>
             <ul>
-                <li>Nombre doctor</li>
-                <li>Region, comuna</li>
-                <li>Urgencia</li>
-                <li>Atencion a domicilio</li>
+                <li>{{doctor.nombre}}&nbsp; {{doctor.apellido}}</li>
+                <li>{{doctor.region}},&nbsp;{{doctor.comuna}}</li>
+                <li>{{doctor.urgencias}}</li>
+                <li>{{doctor.visitas_a_domicilio}}</li>
             </ul>
            </div>
            <div class="evaluacion">
@@ -76,6 +79,51 @@
            </div>
             </div>
       </div>
+      
+    {% endfor %}
+    -->
+    {% include  "gestionVeterinarios/barra.html" %}
+
+
+    {% for doctor in doctores %}
+    <div>
+        <table>
+            <td>foto</td>
+            <td>
+                <ul>
+                    <li>{{doctor.nombre}}&nbsp; {{doctor.apellido}}</li>
+                    <li>{{doctor.region}},&nbsp;{{doctor.comuna}}</li>
+                    {% if doctor.urgencias %}
+                        <li>Atiende urgencias</li>
+                    {% else %}
+                        <li>No atiende urgencias</li>
+                    {% endif %}
+
+                    {% if doctor.visitas_a_domicilio %}
+                        <li>Realiza visitas a domicilio</li>
+                    {% else %}
+                        <li>No realiza visitas a domicilio</li>
+                    {% endif %}
+                </ul>
+            </td>
+            <td>
+                <div class="evaluacion">
+                <ul>
+                    <li class="estrellas">★</li>
+                    <li class="estrellas">★</li>
+                    <li class="estrellas">★</li>
+                    <li class="estrellas">★</li>
+                    <li class="estrellas">★</li>
+                </ul>
+            </div>
+            <div class="button">
+                <button>Ver perfil</button>
+            </div>
+            </td>
+    
+        </table>
+    </div>
+    {% endfor %}
  
     </body>
 </html>
