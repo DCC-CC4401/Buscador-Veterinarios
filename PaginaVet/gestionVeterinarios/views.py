@@ -49,7 +49,14 @@ def catalogoVeterinarios(request):
         doctores=Veterinario.objects.all()
         return render(request, "gestionVeterinarios/catalogodoc.html", {"doctores":doctores})
 
-def perfil(request):
+    #if request.method == "POST":
+     #   return redirect(perfil, id)
+
+def perfil(request, id_vet):
+
+    #if request.method == "GET":
+     #   doctores=Veterinario.objects.all()
+      #  return render(request, "gestionVeterinarios/perfildoc.html", {"doctores":doctores})
     if request.method == "GET":
-        doctores=Veterinario.objects.all()
-        return render(request, "gestionVeterinarios/perfildoc.html", {"doctores":doctores})
+        doctor=Veterinario.objects.get(id=id_vet)
+        return render(request, "gestionVeterinarios/perfildoc.html", {"doctor":doctor})

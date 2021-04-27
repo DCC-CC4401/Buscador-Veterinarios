@@ -5,6 +5,6 @@ urlpatterns = [
   path('ingresoVeterinarios', views.formVeterinario),
   path('evaluacionVeterinarios', views.formEvaluacion),
   path('catalogoVeterinarios', views.catalogoVeterinarios),
-  path('perfil/', views.perfil),
+  path('perfil/<id_vet>/', views.perfil, name="perfil_vet"),
   path('', views.index),
 ]     

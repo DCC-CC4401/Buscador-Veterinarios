@@ -72,8 +72,8 @@
                     <div class="caja">
                         <div class='textbox'>Foto</div>
                         <div class='textbox'>
-                            <div><b>{{doctores.0.pronombre}} {{doctores.0.nombre}} {{doctores.0.apellido}}</b></div>
-                            <i>{{doctores.0.nombre_consulta}}</i>
+                            <div><b>{{doctor.pronombre}} {{doctor.nombre}} {{doctor.apellido}}</b></div>
+                            <i>{{doctor.nombre_consulta}}</i>
                             <div>&#9733;&#9733;&#9733;&#9733;&#9734;</div>
                         </div>
                     </div>
@@ -82,18 +82,18 @@
     
                     <div class="caja">
                         <div><b>Descripción</b></div>
-                        <div>Texto que describe al doctor</div>
+                        <div>{{doctor.descripcion}}</div>
                     </div>
 
                     <!-- Datos de Contacto -->
     
                     <div class="caja">
                         <div><b>Datos de Contacto:</b></div>
-                        <div>Región: {{doctores.0.region}}</div>
-                        <div>Comuna: {{doctores.0.comuna}}</div>
-                        <div>Teléfono: {{doctores.0.telefono}}</div>
-                        <div>Correo: {{doctores.0.email}}</div>
-                        <div>Sitio Web: {{doctores.0.pagina_web}}</div>
+                        <div>Región: {{doctor.region}}</div>
+                        <div>Comuna: {{doctor.comuna}}</div>
+                        <div>Teléfono: {{doctor.telefono}}</div>
+                        <div>Correo: {{doctor.email}}</div>
+                        <div>Sitio Web: {{doctor.pagina_web}}</div>
                     </div>  
                     
                     <!-- Reseñas -->
@@ -113,13 +113,13 @@
     
                     <div class="caja">
                         <div><b>Servicios</b></div>
-                            {% if doctores.0.urgencias %}
+                            {% if doctor.urgencias %}
                                 <div>&#x2611; Atiende urgencias</div>
                             {% else %}
                                 <div>&#x2610; No atiende urgencias</div>
                             {% endif %}
 
-                            {% if doctores.0.visitas_a_domicilio %}
+                            {% if doctor.visitas_a_domicilio %}
                                 <div>&#x2611; Realiza visitas a domicilio</div>
                             {% else %}
                                 <div>&#x2610; No realiza visitas a domicilio</div>

@@ -117,7 +117,10 @@
                 </ul>
             </div>
             <div class="button">
-                <button>Ver perfil</button>
+                <!--<form action="perfil/?id=1">
+                    <input type="submit" value="Ver perfil"/>
+                </form>-->
+                <a href="{% url 'perfil_vet' doctor.id %}"><button>ver perfil</button></a>
             </div>
             </td>
     
