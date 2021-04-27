@@ -93,8 +93,17 @@
                 <ul>
                     <li>{{doctor.nombre}}&nbsp; {{doctor.apellido}}</li>
                     <li>{{doctor.region}},&nbsp;{{doctor.comuna}}</li>
-                    <li>{{doctor.urgencias}}</li>
-                    <li>{{doctor.visitas_a_domicilio}}</li>
+                    {% if doctor.urgencias %}
+                        <li>Atiende urgencias</li>
+                    {% else %}
+                        <li>No atiende urgencias</li>
+                    {% endif %}
+
+                    {% if doctor.visitas_a_domicilio %}
+                        <li>Realiza visitas a domicilio</li>
+                    {% else %}
+                        <li>No realiza visitas a domicilio</li>
+                    {% endif %}
                 </ul>
             </td>
             <td>

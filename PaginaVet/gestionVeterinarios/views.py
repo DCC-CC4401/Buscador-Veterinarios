@@ -50,5 +50,6 @@ def catalogoVeterinarios(request):
         return render(request, "gestionVeterinarios/catalogodoc.html", {"doctores":doctores})
 
 def perfil(request):
-
-    return render(request, "gestionVeterinarios/perfildoc.html", {})
+    if request.method == "GET":
+        doctores=Veterinario.objects.all()
+        return render(request, "gestionVeterinarios/perfildoc.html", {"doctores":doctores})
