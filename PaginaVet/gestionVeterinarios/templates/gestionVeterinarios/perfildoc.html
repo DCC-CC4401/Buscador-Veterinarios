@@ -72,8 +72,8 @@
                     <div class="caja">
                         <div class='textbox'>Foto</div>
                         <div class='textbox'>
-                            <div><b>Dr. Nombre Apellido</b></div>
-                            <i>Nombre consulta</i>
+                            <div><b>{{doctores.0.pronombre}} {{doctores.0.nombre}} {{doctores.0.apellido}}</b></div>
+                            <i>{{doctores.0.nombre_consulta}}</i>
                             <div>&#9733;&#9733;&#9733;&#9733;&#9734;</div>
                         </div>
                     </div>
@@ -89,12 +89,11 @@
     
                     <div class="caja">
                         <div><b>Datos de Contacto:</b></div>
-                        <div>Región</div>
-                        <div>Comuna</div>
-                        <div>Dirección</div>
-                        <div>Teléfono</div>
-                        <div>Correo</div>
-                        <div>Sitio Web</div>
+                        <div>Región: {{doctores.0.region}}</div>
+                        <div>Comuna: {{doctores.0.comuna}}</div>
+                        <div>Teléfono: {{doctores.0.telefono}}</div>
+                        <div>Correo: {{doctores.0.email}}</div>
+                        <div>Sitio Web: {{doctores.0.pagina_web}}</div>
                     </div>  
                     
                     <!-- Reseñas -->
@@ -114,9 +113,18 @@
     
                     <div class="caja">
                         <div><b>Servicios</b></div>
-                        <div>&#x2610; Visitas a domicilio</div>
-                        <div>&#x2611; Urgencias</div>
-                    </div>
+                            {% if doctores.0.urgencias %}
+                                <div>&#x2611; Atiende urgencias</div>
+                            {% else %}
+                                <div>&#x2610; No atiende urgencias</div>
+                            {% endif %}
+
+                            {% if doctores.0.visitas_a_domicilio %}
+                                <div>&#x2611; Realiza visitas a domicilio</div>
+                            {% else %}
+                                <div>&#x2610; No realiza visitas a domicilio</div>
+                            {% endif %}
+                        </div>
 
                      <!-- Horario -->
     
