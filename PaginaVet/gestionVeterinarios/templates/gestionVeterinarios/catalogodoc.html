@@ -37,7 +37,7 @@
     {% for doctor in doctores %}
     <div>
         <table>
-            <td>foto</td>
+            <td><img src={{doctor.foto}}></td>
             <td>
                 <ul>
                     <li>{{doctor.nombre}}&nbsp; {{doctor.apellido}}</li>
@@ -56,8 +56,8 @@
                 </ul>
             </td>
             <td>
+              
                 <div class="evaluacion">
-                   
                 <ul>
                     <li class="estrellas">★</li>
                     <li class="estrellas">★</li>
@@ -73,6 +73,14 @@
     
         </table>
     </div>
+    
+    {% for evaluacion in evaluaciones %}
+    {% if doctor == evaluacion.id_veterinario %}
+    <p>{{evaluacion.evaluacion}}</p>
+  
+    {% endif %}
+    {% endfor %}
+
     {% endfor %}
  
     </body>

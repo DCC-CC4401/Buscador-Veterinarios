@@ -3,6 +3,7 @@ from django.http import HttpResponse
 import datetime
 from django.template import Template, Context
 from django.template.loader import get_template
+from django.db import connection
 # Create your views here.
 from gestionVeterinarios.models import Veterinario, Reseña, User
 
@@ -43,12 +44,13 @@ def formEvaluacion(request):
         return redirect("/evaluacionVeterinarios")
 
 
-
 def catalogoVeterinarios(request):
     if request.method == "GET":
         doctores=Veterinario.objects.all()
-        
-        return render(request, "gestionVeterinarios/catalogodoc.html", {"doctores":doctores})
+        evaluaciones=Reseña.objects.all()
+
+        return render(request, "gestionVeterinarios/catalogodoc.html", {"doctores":doctores, "evaluaciones":evaluaciones})
+
 
 def perfil(request, id_vet):
 
