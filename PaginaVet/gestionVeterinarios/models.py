@@ -10,7 +10,7 @@ class User(AbstractUser):
     Apodo = models.CharField(max_length=30)
 # Datos de veterinarios
 class Veterinario(models.Model):
-    pronombres_posibles = [('Dr', 'Dr.'), ('Dra','Dra.')]
+    pronombres_posibles = [('Dr.', 'Dr.'), ('Dra.','Dra.')]
     # Datos personales
     nombre = models.CharField(max_length=30)
     apellido = models.CharField(max_length=60)
@@ -19,7 +19,7 @@ class Veterinario(models.Model):
     foto = models.ImageField(upload_to='fotos/{self.id}', blank=True)
 
     # Datos de trabajo
-    nombre_consulta = models.CharField(max_length=80)
+    nombre_consulta = models.CharField(max_length=80, blank=True)
     region = models.CharField(max_length=80)
     comuna = models.CharField(max_length=80)
     especialidad = models.CharField(max_length=80)

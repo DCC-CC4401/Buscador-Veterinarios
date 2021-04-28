@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.http import HttpResponse
 import datetime
 from django.template import Template, Context
@@ -11,9 +11,45 @@ def index(request):
     return render(request, "gestionVeterinarios/index.html")
 
 def formVeterinario(request): #the index view
-   if request.method == "GET":
-       return render(request, "gestionVeterinarios/formVeterinario.html")
+    if request.method == "GET":
+        return render(request, "gestionVeterinarios/formVeterinario.html")
 
+    elif request.method == "POST":
+        nombre = request.POST["nombre"]
+        apellidos = request.POST["apellidos"]
+        pronombre = request.POST["pronombre"]
+        descripcion = request.POST["descripcion"]
+        nombre_consulta= request.POST["nombre_consulta"]
+        region = request.POST["region"]
+        comuna = request.POST["comuna"]
+        especialidad = request.POST["especialidad"]
+        animales_lista = request.POST.getlist("animales")
+        animales = ' '.join(animales_lista)
+        if request.POST["visitas_a_domicilio"] == "si":
+            visitas_a_domicilio = True
+        else:
+            visitas_a_domicilio = False
+        if request.POST["urgencias"] == "si":
+            urgencias = True
+        else:
+            urgencias = False
+        horario_atencion_lista = request.POST.getlist("horario_atencion")
+        horario_atencion = ' '.join(horario_atencion_lista)
+        telefono = request.POST["telefono"]
+        email = request.POST["email"]
+        pagina_web = request.POST["pagina_web"]
+
+        nuevo_veterinario = Veterinario(nombre=nombre, apellido=apellidos, pronombre=pronombre,
+         descripcion = descripcion, nombre_consulta=nombre_consulta, region=region, comuna=comuna,
+          especialidad=especialidad, animales=animales, visitas_a_domicilio=visitas_a_domicilio,urgencias=urgencias,
+           horario_atencion=horario_atencion, telefono=telefono, email=email, pagina_web=pagina_web)
+        nuevo_veterinario.save()
+
+        return redirect('/confirmacionRegistroVet')
+
+def confirmacionRegistroVet(request):
+    if request.method == "GET":
+        return render(request, "gestionVeterinarios/confirmacionRegistroVet.html")
 
 def formEvaluacion(request):
     if request.method == "GET":
@@ -50,7 +86,6 @@ def catalogoVeterinarios(request):
         evaluaciones=Reseña.objects.all()
 
         return render(request, "gestionVeterinarios/catalogodoc.html", {"doctores":doctores, "evaluaciones":evaluaciones})
-
 
 def perfil(request, id_vet):
 
