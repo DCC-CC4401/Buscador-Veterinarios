@@ -97,6 +97,7 @@
                 </ul>
             </div>
             <div class="evaluacion">
+                <p>{{doctor.prom_evaluacion}}</p>
                 <ul>
                     <li class="estrellas">★</li>
                     <li class="estrellas">★</li>
@@ -110,13 +111,39 @@
             </div>
         </div>
     </div>
-    
-    {% for evaluacion in evaluaciones %}
-    {% if doctor == evaluacion.id_veterinario %}
-    <p>{{evaluacion.evaluacion}}</p>
-  
-    {% endif %}
+
     {% endfor %}
+    {% for doctor in doctores_sin_eval %}
+    <div class= "box" name="item">
+        <div class="box" name="foto">   
+            <img src="{{ doctor.foto.url }}" width="250" height="180"></td>
+        </div>
+        <div class="box" name="datos">
+            <div>
+                <ul>
+                    <li>{{doctor.nombre}}&nbsp; {{doctor.apellido}}</li>
+                    <li>{{doctor.region}},&nbsp;{{doctor.comuna}}</li>
+                    {% if doctor.urgencias %}
+                        <li>Atiende urgencias</li>
+                    {% else %}
+                        <li>No atiende urgencias</li>
+                    {% endif %}
+
+                    {% if doctor.visitas_a_domicilio %}
+                        <li>Realiza visitas a domicilio</li>
+                    {% else %}
+                        <li>No realiza visitas a domicilio</li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="evaluacion">
+                <p>Este doctor no tiene evaluaciones</p>
+            </div>
+            <div class="button">
+                <a href="{% url 'perfil_vet' doctor.id %}"><button>Ver perfil</button></a>
+            </div>
+        </div>
+    </div>
 
     {% endfor %}
  

@@ -91,10 +91,21 @@ def confirmacionEvaluacion(request):
 
 def catalogoVeterinarios(request):
     if request.method == "GET":
-        doctores=Veterinario.objects.all()
-        evaluaciones=Reseña.objects.all()
+        doctores = Veterinario.objects.raw('''
+        SELECT v.id, v.nombre, v.apellido, v.region, v.comuna, v.urgencias, v.visitas_a_domicilio, AVG(r.evaluacion) as prom_evaluacion
+        FROM gestionVeterinarios_veterinario v, gestionVeterinarios_reseña r
+        WHERE v.id = r.id_veterinario_id
+        GROUP BY v.id
+        ''')
+        doctores_sin_eval = Veterinario.objects.raw('''
+        SELECT v.id, v.nombre, v.apellido, v.region, v.comuna, v.urgencias, v.visitas_a_domicilio
+        FROM gestionVeterinarios_veterinario v
+        WHERE v.id NOT in 
+        (SELECT r.id_veterinario_id
+        FROM gestionVeterinarios_reseña r)
+        ''')
 
-        return render(request, "gestionVeterinarios/catalogodoc.html", {"doctores":doctores, "evaluaciones":evaluaciones})
+        return render(request, "gestionVeterinarios/catalogodoc.html", {"doctores":doctores, "doctores_sin_eval": doctores_sin_eval})
 
 def perfil(request, id_vet):
 
