@@ -76,7 +76,7 @@
     {% for doctor in doctores %}
     <div class= "box" name="item">
         <div class="box" name="foto">   
-            <img src="/{self.id}/{{doctor.foto}}"></td>
+            <img src="{{ doctor.foto.url }}" width="250" height="180"></td>
         </div>
         <div class="box" name="datos">
             <div>

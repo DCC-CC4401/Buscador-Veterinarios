@@ -19,6 +19,7 @@ def formVeterinario(request): #the index view
         apellidos = request.POST["apellidos"]
         pronombre = request.POST["pronombre"]
         descripcion = request.POST["descripcion"]
+        foto = request.FILES.get("foto")
         nombre_consulta= request.POST["nombre_consulta"]
         region = request.POST["region"]
         comuna = request.POST["comuna"]
@@ -40,7 +41,7 @@ def formVeterinario(request): #the index view
         pagina_web = request.POST["pagina_web"]
 
         nuevo_veterinario = Veterinario(nombre=nombre, apellido=apellidos, pronombre=pronombre,
-         descripcion = descripcion, nombre_consulta=nombre_consulta, region=region, comuna=comuna,
+         descripcion = descripcion,foto=foto, nombre_consulta=nombre_consulta, region=region, comuna=comuna,
           especialidad=especialidad, animales=animales, visitas_a_domicilio=visitas_a_domicilio,urgencias=urgencias,
            horario_atencion=horario_atencion, telefono=telefono, email=email, pagina_web=pagina_web)
         nuevo_veterinario.save()

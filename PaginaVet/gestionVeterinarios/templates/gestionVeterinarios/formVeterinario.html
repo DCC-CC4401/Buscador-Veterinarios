@@ -10,14 +10,14 @@
     {% include  "gestionVeterinarios/barra.html" %}
 <div>
 
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div>
             <div><h2>Datos Personales</h2></div>
             
             <div>
                 <div>Fotografía</div>
-                <input type=file id="foto" accept="image/*">
+                <input type="file" id="foto" name="foto" accept="image/*">
             </div>
 
             <div>
