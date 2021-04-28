@@ -129,8 +129,10 @@
         </div>
 
         <div class="doctor_evaluado">
-            <p>Nombre Doctor</p>
-            <img src="imagen1.png" width="150" height="150">
+            <div><b>{{doctor.pronombre}} {{doctor.nombre}} {{doctor.apellido}}</b></div>
+            <div class="box" name="foto">   
+                <img src="{{ doctor.foto.url }}" width="250" height="180"></td>
+            </div>
         </div>
  
     </body>

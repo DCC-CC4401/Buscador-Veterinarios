@@ -34,7 +34,12 @@
             }
 
             .bottombox{
-                width: 45%;
+                width: 37.5%;
+                display: inline-block;
+            }
+
+            .reviews{
+                width: 55%;
                 display: inline-block;
             }
 
@@ -55,6 +60,27 @@
                 color: white;
             }
 
+            .review_button{
+                cursor: pointer;
+                border-radius: 10px;
+                padding: 15px 32px;
+                background-color: rgb(29, 187, 134);
+                border: none;
+                color: white;
+                font-size: 16px;
+                transition-duration: 0.4s;
+                width: 200px;
+                font-size: 25;
+                font-weight: 60;
+                font-family: sans-serif;
+                display: inline;
+            }
+
+            .review_button:hover {
+                background-color: #ffed80;
+                color: #089c6b;
+            }
+
         </style>
     </head>
     <body>
@@ -70,7 +96,7 @@
                     <!-- Dr. Nombre Apellido -->
 
                     <div class="caja">
-                        <div class='textbox'>Foto</div>
+                        <div class='textbox'><img src="{{ doctor.foto.url }}" width="250" height="180"></div>
                         <div class='textbox'>
                             <div><b>{{doctor.pronombre}} {{doctor.nombre}} {{doctor.apellido}}</b></div>
                             <i>{{doctor.nombre_consulta}}</i>
@@ -81,7 +107,7 @@
                     <!-- Descripción -->
     
                     <div class="caja">
-                        <div><b>Descripción</b></div>
+                        <div><b>Descripción:</b></div>
                         <div>{{doctor.descripcion}}</div>
                     </div>
 
@@ -95,15 +121,6 @@
                         <div>Correo: {{doctor.email}}</div>
                         <div>Sitio Web: {{doctor.pagina_web}}</div>
                     </div>  
-                    
-                    <!-- Reseñas -->
-    
-                    <div class="caja">
-                        <div><b>Reseñas:</b></div>
-                        <div>Ionela escribió hace 15 minutos: "¡Excelente! Una gran experiencia"...
-                            Leer más
-                        </div>
-                    </div>
     
                 </div>
     
@@ -126,7 +143,7 @@
                             {% endif %}
                         </div>
 
-                     <!-- Horario -->
+                    <!-- Horario -->
     
                     <div class="caja">
                         <table class="table">
@@ -164,29 +181,47 @@
                             </tr>
                         </table>
                     </div>
+
+                    <div class="bottomDiv">
+
+                        <!-- Animales -->
+        
+                        <div class="caja bottombox">
+                            <div><b>Animales:</b></div>
+                            <div>{{doctor.animales}}</div>
+                        </div>
+        
+                        <!-- Especialización -->
+        
+                        <div class="caja bottombox">
+                            <div><b>Especialización:</b></div>
+                            <div>{{doctor.especialidad}}</div>
+                        </div>
+        
+                    </div>
     
                 </div>
 
             </div>
 
-            <div class="bottomDiv">
+            <div>
 
-                <!-- Animales -->
-
-                <div class="caja bottombox">
-                    <div><b>Animales:</b></div>
-                    <div>&#x2611; Gatos</div>
-                    <div>&#x2611; Perros</div>
-                    <div>&#x2611; Conejos</div>
+                <!-- Reseñas -->
+    
+                <div class="caja reviews">
+                    <div><b>Reseñas:</b></div>
+                        {% for evaluacion in evaluaciones %}
+                            {% if doctor == evaluacion.id_veterinario %}
+                            <div>{{evaluacion.nombre}}: </div>
+                            <div>{{evaluacion.comentario}}</div>
+                            {% endif %}
+                        {% endfor %}
                 </div>
 
-                <!-- Especialización -->
-
-                <div class="caja bottombox">
-                    <div><b>Especialización:</b></div>
-                    <div>&#x2611; Anestesia</div>
-                    <div>&#x2611; Cardilogia</div>
-                    <div>&#x2611; ECG</div>
+                <div>
+                    <div class="button">
+                        <a href="{% url 'eval_vet' doctor.id %}"><button class="review_button">Dejar una reseña</button></a>
+                    </a>
                 </div>
 
             </div>

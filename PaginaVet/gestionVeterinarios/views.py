@@ -56,9 +56,10 @@ def confirmacionRegistroVet(request):
     if request.method == "GET":
         return render(request, "gestionVeterinarios/confirmacionRegistroVet.html")
 
-def formEvaluacion(request):
+def formEvaluacion(request, id_vet):
     if request.method == "GET":
-        return render(request, "gestionVeterinarios/formevaluacion.html")
+        doctor=Veterinario.objects.get(id=id_vet)
+        return render(request, "gestionVeterinarios/formevaluacion.html", {"doctor":doctor})
     elif request.method == "POST":
         nombre=request.POST["nombre"]
         if request.POST["estrellas"] == "5":
@@ -99,4 +100,5 @@ def perfil(request, id_vet):
 
     if request.method == "GET":
         doctor=Veterinario.objects.get(id=id_vet)
-        return render(request, "gestionVeterinarios/perfildoc.html", {"doctor":doctor})
+        evaluaciones=Reseña.objects.all()
+        return render(request, "gestionVeterinarios/perfildoc.html", {"doctor":doctor, "evaluaciones":evaluaciones})
