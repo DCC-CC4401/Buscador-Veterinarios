@@ -7,5 +7,6 @@ urlpatterns = [
   path('evaluacionVeterinarios', views.formEvaluacion),
   path('catalogoVeterinarios', views.catalogoVeterinarios),
   path('perfil/<id_vet>/', views.perfil, name="perfil_vet"),
+  path('confirmacionEvaluacion/', views.confirmacionEvaluacion),
   path('', views.index),
 ]     

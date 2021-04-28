@@ -78,8 +78,11 @@ def formEvaluacion(request):
         nueva_resena = Reseña(nombre=nombre, evaluacion=estrellas, problema_resuelto=problema_resuelto, razon_consulta=razon_consulta,comentario=comentario)
         nueva_resena.save()
 
-        return redirect("/evaluacionVeterinarios")
+        return redirect("/confirmacionEvaluacion")
 
+def confirmacionEvaluacion(request):
+    if request.method == "GET":
+        return render(request, "gestionVeterinarios/confirmacionEvaluacion.html")
 
 def catalogoVeterinarios(request):
     if request.method == "GET":
