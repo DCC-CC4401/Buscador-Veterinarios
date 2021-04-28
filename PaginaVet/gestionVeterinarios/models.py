@@ -16,7 +16,8 @@ class Veterinario(models.Model):
     apellido = models.CharField(max_length=60)
     pronombre = models.CharField(max_length=5,choices=pronombres_posibles)
     descripcion = models.CharField(max_length=500, blank=True)
-    foto = models.ImageField(upload_to='fotos/{self.id}', blank=True)
+    path_fotos ='fotos/%s' %str(self.id)
+    foto = models.ImageField(upload_to=path_fotos, blank=True)
 
     # Datos de trabajo
     nombre_consulta = models.CharField(max_length=80, blank=True)
