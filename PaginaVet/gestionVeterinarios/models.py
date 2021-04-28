@@ -6,8 +6,9 @@ from django.contrib.auth.models import AbstractUser
 
 # User de django 
 class User(AbstractUser):
-    # Ya viene con username, contraseña y email
-    Apodo = models.CharField(max_length=30)
+    # Ya viene con username, first_name, last_name, contraseña y email
+    region = models.CharField(max_length=80, null=True)
+    comuna = models.CharField(max_length=80, null=True)
 # Datos de veterinarios
 class Veterinario(models.Model):
     pronombres_posibles = [('Dr.', 'Dr.'), ('Dra.','Dra.')]

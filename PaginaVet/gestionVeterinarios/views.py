@@ -10,6 +10,10 @@ from gestionVeterinarios.models import Veterinario, Reseña, User
 def index(request):
     return render(request, "gestionVeterinarios/index.html")
 
+def registroUsuario(request):
+    return render(request, "gestionVeterinarios/registroUsuario.html")
+
+
 def formVeterinario(request): #the index view
     if request.method == "GET":
         return render(request, "gestionVeterinarios/formVeterinario.html")
