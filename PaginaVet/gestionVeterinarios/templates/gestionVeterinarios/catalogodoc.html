@@ -98,13 +98,18 @@
             </div>
             <div class="evaluacion">
                 <p>{{doctor.prom_evaluacion|floatformat:0 }}</p>
-                <ul>
-                    <li class="estrellas">★</li>
-                    <li class="estrellas">★</li>
-                    <li class="estrellas">★</li>
-                    <li class="estrellas">★</li>
-                    <li class="estrellas">★</li>
-                </ul>
+                    {% if doctor.prom_evaluacion < 1.5 %}
+                    <div class="estrellas">&#9733;&#9734;&#9734;&#9734;&#9734;</div>
+                    {% elif doctor.prom_evaluacion < 2.5 %}
+                    <div class="estrellas">&#9733;&#9733;&#9734;&#9734;&#9734;</div>
+                    {% elif doctor.prom_evaluacion < 3.5 %}
+                    <div class="estrellas">&#9733;&#9733;&#9733;&#9734;&#9734;</div>
+                    {% elif doctor.prom_evaluacion < 4.5 %}
+                    <div class="estrellas">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+                    {% else %}
+                    <div class="estrellas">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    {% endif %}
+            
             </div>
             <div class="button">
                 <a href="{% url 'perfil_vet' doctor.id %}"><button>Ver perfil</button></a>
@@ -113,6 +118,7 @@
     </div>
 
     {% endfor %}
+
     {% for doctor in doctores_sin_eval %}
     <div class= "box" name="item">
         <div class="box" name="foto">   
