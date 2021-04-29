@@ -103,16 +103,16 @@
     
             <div class="textbox" name="datos">
                 <div><b>{{doctor.pronombre}} {{doctor.nombre}} {{doctor.apellido}}</b></div>
-                <div>{{doctor.region}}, {{doctor.comuna}}</div>
+                <div>{{doctor.region}} región, {{doctor.comuna}}</div>
                 <div><i>{{doctor.nombre_consulta}}</i></div>
                 <div class="evaluacion">
-                        {% if doctor.prom_evaluacion < 1.5 %}
+                        {% if doctor.prom_evaluacion <= 1.5 %}
                         <div class="estrellas">&#9733;&#9734;&#9734;&#9734;&#9734;</div>
-                        {% elif doctor.prom_evaluacion < 2.5 %}
+                        {% elif doctor.prom_evaluacion <= 2.5 %}
                         <div class="estrellas">&#9733;&#9733;&#9734;&#9734;&#9734;</div>
-                        {% elif doctor.prom_evaluacion < 3.5 %}
+                        {% elif doctor.prom_evaluacion <= 3.5 %}
                         <div class="estrellas">&#9733;&#9733;&#9733;&#9734;&#9734;</div>
-                        {% elif doctor.prom_evaluacion < 4.5 %}
+                        {% elif doctor.prom_evaluacion <= 4.5 %}
                         <div class="estrellas">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
                         {% else %}
                         <div class="estrellas">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
