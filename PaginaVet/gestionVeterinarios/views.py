@@ -115,5 +115,11 @@ def perfil(request, id_vet):
 
     if request.method == "GET":
         doctor=Veterinario.objects.get(id=id_vet)
-        evaluaciones=Reseña.objects.all()
-        return render(request, "gestionVeterinarios/perfildoc.html", {"doctor":doctor, "evaluaciones":evaluaciones})
+        horario = doctor.horario_atencion
+        evaluaciones = Reseña.objects.filter(id_veterinario_id=id_vet)
+        prom_evaluacion = Reseña.objects.raw('''
+        SELECT id, AVG(evaluacion) as prom
+        FROM gestionVeterinarios_reseña
+        WHERE id_veterinario_id = %s
+        ''' % id_vet)
+        return render(request, "gestionVeterinarios/perfildoc.html", {"doctor":doctor, "evaluaciones":evaluaciones, "prom_evaluacion": prom_evaluacion, "horario": horario})
