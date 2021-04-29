@@ -87,6 +87,11 @@
                 text-decoration: none;
             }
 
+            .resena{
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+
         </style>
     </head>
     <body>
@@ -218,8 +223,34 @@
                     <div><b>Reseñas:</b></div>
                         {% for evaluacion in evaluaciones %}
                             {% if doctor == evaluacion.id_veterinario %}
-                            <div>{{evaluacion.nombre}}: </div>
-                            <div>{{evaluacion.comentario}}</div>
+
+                            <div class="resena">
+                                
+                                <div>{{evaluacion.nombre}}: </div>
+
+                                {% if evaluacion.evaluacion < 1.5 %}
+                                <div class="estrellas">&#9733;&#9734;&#9734;&#9734;&#9734;</div>
+                                {% elif evaluacion.evaluacion < 2.5 %}
+                                <div class="estrellas">&#9733;&#9733;&#9734;&#9734;&#9734;</div>
+                                {% elif evaluacion.evaluacion < 3.5 %}
+                                <div class="estrellas">&#9733;&#9733;&#9733;&#9734;&#9734;</div>
+                                {% elif evaluacion.evaluacion < 4.5 %}
+                                <div class="estrellas">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+                                {% else %}
+                                <div class="estrellas">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                {% endif %}
+
+                                <div>Razón consulta: {{evaluacion.razon_consulta}} </div>
+                                    {% if evaluacion.problema_resuelto %}
+                                    <div>&#x2611; Problema resuelto</div>
+                                    {% else %}
+                                    <div>&#x2610; Problema no resuelto</div>
+                                    {% endif %}
+
+                                <div>{{evaluacion.comentario}}</div>
+
+                            </div>
+                            
                             {% endif %}
                         {% endfor %}
                 </div>
