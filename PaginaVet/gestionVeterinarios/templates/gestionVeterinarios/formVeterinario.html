@@ -105,12 +105,12 @@
             </div>
 
             <div class="entrada">
-                <div class="etiqueta">Nombre:</div>
+                <div class="etiqueta">Nombre <abbr title="Este campo es obligatorio">*</abbr></div>
                 <input type="text" id="nombre" name="nombre" size="60" maxlength="250" required>
             </div>
 
             <div class="entrada">
-                <div class="etiqueta">Apellidos:</div>
+                <div class="etiqueta">Apellidos <abbr title="Este campo es obligatorio">*</abbr></div>
                 <input type="text" id="apellidos" name="apellidos" size="60" maxlength="250" required>
             </div>
 
@@ -130,7 +130,7 @@
             </div>
 
             <div class="entrada">
-                <div class="etiqueta">Región:</div>
+                <div class="etiqueta">Región: <abbr title="Este campo es obligatorio">*</abbr></div>
 
                 <select id="region" name="region" onchange="getRegion(this, regiones)" required>
                     <option selected="" disabled="disabled">Seleccione una región</option>
@@ -154,14 +154,14 @@
             </div>
 
             <div class="entrada">
-                <div class="etiqueta">Comuna:</div>
+                <div class="etiqueta">Comuna: <abbr title="Este campo es obligatorio">*</abbr></div>
                 <select id="comuna" name="comuna" required>
                     <option value="" selected="selected" disabled = "disabled">Seleccione una comuna</option>
                 </select>
             </div>
 
             <div class="entrada">                
-                <div class="etiqueta">Especialidad Médica:</div>
+                <div class="etiqueta">Especialidad Médica: <abbr title="Este campo es obligatorio">*</abbr></div>
                 <input type="text" id="especialidad" name="especialidad" size="60" maxlength="80" required>
             </div>
 
@@ -219,15 +219,15 @@
             </div>
 
             <div class="entrada">
-                <div class="etiqueta">Teléfono:</div>
+                <div class="etiqueta">Teléfono</div>
                 <input type="tel" id="telefono" name="telefono" pattern="[0-9]{9}" size="60">
             </div>
             <div class="entrada">
-                <div class="etiqueta">Correo:</div>
+                <div class="etiqueta">Correo <abbr title="Este campo es obligatorio">*</abbr></div>
                 <input type="email" id="email" name="email" size="60" required>
             </div>
             <div class="entrada">
-                <div class="etiqueta">Página web:</div>
+                <div class="etiqueta">Página web</div>
                 <input type="url" id="pagina_web" name="pagina_web" size="60">
             </div>
         </div> 
