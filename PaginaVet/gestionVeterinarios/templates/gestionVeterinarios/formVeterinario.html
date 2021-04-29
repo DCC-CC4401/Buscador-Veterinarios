@@ -2,6 +2,13 @@
 
 <head>
     <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {% load static %}
+    <script>
+        let regiones = "{% static 'gestionVeterinarios/regiones.json' %}"
+    </script>
+    <script src="{% static 'gestionVeterinarios/functions.js' %}"></script>
+    
     <title></title>
 
 </head>
@@ -55,7 +62,7 @@
             <div>
                 <div>Región</div>
 
-                <select id="region" name="region" onchange="getRegion(this)">
+                <select id="region" name="region" onchange="getRegion(this, regiones)">
                     <option selected="" disabled="disabled">Selecciona una opción</option>
                     <option value="XV">Arica y Parinacota</option>
                     <option value="I">Tarapacá</option>
@@ -78,7 +85,7 @@
                 <div>Comuna</div>
 
                 <select id="comuna" name="comuna">
-                    <option value="prueba" selected="selected">comuna de prueba</option>
+                    <option value="" selected="selected" disabled = "disabled">Seleccione una comuna</option>
                 </select>
 
             </div>
