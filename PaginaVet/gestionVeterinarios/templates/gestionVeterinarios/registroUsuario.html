@@ -3,8 +3,32 @@
      <head>
         <meta charset="UTF-8">
         <title>Registro</title>
+        <style>
+
+            .descripcion{
+                color:white;
+                text-align: center;
+                padding: 30px 50px;
+                font-family: sans-serif;
+            }
+
+            .boton_index{
+                text-align: center;
+            }
+
+            .caja{
+                align-items: center;
+                background-color: #089c6b;
+                width: 36%;
+                margin-left: 32%;
+                padding-bottom: 20px;
+                margin-top: 50px;
+                border-radius: 15px;
+            }
+        </style>
      </head>
      <body>
+        {% include  "gestionVeterinarios/barra.html" %}
         <h1> Registro </h1>
         <form method="post">
             {% csrf_token %}
