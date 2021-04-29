@@ -5,6 +5,68 @@
         <title>PetCare</title>
         <style>
 
+            .caja{
+                background-color: #089c6b;
+                border-radius: 15px;
+                margin-left: 10%;
+                margin-right: 10px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-right: 30px;
+                padding-left: 30px;
+                margin-top: 30px;
+                margin-bottom: 20px;
+                color: white;
+                font-family: sans-serif;
+                width: 80%;
+            }
+
+            .seccion{
+                font-family: sans-serif;
+                font-size: 26;
+                margin-top: 15px;
+                margin-bottom: 5px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            .etiqueta{
+                font-family: sans-serif;
+                font-size: 18;
+                margin-top: 4px;
+                margin-bottom: 4px;
+            }
+
+            .entrada{
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+
+            .top{
+                overflow: hidden;
+            }
+
+            .izq{
+                float:left;
+                width: 60%;
+            }
+
+            .der{
+                float:left;
+                width: 30%;
+            }
+
+            .etiqueta{
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 18;
+                margin-top: 4px;
+                margin-bottom: 4px;
+            }
+
+            .enviar{
+                text-align: center;
+            }
+
             p.clasificacion {
                 position: relative;
                 overflow: hidden;
@@ -19,7 +81,7 @@
 
             p.clasificacion label {
               float: right;
-              color: #333;
+              color: #1f5845;
               font-size: 50px;
               padding: 5px;
             }
@@ -27,114 +89,101 @@
             p.clasificacion label:hover,
             p.clasificacion label:hover ~ label,
             p.clasificacion input:checked ~ label {
-              color: #dd4;
+              color: #ffed80;
             }
 
-            .doctor_evaluado {
-                position: relative;
-                left: 800px;
-                top: -650px;
-                width: 30%;
-            }
-            
-            form {
-                margin-left: 50px;
-                margin-top: 50px;
-            }
-
-            h1 {
-                margin-left: 50px;
-            }
-
-            body {
-                font-size: 20px;
-            }
-             
-            input[name="nombre"], input[name="razon_consulta"] {
-                height: 30px;
-                font-size: 16px;
-                width: 350px;
-                border-width: 2px;
-            }
-
-            input[type="submit"]{
-                width: 200px;
-                height: 40px;
-                font-size: 20px;
-            }
-
-            textarea {
-                border-width: 2px;
-            }
-
-            p.problema input {
-                margin-left: 70px;
-            }
-
-            p.problema {
+            .doctor_evaluado{
+                text-align: center;
                 margin-top: 40px;
-                margin-bottom: 40px;
             }
-    
 
+            .cajafoto{
+                margin-bottom: 5px;
+            }
             
         </style>
     </head>
+
     <body>
        
         {% include  "gestionVeterinarios/barra.html" %}
-        <h1>Evaluacion</h1>
-        <div>
-        <form method="POST">
-        {% csrf_token %}
-            <p>
-                <input type="text" name="nombre" placeholder="Nombre" required>
-            </p>
-            
 
-            <div>Evalue su experiencia con este doctor</div>
-            <p class="clasificacion">
-                <input id="radio1" type="radio" name="estrellas" value="5" required>
-                <label for="radio1" name="estrellas">★</label>
-                <input id="radio2" type="radio" name="estrellas" value="4" required>
-                <label for="radio2" name="estrellas">★</label>
-                <input id="radio3" type="radio" name="estrellas" value="3" required>
-                <label for="radio3" name="estrellas">★</label>
-                <input id="radio4" type="radio" name="estrellas" value="2" required>
-                <label for="radio4" name="estrellas">★</label>
-                <input id="radio5" type="radio" name="estrellas" value="1" required>
-                <label for="radio5" name="estrellas">★</label>
-            </p>
+        <div class="caja">
 
-            <p>
-                <input type="text" name="razon_consulta" placeholder="Razon de su consulta" required>
-            </p>
+            <div class="seccion">Formulario de evaluación</div>
 
-            <p class="problema">
-                ¿Fue resuelto su problema?
-                <input type="radio" id="si" name="problema_resuelto" value="si" checked>
-                <label for="si">Si</label>
-                <input type="radio" id="no" name="problema_resuelto" value="no">
-                <label for="si">No</label>
-            </p>
-            
+            <form method="POST">
+            {% csrf_token %}
 
-            <p>
-                <textarea name="comentario" placeholder="Deje su comentario aqui" rows="10" cols="100"></textarea>
-            </p>
+                <div class="top">
 
-            <input type="submit" value="Enviar evaluacion">
-            
-        </form>
-        </div>
+                    <div class="izq">
 
-        <div class="doctor_evaluado">
-            <div><b>{{doctor.pronombre}} {{doctor.nombre}} {{doctor.apellido}}</b></div>
-            <div class="box" name="foto">   
-                <img src="{{ doctor.foto.url }}" width="250" height="180"></td>
-            </div>
+                        <div class="entrada">
+                            <div class="etiqueta">Nombre cliente:</div>
+                            <input type="text" name="nombre" size="60" required>
+                        </div>
+
+                        <div class="entrada">
+                            <div class="etiqueta">Razón de la consulta:</div>
+                            <input type="text" name="razon_consulta" size="60" required>
+                        </div>
+    
+                        <div class="entrada">
+                            <div class="etiqueta">Evalúe su experiencia con este doctor:</div>
+                            <p class="clasificacion">
+                                <input id="radio1" type="radio" name="estrellas" value="5" required>
+                                <label for="radio1" name="estrellas">★</label>
+                                <input id="radio2" type="radio" name="estrellas" value="4" required>
+                                <label for="radio2" name="estrellas">★</label>
+                                <input id="radio3" type="radio" name="estrellas" value="3" required>
+                                <label for="radio3" name="estrellas">★</label>
+                                <input id="radio4" type="radio" name="estrellas" value="2" required>
+                                <label for="radio4" name="estrellas">★</label>
+                                <input id="radio5" type="radio" name="estrellas" value="1" required>
+                                <label for="radio5" name="estrellas">★</label>
+                            </p>
+                        </div>
+    
+                        <div class="entrada">
+                            <div class="etiqueta">¿Fue resuelto su problema?</div>
+                            <input type="radio" id="si" name="problema_resuelto" value="si" checked>
+                            <label for="si">Si</label>
+                            <input type="radio" id="no" name="problema_resuelto" value="no">
+                            <label for="si">No</label>
+                        </div>
+    
+                    </div>
+    
+                    <div class="der">
+    
+                        <div class="doctor_evaluado">
+                            <div class="cajafoto" name="foto">   
+                                <img src="{{ doctor.foto.url }}" width="180" height="180"></td>
+                            </div>
+                            <div class="etiqueta">{{doctor.pronombre}} {{doctor.nombre}} {{doctor.apellido}}</div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+
+                <div class="bot">
+
+                    <div class="entrada">
+                        <div class="etiqueta">Comentarios adicionales:</div>
+                        <textarea name="comentario" placeholder="Deje su comentario aquí" rows="10" cols="100"></textarea>
+                    </div>
+
+                    <div class="enviar">
+                        <input type="submit" value="Enviar evaluación">
+                    </div>
+                    
+                </div>
+
+            </form>
+
         </div>
  
     </body>
 </html>
-
