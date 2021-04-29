@@ -107,8 +107,7 @@
                     <!-- Dr. Nombre Apellido -->
 
                     <div class="caja">
-                        <div class='textbox'><img src="{{ doctor.foto.url }}" width="250" height="180"></div>
-                        <p>{{horario}}</p>
+                        <div class='textbox'><img src="{{ doctor.foto.url }}" width="180" height="180"></div>
                         <div class='textbox'>
                             <div><b>{{doctor.pronombre}} {{doctor.nombre}} {{doctor.apellido}}</b></div>
                             <i>{{doctor.nombre_consulta}}</i>
@@ -145,7 +144,7 @@
     
                     <div class="caja">
                         <div><b>Datos de Contacto:</b></div>
-                        <div>Región: {{doctor.region}}</div>
+                        <div>Región: {{region}}</div>
                         <div>Comuna: {{doctor.comuna}}</div>
                         <div>Teléfono: {{doctor.telefono}}</div>
                         <div>Correo: {{doctor.email}}</div>
@@ -176,40 +175,10 @@
                     <!-- Horario -->
     
                     <div class="caja">
-                        <table class="table">
-                            <tr>
-                            <th>Día</th>
-                            <th>Horas</th>
-                            </tr>
-                            <tr>
-                            <td>Lun</td>
-                            <td>09:00 - 17:30</td>
-                            </tr>
-                            <tr>
-                            <td>Mar</td>
-                            <td>09:00 - 17:30</td>
-                            </tr>
-                            <tr>
-                            <td>Mié</td>
-                            <td>09:00 - 17:30</td>
-                            </tr>
-                            <tr>
-                            <td>Jue</td>
-                            <td>09:00 - 17:30</td>
-                            </tr>
-                            <tr>
-                            <td>Vie</td>
-                            <td>09:00 - 17:30</td>
-                            </tr>
-                            <tr>
-                                <td>Sáb</td>
-                                <td>09:00 - 17:30</td>
-                            </tr>
-                            <tr>
-                                <td>Dom</td>
-                                <td>09:00 - 17:30</td>
-                            </tr>
-                        </table>
+                        <div><b>Días de atención:</b></div>
+                        {% for dia in dias %}
+                        <div>&#9679; {{dia}}</div>
+                        {% endfor %}
                     </div>
 
                     <div class="bottomDiv">
@@ -218,7 +187,9 @@
         
                         <div class="caja bottombox">
                             <div><b>Animales:</b></div>
-                            <div>{{doctor.animales}}</div>
+                            {% for animal in animales %}
+                            <div>&#9679; {{animal}}</div>
+                            {% endfor %}
                         </div>
         
                         <!-- Especialización -->

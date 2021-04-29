@@ -93,6 +93,25 @@ def confirmacionEvaluacion(request):
     if request.method == "GET":
         return render(request, "gestionVeterinarios/confirmacionEvaluacion.html")
 
+reg = {
+    "XV": "Arica y Parinacota",
+    "I": "Tarapacá",
+    "II": "Antofagasta",
+    "III": "Atacama",
+    "IV": "Coquimbo",
+    "V": "Valparaíso",
+    "RM": "Metropolitana de Santiago",
+    "VI": "Libertador Gral. Bernardo O’Higgins",
+    "VII": "Maule",
+    "XVI": "Ñuble",
+    "VIII": "Biobío",
+    "IX": "Araucanía",
+    "XIV": "Los Ríos",
+    "X": "Los Lagos",
+    "XI": "Aisén del Gral. Carlos Ibáñez del Campo",
+    "XII": "Magallanes y de la Antártica Chilena"
+}
+
 def catalogoVeterinarios(request):
     if request.method == "GET":
         doctores = Veterinario.objects.raw('''
@@ -109,17 +128,21 @@ def catalogoVeterinarios(request):
         FROM gestionVeterinarios_reseña r)
         ''')
 
-        return render(request, "gestionVeterinarios/catalogodoc.html", {"doctores":doctores, "doctores_sin_eval": doctores_sin_eval})
+        return render(request, "gestionVeterinarios/catalogodoc.html", {"doctores":doctores, "doctores_sin_eval": doctores_sin_eval, "reg":reg})
 
 def perfil(request, id_vet):
 
     if request.method == "GET":
         doctor=Veterinario.objects.get(id=id_vet)
+        region = reg[doctor.region]
         horario = doctor.horario_atencion
+        dias = horario.split(' ')
+        stringAnimales = doctor.animales
+        animales = stringAnimales.split(' ')
         evaluaciones = Reseña.objects.filter(id_veterinario_id=id_vet)
         prom_evaluacion = Reseña.objects.raw('''
         SELECT id, AVG(evaluacion) as prom
         FROM gestionVeterinarios_reseña
         WHERE id_veterinario_id = %s
         ''' % id_vet)
-        return render(request, "gestionVeterinarios/perfildoc.html", {"doctor":doctor, "evaluaciones":evaluaciones, "prom_evaluacion": prom_evaluacion, "horario": horario})
+        return render(request, "gestionVeterinarios/perfildoc.html", {"doctor":doctor, "evaluaciones":evaluaciones, "prom_evaluacion": prom_evaluacion, "dias": dias, "animales":animales, "region":region})
