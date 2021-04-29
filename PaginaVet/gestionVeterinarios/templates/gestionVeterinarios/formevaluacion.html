@@ -135,6 +135,7 @@
     <body>
        
         {% include  "gestionVeterinarios/barra.html" %}
+        {% load static %}
 
         <div class="caja">
 
@@ -187,7 +188,11 @@
     
                         <div class="doctor_evaluado">
                             <div class="cajafoto" name="foto">   
-                                <img src="{{ doctor.foto.url }}" width="180" height="180"></td>
+                                {% if doctor.foto%}    
+                                    <img src="{{ doctor.foto.url }}" width="180" height="180">
+                                {% else %}
+                                    <img src="{% static 'gestionVeterinarios/imagen1.png' %}" width="180" height="180">
+                                {% endif %}
                             </div>
                             <div class="etiqueta">{{doctor.pronombre}} {{doctor.nombre}} {{doctor.apellido}}</div>
                         </div>

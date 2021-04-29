@@ -97,7 +97,7 @@
     <body>
 
         {% include  "gestionVeterinarios/barra.html" %}
-
+        {% load static %}
         <div class="mainBody">
 
             <div class="topdiv">
@@ -107,7 +107,13 @@
                     <!-- Dr. Nombre Apellido -->
 
                     <div class="caja">
-                        <div class='textbox'><img src="{{ doctor.foto.url }}" width="180" height="180"></div>
+                        <div class='textbox'>
+                        {% if doctor.foto%}    
+                            <img src="{{ doctor.foto.url }}" width="180" height="180">
+                        {% else %}
+                            <img src="{% static 'gestionVeterinarios/imagen1.png' %}" width="180" height="180">
+                        {% endif %}
+                        </div>
                         <div class='textbox'>
                             <div><b>{{doctor.pronombre}} {{doctor.nombre}} {{doctor.apellido}}</b></div>
                             <i>{{doctor.nombre_consulta}}</i>
@@ -212,7 +218,6 @@
                 <div class="caja reviews">
                     <div><b>Reseñas:</b></div>
                         {% for evaluacion in evaluaciones %}
-                            
 
                             <div class="resena">
                                 
