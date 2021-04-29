@@ -40,7 +40,11 @@ def formVeterinario(request): #the index view
             urgencias = False
         horario_atencion_lista = request.POST.getlist("horario_atencion")
         horario_atencion = ' '.join(horario_atencion_lista)
-        telefono = request.POST["telefono"]
+        if request.POST["telefono"]=="":
+            telefono=None
+        else:
+            telefono = request.POST["telefono"]
+
         email = request.POST["email"]
         pagina_web = request.POST["pagina_web"]
 

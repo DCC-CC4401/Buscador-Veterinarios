@@ -37,11 +37,11 @@
 
             <div>
                 <div>Nombre</div>
-                <input type="text" id="nombre" name="nombre" size="100" maxlength="250">
+                <input type="text" id="nombre" name="nombre" size="100" maxlength="250" required>
             </div>
             <div>
                 <div>Apellidos</div>
-                <input type="text" id="apellidos" name="apellidos" size="100" maxlength="250">
+                <input type="text" id="apellidos" name="apellidos" size="100" maxlength="250" required>
             </div>
 
             <div>
@@ -62,7 +62,7 @@
             <div>
                 <div>Región</div>
 
-                <select id="region" name="region" onchange="getRegion(this, regiones)">
+                <select id="region" name="region" onchange="getRegion(this, regiones)" required>
                     <option selected="" disabled="disabled">Selecciona una opción</option>
                     <option value="XV">Arica y Parinacota</option>
                     <option value="I">Tarapacá</option>
@@ -84,7 +84,7 @@
 
                 <div>Comuna</div>
 
-                <select id="comuna" name="comuna">
+                <select id="comuna" name="comuna" required>
                     <option value="" selected="selected" disabled = "disabled">Seleccione una comuna</option>
                 </select>
 
@@ -92,7 +92,7 @@
 
             <div>                
                 <div>Especialidad Médica</div>
-                <input type="text" id="especialidad" name="especialidad" size="100" maxlength="80">
+                <input type="text" id="especialidad" name="especialidad" size="100" maxlength="80" required>
             </div>
 
             <div>
@@ -152,7 +152,7 @@
                 <div>Teléfono</div>
                 <input type="tel" id="telefono" name="telefono" pattern="[0-9]{9}">
                 <div>Correo</div>
-                <input type="email" id="email" name="email">
+                <input type="email" id="email" name="email" required>
                 <div>Página web</div>
                 <input type="url" id="pagina_web" name="pagina_web">
             </div>

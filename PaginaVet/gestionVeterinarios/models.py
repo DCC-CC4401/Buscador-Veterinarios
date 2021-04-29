@@ -7,8 +7,8 @@ from django.contrib.auth.models import AbstractUser
 # User de django 
 class User(AbstractUser):
     # Ya viene con username, first_name, last_name, contraseña y email
-    region = models.CharField(max_length=80, null=True)
-    comuna = models.CharField(max_length=80, null=True)
+    region = models.CharField(max_length=80, blank=True, default="I")
+    comuna = models.CharField(max_length=80, blank=True, default="")
 # Datos de veterinarios
 class Veterinario(models.Model):
     pronombres_posibles = [('Dr.', 'Dr.'), ('Dra.','Dra.')]
@@ -17,7 +17,7 @@ class Veterinario(models.Model):
     apellido = models.CharField(max_length=60)
     pronombre = models.CharField(max_length=5,choices=pronombres_posibles)
     descripcion = models.CharField(max_length=500, blank=True)
-    foto = models.ImageField(upload_to='fotos', blank=True)
+    foto = models.ImageField(upload_to='fotos', blank=True, null=True)
 
     # Datos de trabajo
     nombre_consulta = models.CharField(max_length=80, blank=True)
@@ -30,9 +30,9 @@ class Veterinario(models.Model):
 
     # Datos de contacto de veterinarios
     horario_atencion = models.CharField(max_length=300)
-    telefono = models.IntegerField()
+    telefono = models.IntegerField(blank=True, null=True)
     email = models.EmailField()
-    pagina_web = models.CharField(max_length=150)
+    pagina_web = models.CharField(max_length=150, blank=True)
 
     def __str__(self):
         return (self.nombre + self.apellido)
@@ -43,7 +43,7 @@ class Reseña(models.Model):
     evaluacion = models.FloatField()
     problema_resuelto = models.BooleanField()
     razon_consulta = models.CharField(max_length=50)
-    comentario = models.CharField(max_length=600)
+    comentario = models.CharField(max_length=600, blank=True)
 
     def __str__(self):
         return (self.nombre)
