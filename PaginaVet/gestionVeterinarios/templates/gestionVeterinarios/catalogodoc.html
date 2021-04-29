@@ -82,7 +82,7 @@
             <div>
                 <ul>
                     <li>{{doctor.nombre}}&nbsp; {{doctor.apellido}}</li>
-                    <li>{{doctor.region}},&nbsp;{{doctor.comuna}}</li>
+                    <li>{{doctor.region}} region,&nbsp;{{doctor.comuna}}</li>
                     {% if doctor.urgencias %}
                         <li>Atiende urgencias</li>
                     {% else %}
@@ -97,7 +97,7 @@
                 </ul>
             </div>
             <div class="evaluacion">
-                <p>{{doctor.prom_evaluacion}}</p>
+                <p>{{doctor.prom_evaluacion|floatformat:0 }}</p>
                 <ul>
                     <li class="estrellas">★</li>
                     <li class="estrellas">★</li>
