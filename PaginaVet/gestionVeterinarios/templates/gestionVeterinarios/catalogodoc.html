@@ -4,66 +4,82 @@
         <meta charset="UTF-8">
         <title>Pagina Vet</title>
         <style>
-            ul {
-                list-style-type: none;
+
+            .caja{
+                background-color: #089c6b;
+                border-radius: 15px;
+                margin-left: 25%;
+                margin-right: 10px;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                padding-right: 15px;
+                padding-left: 15px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                color: white;
+                font-family: sans-serif;
+                font-size: 14;
+                width: 50%;
             }
 
-            table{
-                border: 1px solid black;
-                border-collapse: collapse;
+            .minicaja{
+                background-color: rgb(29, 187, 134);
+                border-radius: 15px;
+                margin-left: 15%;
+                margin-right: 10px;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                padding-right: 15px;
+                padding-left: 15px;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                color: white;
+                font-family: sans-serif;
+                font-size: 14;
+                width: 70%;
             }
 
-            .estrellas{
+            .textbox{
+                display: inline-block;
+                margin-left: 10px;
+                margin-right: 10px;
+                width: 160px;
+            }
+
+            .textbox2{
+                display: inline-block;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            .botonperfil{
+                cursor: pointer;
+                border-radius: 10px;
+                padding: 15px 20px;
+                background-color: rgb(29, 187, 134);
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+                border: none;
+                color: white;
+                font-size: 16px;
+                transition-duration: 0.4s;
+                width: 150px;
+                font-size: 18;
+                font-weight: 60;
+                font-family: sans-serif;
                 display: inline;
             }
 
-            .itemVet {
-                padding: 20px;
-                width: 100%;
+            .botonperfil:hover {
+                background-color: #ffed80;
+                color: #089c6b;
             }
 
-            .box[name="item"]{
-                margin-top: 10px;
-                margin-left: 10%;
-                width: 80%;
-                height: 200px;
-                box-sizing: border-box;
+            a {
+                text-decoration: none;
             }
 
-            .box[name="foto"]{
-                position: relative;
-                float: left;
-                margin: auto;
-                width: 20%;
-                height: 90%;
-                border: 2px solid black;
-            }
-
-            .box[name="datos"]{
-                position: relative;
-                float: left;
-                margin: auto;
-                margin-left: 10px;
-                width: 40%;
-                height: 90%;
-                border: 2px solid black;
-            }
-
-            .evaluacion {
-                position: relative;
-                float: right;
-                top: -59%;
-                left: -30%;
-            }
-
-            .button {
-                position: relative;
-                float: right;
-                top: -20%;
-            }
-            table{
-                border: 1px solid black;
-                border-collapse: collapse;
+            .mainbody{
+                margin-top: 30px;
             }
 
         </style>
@@ -72,86 +88,101 @@
  
     {% include  "gestionVeterinarios/barra.html" %}
 
+    <div class="mainbody">
 
-    {% for doctor in doctores %}
-    <div class= "box" name="item">
-        <div class="box" name="foto">   
-            <img src="{{ doctor.foto.url }}" width="250" height="180"></td>
-        </div>
-        <div class="box" name="datos">
-            <div>
-                <ul>
-                    <li>{{doctor.nombre}}&nbsp; {{doctor.apellido}}</li>
-                    <li>{{doctor.region}} region,&nbsp;{{doctor.comuna}}</li>
-                    {% if doctor.urgencias %}
-                        <li>Atiende urgencias</li>
-                    {% else %}
-                        <li>No atiende urgencias</li>
-                    {% endif %}
+        {% for doctor in doctores %}
 
-                    {% if doctor.visitas_a_domicilio %}
-                        <li>Realiza visitas a domicilio</li>
-                    {% else %}
-                        <li>No realiza visitas a domicilio</li>
-                    {% endif %}
-                </ul>
+        <div class="caja" name="item">
+    
+            <div class="textbox" name="foto">   
+                <img src="{{ doctor.foto.url }}" width="150" height="150">
             </div>
-            <div class="evaluacion">
-                <p>{{doctor.prom_evaluacion|floatformat:0 }}</p>
-                    {% if doctor.prom_evaluacion < 1.5 %}
-                    <div class="estrellas">&#9733;&#9734;&#9734;&#9734;&#9734;</div>
-                    {% elif doctor.prom_evaluacion < 2.5 %}
-                    <div class="estrellas">&#9733;&#9733;&#9734;&#9734;&#9734;</div>
-                    {% elif doctor.prom_evaluacion < 3.5 %}
-                    <div class="estrellas">&#9733;&#9733;&#9733;&#9734;&#9734;</div>
-                    {% elif doctor.prom_evaluacion < 4.5 %}
-                    <div class="estrellas">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
-                    {% else %}
-                    <div class="estrellas">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    {% endif %}
-            
+    
+            <div class="textbox" name="datos">
+                <div><b>{{doctor.pronombre}} {{doctor.nombre}} {{doctor.apellido}}</b></div>
+                <div>{{doctor.region}}, {{doctor.comuna}}</div>
+                <div><i>{{doctor.nombre_consulta}}</i></div>
+                <div class="evaluacion">
+                    <p>{{doctor.prom_evaluacion|floatformat:0 }}</p>
+                        {% if doctor.prom_evaluacion < 1.5 %}
+                        <div class="estrellas">&#9733;&#9734;&#9734;&#9734;&#9734;</div>
+                        {% elif doctor.prom_evaluacion < 2.5 %}
+                        <div class="estrellas">&#9733;&#9733;&#9734;&#9734;&#9734;</div>
+                        {% elif doctor.prom_evaluacion < 3.5 %}
+                        <div class="estrellas">&#9733;&#9733;&#9733;&#9734;&#9734;</div>
+                        {% elif doctor.prom_evaluacion < 4.5 %}
+                        <div class="estrellas">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+                        {% else %}
+                        <div class="estrellas">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                        {% endif %}
+                
+                </div>
+                <div>
+                    <a href="{% url 'perfil_vet' doctor.id %}"><button class="botonperfil">Ver perfil</button></a>
+                </div>     
             </div>
-            <div class="button">
-                <a href="{% url 'perfil_vet' doctor.id %}"><button>Ver perfil</button></a>
+    
+            <div class="textbox2" name="servicios">
+                <div class="minicaja">
+                    <div><b>Servicios</b></div>
+                {% if doctor.urgencias %}
+                    <div>&#x2611; Atiende urgencias</div>
+                {% else %}
+                    <div>&#x2610; No atiende urgencias</div>
+                {% endif %}
+                {% if doctor.visitas_a_domicilio %}
+                    <div>&#x2611; Realiza visitas a domicilio</div>
+                {% else %}
+                    <div>&#x2610; No realiza visitas a domicilio</div>
+                {% endif %}
+                </div>
             </div>
+    
         </div>
+    
+        {% endfor %}
+
+        {% for doctor in doctores_sin_eval %}
+
+        <div class="caja" name="item">
+    
+            <div class="textbox" name="foto">   
+                <img src="{{ doctor.foto.url }}" width="150" height="150">
+            </div>
+    
+            <div class="textbox" name="datos">
+                <div><b>{{doctor.pronombre}} {{doctor.nombre}} {{doctor.apellido}}</b></div>
+                <div>{{doctor.region}}, {{doctor.comuna}}</div>
+                <div><i>{{doctor.nombre_consulta}}</i></div>
+                <div class="evaluacion">
+                    <p>Este doctor no tiene evaluaciones</p>
+                </div>
+                <div>
+                    <a href="{% url 'perfil_vet' doctor.id %}"><button class="botonperfil">Ver perfil</button></a>
+                </div>     
+            </div>
+    
+            <div class="textbox2" name="servicios">
+                <div class="minicaja">
+                <div><b>Servicios</b></div>
+                {% if doctor.urgencias %}
+                    <div>&#x2611; Atiende urgencias</div>
+                {% else %}
+                    <div>&#x2610; No atiende urgencias</div>
+                {% endif %}
+                {% if doctor.visitas_a_domicilio %}
+                    <div>&#x2611; Realiza visitas a domicilio</div>
+                {% else %}
+                    <div>&#x2610; No realiza visitas a domicilio</div>
+                {% endif %}
+                </div>
+            </div>
+    
+        </div>
+    
+        {% endfor %}
+
     </div>
-
-    {% endfor %}
-
-    {% for doctor in doctores_sin_eval %}
-    <div class= "box" name="item">
-        <div class="box" name="foto">   
-            <img src="{{ doctor.foto.url }}" width="250" height="180"></td>
-        </div>
-        <div class="box" name="datos">
-            <div>
-                <ul>
-                    <li>{{doctor.nombre}}&nbsp; {{doctor.apellido}}</li>
-                    <li>{{doctor.region}},&nbsp;{{doctor.comuna}}</li>
-                    {% if doctor.urgencias %}
-                        <li>Atiende urgencias</li>
-                    {% else %}
-                        <li>No atiende urgencias</li>
-                    {% endif %}
-
-                    {% if doctor.visitas_a_domicilio %}
-                        <li>Realiza visitas a domicilio</li>
-                    {% else %}
-                        <li>No realiza visitas a domicilio</li>
-                    {% endif %}
-                </ul>
-            </div>
-            <div class="evaluacion">
-                <p>Este doctor no tiene evaluaciones</p>
-            </div>
-            <div class="button">
-                <a href="{% url 'perfil_vet' doctor.id %}"><button>Ver perfil</button></a>
-            </div>
-        </div>
-    </div>
-
-    {% endfor %}
  
     </body>
 </html>
