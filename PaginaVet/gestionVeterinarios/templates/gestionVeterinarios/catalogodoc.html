@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>PetCare</title>
+        <style>
+
+            .caja{
+                background-color: #089c6b;
+                border-radius: 15px;
+                margin-left: 25%;
+                margin-right: 10px;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                padding-right: 15px;
+                padding-left: 15px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                color: white;
+                font-family: sans-serif;
+                width: 50%;
+            }
+
+            .minicaja{
+                background-color: rgb(29, 187, 134);
+                border-radius: 15px;
+                margin-left: 15%;
+                margin-right: 10px;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                padding-right: 15px;
+                padding-left: 15px;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                color: white;
+                font-family: sans-serif;
+                font-size: 16px;
+                width: 70%;
+            }
+
+            .textbox{
+                display: inline-block;
+                margin-left: 10px;
+                margin-right: 10px;
+                width: 160px;
+            }
+
+            .textbox2{
+                display: inline-block;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            .botonperfil{
+                cursor: pointer;
+                border-radius: 10px;
+                padding: 15px 20px;
+                background-color: rgb(29, 187, 134);
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+                border: none;
+                color: white;
+                font-size: 16px;
+                transition-duration: 0.4s;
+                width: 150px;
+                font-size: 18px;
+                font-weight: 60;
+                font-family: sans-serif;
+                display: inline;
+            }
+
+            .botonperfil:hover {
+                background-color: #ffed80;
+                color: #089c6b;
+            }
+
+            a {
+                text-decoration: none;
+            }
+
+            .mainbody{
+                margin-top: 30px;
+            }
+
+        </style>
+    </head>
+    <body>
+ 
+    {% include  "gestionVeterinarios/barra.html" %}
+    {% load static %}
+    <div class="mainbody">
+
+        {% for doctor in doctores %}
+
+        <div class="caja" name="item">
+    
+            <div class="textbox" name="foto">
+                
+                {% if doctor.foto%}    
+                    <img src="{{ doctor.foto.url }}" width="150" height="150">
+                {% else %}
+                    <img src="{% static 'gestionVeterinarios/imagen1.png' %}" width="150" height="150">
+                {% endif %}
+            </div>
+    
+            <div class="textbox" name="datos">
+                <div><b>{{doctor.pronombre}} {{doctor.nombre}} {{doctor.apellido}}</b></div>
+                <div>{{doctor.region}} región, {{doctor.comuna}}</div>
+                <div><i>{{doctor.nombre_consulta}}</i></div>
+                <div class="evaluacion">
+                        {% if doctor.prom_evaluacion <= 1.5 %}
+                        <div class="estrellas">&#9733;&#9734;&#9734;&#9734;&#9734;</div>
+                        {% elif doctor.prom_evaluacion <= 2.5 %}
+                        <div class="estrellas">&#9733;&#9733;&#9734;&#9734;&#9734;</div>
+                        {% elif doctor.prom_evaluacion <= 3.5 %}
+                        <div class="estrellas">&#9733;&#9733;&#9733;&#9734;&#9734;</div>
+                        {% elif doctor.prom_evaluacion <= 4.5 %}
+                        <div class="estrellas">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+                        {% else %}
+                        <div class="estrellas">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                        {% endif %}
+                </div>
+                <div>
+                    <a href="{% url 'perfil_vet' doctor.id %}"><button class="botonperfil">Ver perfil</button></a>
+                </div>     
+            </div>
+    
+            <div class="textbox2" name="servicios">
+                <div class="minicaja">
+                    <div><b>Servicios</b></div>
+                {% if doctor.urgencias %}
+                    <div>&#x2611; Atiende urgencias</div>
+                {% else %}
+                    <div>&#x2610; No atiende urgencias</div>
+                {% endif %}
+                {% if doctor.visitas_a_domicilio %}
+                    <div>&#x2611; Realiza visitas a domicilio</div>
+                {% else %}
+                    <div>&#x2610; No realiza visitas a domicilio</div>
+                {% endif %}
+                </div>
+            </div>
+    
+        </div>
+    
+        {% endfor %}
+
+        {% for doctor in doctores_sin_eval %}
+
+        <div class="caja" name="item">
+    
+            <div class="textbox" name="foto">   
+                {% if doctor.foto%}    
+                    <img src="{{ doctor.foto.url }}" width="150" height="150">
+                {% else %}
+                    <img src="{% static 'gestionVeterinarios/imagen1.png' %}" width="150" height="150">
+                {% endif %}
+            </div>
+    
+            <div class="textbox" name="datos">
+                <div><b>{{doctor.pronombre}} {{doctor.nombre}} {{doctor.apellido}}</b></div>
+                <div>{{doctor.region}} región, {{doctor.comuna}}</div>
+                <div><i>{{doctor.nombre_consulta}}</i></div>
+                <div class="evaluacion">
+                    <p>Este doctor no tiene evaluaciones</p>
+                </div>
+                <div>
+                    <a href="{% url 'perfil_vet' doctor.id %}"><button class="botonperfil">Ver perfil</button></a>
+                </div>     
+            </div>
+    
+            <div class="textbox2" name="servicios">
+                <div class="minicaja">
+                <div><b>Servicios</b></div>
+                {% if doctor.urgencias %}
+                    <div>&#x2611; Atiende urgencias</div>
+                {% else %}
+                    <div>&#x2610; No atiende urgencias</div>
+                {% endif %}
+                {% if doctor.visitas_a_domicilio %}
+                    <div>&#x2611; Realiza visitas a domicilio</div>
+                {% else %}
+                    <div>&#x2610; No realiza visitas a domicilio</div>
+                {% endif %}
+                </div>
+            </div>
+    
+        </div>
+    
+        {% endfor %}
+
+    </div>
+ 
+    </body>
+</html>

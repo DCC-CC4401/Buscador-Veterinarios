@@ -1,0 +1,242 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {% load static %}
+    <script>
+        let regiones = "{% static 'gestionVeterinarios/regiones.json' %}"
+    </script>
+    <script src="{% static 'gestionVeterinarios/functions.js' %}"></script>
+    
+    <title>PetCare</title>
+
+    <style>
+        .caja{
+            background-color: #089c6b;
+            border-radius: 15px;
+            margin-left: 25%;
+            margin-right: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-right: 30px;
+            padding-left: 30px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            color: white;
+            font-family: sans-serif;
+            font-size: 14;
+            width: 50%;
+        }
+
+        .seccion{
+            font-family: sans-serif;
+            font-size: 26;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .etiqueta{
+            font-family: sans-serif;
+            font-size: 18;
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+
+        .registro{
+                cursor: pointer;
+                border-radius: 10px;
+                padding: 15px 20px;
+                background-color: rgb(29, 187, 134);
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+                border: none;
+                color: white;
+                font-size: 16px;
+                transition-duration: 0.4s;
+                width: 150px;
+                font-size: 18;
+                font-weight: 60;
+                font-family: sans-serif;
+                display: inline;
+                margin-top: 15px;
+            }
+
+            .registro:hover {
+                background-color: #ffed80;
+                color: #089c6b;
+            }
+
+            .botonRegistro{
+                text-align: center;
+            }
+
+            .entrada{
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+
+
+    </style>
+
+</head>
+
+<body>
+    {% include  "gestionVeterinarios/barra.html" %}
+
+<div class="caja">
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <div class="seccion">Datos Personales:</div>
+            
+            <div class="entrada">
+                <div class="etiqueta">Fotografía:</div>
+                <input type="file" id="foto" name="foto" accept="image/*">
+            </div>
+
+            <div class="entrada">
+                <div class="etiqueta">Pronombre:</div>
+                <input type="radio" id="doctor" name="pronombre" value="Dr." checked>
+                <label for="doctor"> Dr. </label>
+                <input type="radio" id="doctora" name="pronombre" value="Dra.">
+                <label for="doctora"> Dra.</label>
+            </div>
+
+            <div class="entrada">
+                <div class="etiqueta">Nombre <abbr title="Este campo es obligatorio">*</abbr></div>
+                <input type="text" id="nombre" name="nombre" size="60" maxlength="250" required>
+            </div>
+
+            <div class="entrada">
+                <div class="etiqueta">Apellidos <abbr title="Este campo es obligatorio">*</abbr></div>
+                <input type="text" id="apellidos" name="apellidos" size="60" maxlength="250" required>
+            </div>
+
+            <div class="entrada">
+                <div class="etiqueta">Descripción:</div>
+                <textarea id="descripción" name="descripcion" cols="60" rows="7" style="resize: none;"></textarea>
+            </div>
+
+        </div>
+
+        <div>
+            <div class="seccion">Datos de trabajo:</div>
+            
+            <div class="entrada">
+                <div class="etiqueta">Nombre Consulta o Institución:</div>
+                <input type="text" id="nombre_consulta" name="nombre_consulta" size="60" maxlength="250">
+            </div>
+
+            <div class="entrada">
+                <div class="etiqueta">Región: <abbr title="Este campo es obligatorio">*</abbr></div>
+
+                <select id="region" name="region" onchange="getRegion(this, regiones)" required>
+                    <option selected="" disabled="disabled">Seleccione una región</option>
+                    <option value="XV">Arica y Parinacota</option>
+                    <option value="I">Tarapacá</option>
+                    <option value="II">Antofagasta</option>
+                    <option value="III">Atacama</option>
+                    <option value="IV">Coquimbo</option>
+                    <option value="V">Valparaíso</option>
+                    <option value="RM">Metropolitana de Santiago</option>
+                    <option value="VI">Libertador Gral. Bernardo O’Higgins</option>
+                    <option value="VII">Maule</option>
+                    <option value="XVI">Ñuble</option>
+                    <option value="VIII">Biobío</option>
+                    <option value="IX">Araucanía</option>
+                    <option value="XIV">Los Ríos</option>
+                    <option value="X">Los Lagos</option>
+                    <option value="XI">Aisén del Gral. Carlos Ibáñez del Campo</option>
+                    <option value="XII">Magallanes y de la Antártica Chilena</option>
+                </select>
+            </div>
+
+            <div class="entrada">
+                <div class="etiqueta">Comuna: <abbr title="Este campo es obligatorio">*</abbr></div>
+                <select id="comuna" name="comuna" required>
+                    <option value="" selected="selected" disabled = "disabled">Seleccione una comuna</option>
+                </select>
+            </div>
+
+            <div class="entrada">                
+                <div class="etiqueta">Especialidad Médica: <abbr title="Este campo es obligatorio">*</abbr></div>
+                <input type="text" id="especialidad" name="especialidad" size="60" maxlength="80" required>
+            </div>
+
+            <div class="entrada">
+                <div class="etiqueta">Atención de animales:</div>
+                
+                <input type="checkbox" id="domesticos" name="animales" value="Domesticos">
+                <label for="domesticos"> Domesticos</label><br>
+                <input type="checkbox" id="ganado" name="animales" value="Ganado">
+                <label for="ganado"> Ganado</label><br>
+                <input type="checkbox" id="equinos" name="animales" value="Equinos">
+                <label for="equinos"> Equinos</label><br>
+                <input type="checkbox" id="exoticos" name="animales" value="Exoticos">
+                <label for="exoticos"> Exóticos</label><br>
+            </div>
+
+            <div class="entrada">
+                <div class="etiqueta">Atención a domicilio:</div>
+                <input type="radio" id="si_domicilio" name="visitas_a_domicilio" value="si" checked>
+                <label for="si_domicilio">Si</label>
+                <input type="radio" id="no_domicilio" name="visitas_a_domicilio" value="no">
+                <label for="no_domicilio">No</label>
+            </div>
+
+            <div class="entrada">
+                <div class="etiqueta">Atención de urgencias:</div>
+                <input type="radio" id="si_urgencias" name="urgencias" value="si" checked>
+                <label for="si_urgencias">Si</label>
+                <input type="radio" id="no_urgencias" name="urgencias" value="no">
+                <label for="no_urgencias">No</label>
+            </div>
+
+
+        </div>
+
+        <div>
+            <div class="seccion">Datos de contacto:</div>
+
+            <div class="entrada">
+                <div class="etiqueta">Días de atención:</div>
+                <input type="checkbox" id="lunes" name="horario_atencion" value="Lunes">
+                <label for="lunes"> Lunes</label><br>
+                <input type="checkbox" id="martes" name="horario_atencion" value="Martes">
+                <label for="martes"> Martes</label><br>
+                <input type="checkbox" id="miercoles" name="horario_atencion" value="Miercoles">
+                <label for="miercoles"> Miércoles</label><br>
+                <input type="checkbox" id="jueves" name="horario_atencion" value="Jueves">
+                <label for="jueves"> Jueves</label><br>
+                <input type="checkbox" id="viernes" name="horario_atencion" value="Viernes">
+                <label for="viernes"> Viernes</label><br>
+                <input type="checkbox" id="sabado" name="horario_atencion" value="Sabado">
+                <label for="sabado"> Sábado</label><br>
+                <input type="checkbox" id="domingo" name="horario_atencion" value="Domingo">
+                <label for="domingo"> Domingo</label><br>
+            </div>
+
+            <div class="entrada">
+                <div class="etiqueta">Teléfono</div>
+                <input type="tel" id="telefono" name="telefono" pattern="[0-9]{9}" size="60">
+            </div>
+            <div class="entrada">
+                <div class="etiqueta">Correo <abbr title="Este campo es obligatorio">*</abbr></div>
+                <input type="email" id="email" name="email" size="60" required>
+            </div>
+            <div class="entrada">
+                <div class="etiqueta">Página web</div>
+                <input type="url" id="pagina_web" name="pagina_web" size="60">
+            </div>
+        </div> 
+        <div class="botonRegistro">
+            <button type="submit" class="registro">Registrar Datos</button>
+        </div>
+    </form>
+</div>
+
+</body>
+
+</html>

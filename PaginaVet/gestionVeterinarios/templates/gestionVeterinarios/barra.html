@@ -1,0 +1,67 @@
+<html>
+<head>
+    <style>
+        .barra {
+            background-color: #089c6b;
+            height: 120px;
+        }
+
+        .logo{
+            text-align: left;
+            float: left;
+            margin-left: 25px;
+            margin-top: 10px;
+        }
+
+        .button {
+            cursor: pointer;
+            border-radius: 10px;
+            padding: 15px 32px;
+            background-color: rgb(29, 187, 134);
+            border: none;
+            color: white;
+            font-size: 22px;
+            transition-duration: 0.4s;
+            width: 220px;
+            font-size: 25px;
+            font-weight: 60;
+            font-family:sans-serif;
+        }
+
+        .boton_barra{
+            float: right;
+            margin-right: 50px;
+            margin-top: 30px;
+        }
+
+        .button:hover {
+            background-color: #ffed80;
+            color: #089c6b;
+        }
+
+        
+
+    </style>
+</head>
+
+<body>
+    <div class="barra" >
+        <div class ="logo" >
+            {% load static %}
+            <a href="/">
+                <img src="{% static 'gestionVeterinarios/logo.png' %}" alt="Pet Care" height="100" width="290">
+            </a>
+        </div>
+        <div>
+            <a href="/ingresoVeterinarios">
+                <button class="button boton_barra" type="submit" name="informar">Registrarse</button>
+            </a>
+            <a href="/catalogoVeterinarios">   
+                <button class="button boton_barra" type="submit" name="listado">Veterinarios</button>
+            </a>    
+        </div>   
+    </div>
+
+
+</body>
+</html>
