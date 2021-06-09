@@ -81,11 +81,34 @@
                 margin-top: 30px;
             }
 
+            .container{
+                margin-left: 25%;
+                margin-top: 15px;
+            }
+
         </style>
     </head>
     <body>
  
     {% include  "gestionVeterinarios/barra.html" %}
+
+    <div class="container">
+        <div class="row">
+            <div class="search">
+                <form method="get">
+                    <div id="custom-search-input">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Buscar..." name="buscar">
+                            <span class="input-group-list">
+                                <i class="icon icon-search"></i>
+                                <button type="submit" class="botonperfil">Buscar</button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     {% load static %}
     <div class="mainbody">
 
