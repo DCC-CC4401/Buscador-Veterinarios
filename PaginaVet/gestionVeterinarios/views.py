@@ -4,21 +4,40 @@ import datetime
 from django.template import Template, Context
 from django.template.loader import get_template
 from django.db import connection
+from django.contrib.auth import authenticate, login,logout
 # Create your views here.
 from gestionVeterinarios.models import Veterinario, Reseña, User
 
 def index(request):
     return render(request, "gestionVeterinarios/index.html")
 
-def registroUsuario(request):
-    return render(request, "gestionVeterinarios/registroUsuario.html")
+def login_user(request):
+    if request.method == 'GET':
+        return render(request, "gestionVeterinarios/login.html")
+    if request.method == 'POST':
+        username = request.POST['username']
+        contraseña = request.POST['contraseña']
+        usuario = authenticate(username=username, password=contraseña)
 
+        if usuario is not None:
+            login(request,usuario)
+            return redirect(perfil, id_vet=usuario.veterinario.id)
+        else:
+            return HttpResponseRedirect('../ingresoVeterinarios')
+
+def logout_user(request):
+    logout(request)
+    return HttpResponseRedirect('/')
 
 def formVeterinario(request): #the index view
     if request.method == "GET":
         return render(request, "gestionVeterinarios/formVeterinario.html")
 
     elif request.method == "POST":
+        username = request.POST["username"]
+        email = request.POST["email"]
+        password = request.POST["password"]
+
         nombre = request.POST["nombre"]
         apellidos = request.POST["apellidos"]
         pronombre = request.POST["pronombre"]
@@ -45,20 +64,23 @@ def formVeterinario(request): #the index view
         else:
             telefono = request.POST["telefono"]
 
-        email = request.POST["email"]
         pagina_web = request.POST["pagina_web"]
 
         nuevo_veterinario = Veterinario(nombre=nombre, apellido=apellidos, pronombre=pronombre,
          descripcion = descripcion,foto=foto, nombre_consulta=nombre_consulta, region=region, comuna=comuna,
           especialidad=especialidad, animales=animales, visitas_a_domicilio=visitas_a_domicilio,urgencias=urgencias,
            horario_atencion=horario_atencion, telefono=telefono, email=email, pagina_web=pagina_web)
-        nuevo_veterinario.save()
 
+        nuevo_veterinario.save()
+        nuevo_user = User.objects.create_user(username=username, password=password, email=email, veterinario=nuevo_veterinario)
+        
         return redirect('/confirmacionRegistroVet')
 
 def confirmacionRegistroVet(request):
     if request.method == "GET":
         return render(request, "gestionVeterinarios/confirmacionRegistroVet.html")
+
+
 
 def formEvaluacion(request, id_vet):
     doctor=Veterinario.objects.get(id=id_vet)

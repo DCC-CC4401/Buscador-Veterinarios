@@ -89,6 +89,20 @@
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div>
+            <div class="seccion">Datos de Usuario:</div>
+            
+            <div class="etiqueta">Nombre de usuario <abbr title="Este campo es obligatorio">*</abbr></div>
+            <input type="text" id="username" name="username" size="60" maxlength="250" required>
+
+            <div class="entrada">
+                <div class="etiqueta">Correo <abbr title="Este campo es obligatorio">*</abbr></div>
+                <input type="email" id="email" name="email" size="60" required>
+            </div>
+            <div class="etiqueta">Contraseña <abbr title="Este campo es obligatorio">*</abbr></div>
+            <input type="text" id="password" name="password" size="60" maxlength="250" required>
+            <div class="etiqueta">Repetir Contraseña <abbr title="Este campo es obligatorio">*</abbr></div>
+            <input type="text" id="repeat_password" name="repeat_password" size="60" maxlength="250" required>
+
             <div class="seccion">Datos Personales:</div>
             
             <div class="entrada">
@@ -221,10 +235,6 @@
             <div class="entrada">
                 <div class="etiqueta">Teléfono</div>
                 <input type="tel" id="telefono" name="telefono" pattern="[0-9]{9}" size="60">
-            </div>
-            <div class="entrada">
-                <div class="etiqueta">Correo <abbr title="Este campo es obligatorio">*</abbr></div>
-                <input type="email" id="email" name="email" size="60" required>
             </div>
             <div class="entrada">
                 <div class="etiqueta">Página web</div>

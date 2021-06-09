@@ -4,11 +4,6 @@ from django.contrib.auth.models import AbstractUser
 
 # Aca va una clase por cada tabla de la Base de Datos
 
-# User de django 
-class User(AbstractUser):
-    # Ya viene con username, first_name, last_name, contraseña y email
-    region = models.CharField(max_length=80, blank=True, default="I")
-    comuna = models.CharField(max_length=80, blank=True, default="")
 # Datos de veterinarios
 class Veterinario(models.Model):
     pronombres_posibles = [('Dr.', 'Dr.'), ('Dra.','Dra.')]
@@ -48,4 +43,8 @@ class Reseña(models.Model):
     def __str__(self):
         return (self.nombre)
 
+# User de django 
+class User(AbstractUser):
+    # Ya viene con username, first_name, last_name, contraseña y email
+    veterinario = models.OneToOneField(Veterinario, on_delete=models.CASCADE, default=None, null=True, blank=True)
 
