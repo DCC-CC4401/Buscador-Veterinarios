@@ -124,9 +124,12 @@
                 text-align: center;
             }
 
-            .container{
-                margin-left: 25%;
-                margin-top: 15px;
+            input[type=text] {
+                width: 420px;
+                padding: 12px 20px;
+                margin-left: 30px;
+                margin-right: 20px;
+                box-sizing: border-box;
             }
 
         </style>
@@ -134,28 +137,10 @@
     <body>
  
     {% include  "gestionVeterinarios/barra.html" %}
-
-    <div class="container">
-        <div class="row">
-            <div class="search">
-                <form method="get">
-                    <div id="custom-search-input">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Buscar..." name="buscar">
-                            <span class="input-group-list">
-                                <i class="icon icon-search"></i>
-                                <button type="submit" class="botonperfil">Buscar</button>
-                            </span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     {% load static %}
 
     <div class="filtros">
-        <div class="titulo">Filtros</div>
+        <div class="titulo">Filtros de búsqueda</div>
         <form method="POST" enctype="multipart/form-data">
 
             <div class="field">Especie:</div>
@@ -219,7 +204,21 @@
     <div class="mainbody">
 
         <div class="caja" name="busqueda">
-            <div class="titulo">Barra de busqueda aqui</div>
+            <div class="row">
+                <div class="search">
+                    <form method="get">
+                        <div id="custom-search-input">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Buscar veterinario por nombre..." name="buscar">
+                                <span class="input-group-list">
+                                    <i class="icon icon-search"></i>
+                                    <button type="submit" class="botonperfil">Buscar</button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
         {% for doctor in doctores %}
