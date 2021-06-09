@@ -55,7 +55,13 @@
         <div>
 
             {% if user.is_authenticated %}
-            <a href="/logout">Cerrar sesión </a>
+            <a href="/logout">
+                <button class="button boton_barra" type="submit" name="informar">Cerrar sesión</button>
+            </a>
+            <a href="{% url 'perfil_vet' user.veterinario.id %}">
+                <button class="button boton_barra" type="submit" name="informar">Mi perfil</button>
+            </a>
+
             {% else %}
             <a href="/login">
                 <button class="button boton_barra" type="submit" name="informar">Iniciar sesión</button>
