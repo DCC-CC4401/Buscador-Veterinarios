@@ -17,5 +17,15 @@ function getRegion(tag, regiones) {
         });
 
     });
+}
 
+function check() {
+    var pass1= document.getElementById('password').value;
+    var pass2= document.getElementById('repeat_password').value;
+    if(pass1 == pass2) {
+        document.getElementById('confirm_password').value
+        document.getElementById('message').innerHTML = "match";
+    } else {
+        document.getElementById('message').innerHTML = "no match";
+    }
 }

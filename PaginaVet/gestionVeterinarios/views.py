@@ -37,6 +37,7 @@ def formVeterinario(request): #the index view
         username = request.POST["username"]
         email = request.POST["email"]
         password = request.POST["password"]
+        repeat_password = request.POST["repeat_password"]
 
         nombre = request.POST["nombre"]
         apellidos = request.POST["apellidos"]
@@ -66,15 +67,17 @@ def formVeterinario(request): #the index view
 
         pagina_web = request.POST["pagina_web"]
 
-        nuevo_veterinario = Veterinario(nombre=nombre, apellido=apellidos, pronombre=pronombre,
-         descripcion = descripcion,foto=foto, nombre_consulta=nombre_consulta, region=region, comuna=comuna,
-          especialidad=especialidad, animales=animales, visitas_a_domicilio=visitas_a_domicilio,urgencias=urgencias,
-           horario_atencion=horario_atencion, telefono=telefono, email=email, pagina_web=pagina_web)
+        if repeat_password == password:
+            nuevo_veterinario = Veterinario(nombre=nombre, apellido=apellidos, pronombre=pronombre,
+            descripcion = descripcion,foto=foto, nombre_consulta=nombre_consulta, region=region, comuna=comuna,
+            especialidad=especialidad, animales=animales, visitas_a_domicilio=visitas_a_domicilio,urgencias=urgencias,
+            horario_atencion=horario_atencion, telefono=telefono, email=email, pagina_web=pagina_web)
 
-        nuevo_veterinario.save()
-        nuevo_user = User.objects.create_user(username=username, password=password, email=email, veterinario=nuevo_veterinario)
-        
-        return redirect('/confirmacionRegistroVet')
+            nuevo_veterinario.save()
+            nuevo_user = User.objects.create_user(username=username, password=password, email=email, veterinario=nuevo_veterinario)
+            return redirect('/confirmacionRegistroVet')
+        else:
+            return redirect('/ingresoVeterinarios')
 
 def confirmacionRegistroVet(request):
     if request.method == "GET":
