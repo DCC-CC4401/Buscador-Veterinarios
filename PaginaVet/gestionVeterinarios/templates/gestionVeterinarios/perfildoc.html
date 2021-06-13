@@ -108,15 +108,15 @@
 
                     <div class="caja">
                         <div class='textbox'>
-                        {% if doctor.foto%}    
-                            <img src="{{ doctor.foto.url }}" width="180" height="180">
+                        {% if veterinario.foto%}    
+                            <img src="{{ veterinario.foto.url }}" width="180" height="180">
                         {% else %}
                             <img src="{% static 'gestionVeterinarios/imagen1.png' %}" width="180" height="180">
                         {% endif %}
                         </div>
                         <div class='textbox'>
-                            <div><b>{{doctor.pronombre}} {{doctor.nombre}} {{doctor.apellido}}</b></div>
-                            <i>{{doctor.nombre_consulta}}</i>
+                            <div><b>{{veterinario.pronombre}} {{veterinario.nombre}} {{veterinario.apellido}}</b></div>
+                            <i>{{veterinario.nombre_consulta}}</i>
                             {% for prom in prom_evaluacion %}
                             {% if prom.prom %}
                                 {% if prom.prom <= 1.5 %}
@@ -143,7 +143,7 @@
     
                     <div class="caja">
                         <div><b>Descripción:</b></div>
-                        <div>{{doctor.descripcion}}</div>
+                        <div>{{veterinario.descripcion}}</div>
                     </div>
 
                     <!-- Datos de Contacto -->
@@ -151,10 +151,10 @@
                     <div class="caja">
                         <div><b>Datos de Contacto:</b></div>
                         <div>Región: {{region}}</div>
-                        <div>Comuna: {{doctor.comuna}}</div>
-                        <div>Teléfono: {{doctor.telefono}}</div>
-                        <div>Correo: {{doctor.email}}</div>
-                        <div>Sitio Web: {{doctor.pagina_web}}</div>
+                        <div>Comuna: {{veterinario.comuna}}</div>
+                        <div>Teléfono: {{veterinario.telefono}}</div>
+                        <div>Correo: {{veterinario.email}}</div>
+                        <div>Sitio Web: {{veterinario.pagina_web}}</div>
                     </div>  
     
                 </div>
@@ -165,13 +165,13 @@
     
                     <div class="caja">
                         <div><b>Servicios</b></div>
-                            {% if doctor.urgencias %}
+                            {% if veterinario.urgencias %}
                                 <div>&#x2611; Atiende urgencias</div>
                             {% else %}
                                 <div>&#x2610; No atiende urgencias</div>
                             {% endif %}
 
-                            {% if doctor.visitas_a_domicilio %}
+                            {% if veterinario.visitas_a_domicilio %}
                                 <div>&#x2611; Realiza visitas a domicilio</div>
                             {% else %}
                                 <div>&#x2610; No realiza visitas a domicilio</div>
@@ -202,7 +202,7 @@
         
                         <div class="caja bottombox">
                             <div><b>Especialización:</b></div>
-                            <div>{{doctor.especialidad}}</div>
+                            <div>{{veterinario.especialidad}}</div>
                         </div>
         
                     </div>
@@ -252,7 +252,7 @@
 
                 <div class="textbox">
                     <div>
-                        <a href="{% url 'eval_vet' doctor.id %}"><button class="review_button">Dejar una reseña</button></a>
+                        <a href="{% url 'eval_vet' veterinario.id %}"><button class="review_button">Dejar una reseña</button></a>
                     </a>
                 </div>
 

@@ -1,12 +1,12 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect
-from django.http import HttpResponse
+from django.shortcuts import render, redirect, HttpResponseRedirect # type: ignore
+from django.http import HttpResponse # type: ignore
 import datetime
-from django.template import Template, Context
-from django.template.loader import get_template
-from django.db import connection
-from django.contrib.auth import authenticate, login,logout
+from django.template import Template, Context # type: ignore
+from django.template.loader import get_template # type: ignore
+from django.db import connection # type: ignore
+from django.contrib.auth import authenticate, login,logout # type: ignore
 # Create your views here.
-from gestionVeterinarios.models import Veterinario, Reseña, User
+from gestionVeterinarios.models import Veterinario, Reseña, User # type: ignore
 
 def index(request):
     return render(request, "gestionVeterinarios/index.html")
@@ -86,9 +86,9 @@ def confirmacionRegistroVet(request):
 
 
 def formEvaluacion(request, id_vet):
-    doctor=Veterinario.objects.get(id=id_vet)
+    veterinario=Veterinario.objects.get(id=id_vet)
     if request.method == "GET":
-        return render(request, "gestionVeterinarios/formevaluacion.html", {"doctor":doctor})
+        return render(request, "gestionVeterinarios/formevaluacion.html", {"veterinario":veterinario})
     elif request.method == "POST":
         nombre=request.POST["nombre"]
         if request.POST["estrellas"] == "5":
@@ -109,7 +109,7 @@ def formEvaluacion(request, id_vet):
 
         comentario=request.POST["comentario"]
 
-        nueva_resena = Reseña(id_veterinario=doctor, nombre=nombre, evaluacion=estrellas, problema_resuelto=problema_resuelto, razon_consulta=razon_consulta,comentario=comentario)
+        nueva_resena = Reseña(id_veterinario=veterinario, nombre=nombre, evaluacion=estrellas, problema_resuelto=problema_resuelto, razon_consulta=razon_consulta,comentario=comentario)
         nueva_resena.save()
 
         return redirect("/confirmacionEvaluacion")
@@ -139,13 +139,13 @@ reg = {
 
 def catalogoVeterinarios(request):
     if request.method == "GET":
-        doctores = Veterinario.objects.raw('''
+        veterinarios = Veterinario.objects.raw('''
         SELECT v.id, v.nombre, v.apellido, v.region, v.comuna, v.urgencias, v.visitas_a_domicilio, AVG(r.evaluacion) as prom_evaluacion
         FROM gestionVeterinarios_veterinario v, gestionVeterinarios_reseña r
         WHERE v.id = r.id_veterinario_id
         GROUP BY v.id
         ''')
-        doctores_sin_eval = Veterinario.objects.raw('''
+        veterinarios_sin_eval = Veterinario.objects.raw('''
         SELECT v.id, v.nombre, v.apellido, v.region, v.comuna, v.urgencias, v.visitas_a_domicilio
         FROM gestionVeterinarios_veterinario v
         WHERE v.id NOT in 
@@ -153,16 +153,16 @@ def catalogoVeterinarios(request):
         FROM gestionVeterinarios_reseña r)
         ''')
 
-        return render(request, "gestionVeterinarios/catalogodoc.html", {"doctores":doctores, "doctores_sin_eval": doctores_sin_eval, "reg":reg})
+        return render(request, "gestionVeterinarios/catalogodoc.html", {"veterinarios":veterinarios, "veterinarios_sin_eval": veterinarios_sin_eval, "reg":reg})
 
 def perfil(request, id_vet):
 
     if request.method == "GET":
-        doctor=Veterinario.objects.get(id=id_vet)
-        region = reg[doctor.region]
-        horario = doctor.horario_atencion
+        veterinario=Veterinario.objects.get(id=id_vet)
+        region = reg[veterinario.region]
+        horario = veterinario.horario_atencion
         dias = horario.split(' ')
-        stringAnimales = doctor.animales
+        stringAnimales = veterinario.animales
         animales = stringAnimales.split(' ')
         evaluaciones = Reseña.objects.filter(id_veterinario_id=id_vet)
         prom_evaluacion = Reseña.objects.raw('''
@@ -170,4 +170,4 @@ def perfil(request, id_vet):
         FROM gestionVeterinarios_reseña
         WHERE id_veterinario_id = %s
         ''' % id_vet)
-        return render(request, "gestionVeterinarios/perfildoc.html", {"doctor":doctor, "evaluaciones":evaluaciones, "prom_evaluacion": prom_evaluacion, "dias": dias, "animales":animales, "region":region})
+        return render(request, "gestionVeterinarios/perfildoc.html", {"veterinario":veterinario, "evaluaciones":evaluaciones, "prom_evaluacion": prom_evaluacion, "dias": dias, "animales":animales, "region":region})

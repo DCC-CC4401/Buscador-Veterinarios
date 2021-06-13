@@ -221,50 +221,50 @@
             </div>
         </div>
 
-        {% for doctor in doctores %}
+        {% for veterinario in veterinarios %}
 
         <div class="caja" name="item">
     
             <div class="textbox" name="foto">
                 
-                {% if doctor.foto%}    
-                    <img src="{{ doctor.foto.url }}" width="150" height="150">
+                {% if veterinario.foto%}    
+                    <img src="{{ veterinario.foto.url }}" width="150" height="150">
                 {% else %}
                     <img src="{% static 'gestionVeterinarios/imagen1.png' %}" width="150" height="150">
                 {% endif %}
             </div>
     
             <div class="textbox" name="datos">
-                <div><b>{{doctor.pronombre}} {{doctor.nombre}} {{doctor.apellido}}</b></div>
-                <div>{{doctor.region}} región, {{doctor.comuna}}</div>
-                <div><i>{{doctor.nombre_consulta}}</i></div>
+                <div><b>{{veterinario.pronombre}} {{veterinario.nombre}} {{veterinario.apellido}}</b></div>
+                <div>{{veterinario.region}} región, {{veterinario.comuna}}</div>
+                <div><i>{{veterinario.nombre_consulta}}</i></div>
                 <div class="evaluacion">
-                        {% if doctor.prom_evaluacion <= 1.5 %}
+                        {% if veterinario.prom_evaluacion <= 1.5 %}
                         <div class="estrellas">&#9733;&#9734;&#9734;&#9734;&#9734;</div>
-                        {% elif doctor.prom_evaluacion <= 2.5 %}
+                        {% elif veterinario.prom_evaluacion <= 2.5 %}
                         <div class="estrellas">&#9733;&#9733;&#9734;&#9734;&#9734;</div>
-                        {% elif doctor.prom_evaluacion <= 3.5 %}
+                        {% elif veterinario.prom_evaluacion <= 3.5 %}
                         <div class="estrellas">&#9733;&#9733;&#9733;&#9734;&#9734;</div>
-                        {% elif doctor.prom_evaluacion <= 4.5 %}
+                        {% elif veterinario.prom_evaluacion <= 4.5 %}
                         <div class="estrellas">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
                         {% else %}
                         <div class="estrellas">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                         {% endif %}
                 </div>
                 <div>
-                    <a href="{% url 'perfil_vet' doctor.id %}"><button class="botonperfil">Ver perfil</button></a>
+                    <a href="{% url 'perfil_vet' veterinario.id %}"><button class="botonperfil">Ver perfil</button></a>
                 </div>     
             </div>
     
             <div class="textbox2" name="servicios">
                 <div class="minicaja">
                     <div><b>Servicios</b></div>
-                {% if doctor.urgencias %}
+                {% if veterinario.urgencias %}
                     <div>&#x2611; Atiende urgencias</div>
                 {% else %}
                     <div>&#x2610; No atiende urgencias</div>
                 {% endif %}
-                {% if doctor.visitas_a_domicilio %}
+                {% if veterinario.visitas_a_domicilio %}
                     <div>&#x2611; Realiza visitas a domicilio</div>
                 {% else %}
                     <div>&#x2610; No realiza visitas a domicilio</div>
@@ -276,39 +276,39 @@
     
         {% endfor %}
 
-        {% for doctor in doctores_sin_eval %}
+        {% for veterinario in veterinarios_sin_eval %}
 
         <div class="caja" name="item">
     
             <div class="textbox" name="foto">   
-                {% if doctor.foto%}    
-                    <img src="{{ doctor.foto.url }}" width="150" height="150">
+                {% if veterinario.foto%}    
+                    <img src="{{ veterinario.foto.url }}" width="150" height="150">
                 {% else %}
                     <img src="{% static 'gestionVeterinarios/imagen1.png' %}" width="150" height="150">
                 {% endif %}
             </div>
     
             <div class="textbox" name="datos">
-                <div><b>{{doctor.pronombre}} {{doctor.nombre}} {{doctor.apellido}}</b></div>
-                <div>{{doctor.region}} región, {{doctor.comuna}}</div>
-                <div><i>{{doctor.nombre_consulta}}</i></div>
+                <div><b>{{veterinario.pronombre}} {{veterinario.nombre}} {{veterinario.apellido}}</b></div>
+                <div>{{veterinario.region}} región, {{veterinario.comuna}}</div>
+                <div><i>{{veterinario.nombre_consulta}}</i></div>
                 <div class="evaluacion">
-                    <p>Este doctor no tiene evaluaciones</p>
+                    <p>Este veterinario no tiene evaluaciones</p>
                 </div>
                 <div>
-                    <a href="{% url 'perfil_vet' doctor.id %}"><button class="botonperfil">Ver perfil</button></a>
+                    <a href="{% url 'perfil_vet' veterinario.id %}"><button class="botonperfil">Ver perfil</button></a>
                 </div>     
             </div>
     
             <div class="textbox2" name="servicios">
                 <div class="minicaja">
                 <div><b>Servicios</b></div>
-                {% if doctor.urgencias %}
+                {% if veterinario.urgencias %}
                     <div>&#x2611; Atiende urgencias</div>
                 {% else %}
                     <div>&#x2610; No atiende urgencias</div>
                 {% endif %}
-                {% if doctor.visitas_a_domicilio %}
+                {% if veterinario.visitas_a_domicilio %}
                     <div>&#x2611; Realiza visitas a domicilio</div>
                 {% else %}
                     <div>&#x2610; No realiza visitas a domicilio</div>

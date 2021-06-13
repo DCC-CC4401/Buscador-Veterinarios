@@ -1,5 +1,5 @@
-from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.db import models # type: ignore
+from django.contrib.auth.models import AbstractUser # type: ignore
 #from django.contrib.postgres.fields import ArrayField
 
 # Aca va una clase por cada tabla de la Base de Datos
