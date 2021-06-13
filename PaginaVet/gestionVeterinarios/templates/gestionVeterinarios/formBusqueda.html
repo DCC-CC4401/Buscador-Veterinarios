@@ -1,0 +1,192 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {% load static %}
+    <script>
+        let regiones = "{% static 'gestionVeterinarios/regiones.json' %}"
+    </script>
+    <script src="{% static 'gestionVeterinarios/functions.js' %}"></script>
+    
+    <title>PetCare</title>
+
+    <style>
+        .caja{
+            background-color: #089c6b;
+            border-radius: 15px;
+            margin-left: 25%;
+            margin-right: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-right: 30px;
+            padding-left: 30px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            color: white;
+            font-family: sans-serif;
+            font-size: 14;
+            width: 50%;
+        }
+
+        .filtros{
+            margin: 30px auto;
+            width: 300px;
+            background-color: #089c6b;
+            border-radius: 15px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            padding-right: 15px;
+            padding-left: 15px;
+            color: white;
+            font-family: sans-serif;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .seccion{
+            font-family: sans-serif;
+            font-size: 26;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .etiqueta{
+            font-family: sans-serif;
+            font-size: 18;
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+
+        .registro{
+            cursor: pointer;
+            border-radius: 10px;
+            padding: 15px 20px;
+            background-color: rgb(29, 187, 134);
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            border: none;
+            color: white;
+            font-size: 16px;
+            transition-duration: 0.4s;
+            width: 150px;
+            font-size: 18;
+            font-weight: 60;
+            font-family: sans-serif;
+            display: inline;
+            margin-top: 15px;
+        }
+
+        .registro:hover {
+            background-color: #ffed80;
+            color: #089c6b;
+        }
+
+        .botonRegistro{
+            text-align: center;
+        }
+
+        .entrada{
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .botonperfil{
+            cursor: pointer;
+            border-radius: 10px;
+            padding: 15px 20px;
+            background-color: rgb(29, 187, 134);
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            border: none;
+            color: white;
+            font-size: 16px;
+            transition-duration: 0.4s;
+            width: 150px;
+            font-size: 18px;
+            font-weight: 60;
+            font-family: sans-serif;
+            display: inline;
+        }
+
+        .botonperfil:hover {
+            background-color: #ffed80;
+            color: #089c6b;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    {% include  "gestionVeterinarios/barra.html" %}
+
+    <div class="filtros">
+        <div class="titulo">Filtros de búsqueda</div>
+        <form method="get" enctype="multipart/form-data">
+
+            <div class="field">¿De qué especie es tu mascota?</div>
+            <select name="especie">
+                <option value="domestico">Doméstico</option>
+                <option value="ganado">Ganado</option>
+                <option value="equino">Equino</option>
+                <option value="exotico">Exótico</option>
+            </select>
+
+            <div class="field">¿Buscas algún tipo de atención en específico?</div>
+            <select name="especialidad">
+                <option value="help">Ayuda uwu</option>
+                <option value="idk">q pongo aca</option>
+            </select>
+
+            <div class="field">¿Dónde quieres ser atendido?</div>
+            <select id="region" name="region" onchange="getRegion(this, regiones)" required>
+                <option selected="" disabled="disabled">Seleccione una región</option>
+                <option value="XV">Arica y Parinacota</option>
+                <option value="I">Tarapacá</option>
+                <option value="II">Antofagasta</option>
+                <option value="III">Atacama</option>
+                <option value="IV">Coquimbo</option>
+                <option value="V">Valparaíso</option>
+                <option value="RM">Metropolitana de Santiago</option>
+                <option value="VI">Libertador Gral. Bernardo O’Higgins</option>
+                <option value="VII">Maule</option>
+                <option value="XVI">Ñuble</option>
+                <option value="VIII">Biobío</option>
+                <option value="IX">Araucanía</option>
+                <option value="XIV">Los Ríos</option>
+                <option value="X">Los Lagos</option>
+                <option value="XI">Aisén del Gral. Carlos Ibáñez del Campo</option>
+                <option value="XII">Magallanes y de la Antártica Chilena</option>
+            </select>
+
+            <div class="field">Comuna:</div>
+            <select id="comuna" name="comuna" required>
+                <option value="" selected="selected" disabled = "disabled">Seleccione una comuna</option>
+            </select>
+
+            <div class="field">¿Buscas servicios adicionales?</div>
+            <div>
+                <input type="checkbox" id="domicilio" name="domicilio" value="si">
+                <label for="domicilio">Atencion a domicilio </label>
+            </div>
+            <div>
+                <input type="checkbox" id="urgencia" name="urgencia" value="si">
+                <label for="urgencia"> Atención de urgencia</label>
+            </div>
+
+            <div class="aplicar">
+                <a href="/catalogodoc">
+                    <button type="submit" class="botonperfil">Aplicar filtros</button>
+                </a>
+            </div>
+            
+        </form>
+    </div>
+
+</body>
+
+</html>

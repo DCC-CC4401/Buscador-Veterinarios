@@ -84,8 +84,6 @@ def confirmacionRegistroVet(request):
     if request.method == "GET":
         return render(request, "gestionVeterinarios/confirmacionRegistroVet.html")
 
-
-
 def formEvaluacion(request, id_vet):
     veterinario=Veterinario.objects.get(id=id_vet)
     if request.method == "GET":
@@ -197,3 +195,6 @@ def perfil(request, id_vet):
         WHERE id_veterinario_id = %s
         ''' % id_vet)
         return render(request, "gestionVeterinarios/perfildoc.html", {"veterinario":veterinario, "evaluaciones":evaluaciones, "prom_evaluacion": prom_evaluacion, "dias": dias, "animales":animales, "region":region})
+
+def formBusqueda(request):
+    return render(request, "gestionVeterinarios/formBusqueda.html")

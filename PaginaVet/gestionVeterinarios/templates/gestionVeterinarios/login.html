@@ -1,27 +1,40 @@
 <!DOCTYPE html>
-     <html lang="en">
-     <head>
-         <meta charset="UTF-8">
-         <title>Login</title>
-     </head>
-     <body>
-        {% include  "gestionVeterinarios/barra.html" %}
-         <div class="container">
-             <div class="content">
-                 <h1> Iniciar Sesión </h1>
-                 <form method="post" >
-                     {% csrf_token %}
-                     <div class="form-group">
-                         <label for="nombre_usuario">Nombre</label>
-                         <input type="text" class="form-control" id=nombre_usuario name="username" required>
-                     </div>
-                     <div class="form-group">
-                         <label for="contraseña">Contraseña</label>
-                         <input type="password" class="form-control" id="contraseña" name="contraseña" required>
-                     </div>
-                     <button type="submit">Entrar</button>
-                 </form>
-             </div>
-         </div>
-     </body>
-     </html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+    .container{
+        align-items: center;
+        background-color: #089c6b;
+        width: 36%;
+        margin-left: 32%;
+        padding-bottom: 20px;
+        margin-top: 50px;
+        border-radius: 15px;
+    }
+
+    </style>
+</head>
+
+<body>
+{% include  "gestionVeterinarios/barra.html" %}
+    <div class="container">
+        <div class="content">
+            <h1> Iniciar Sesión </h1>
+            <form method="post" >
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="nombre_usuario">Nombre</label>
+                    <input type="text" class="form-control" id=nombre_usuario name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="contraseña">Contraseña</label>
+                    <input type="password" class="form-control" id="contraseña" name="contraseña" required>
+                </div>
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
