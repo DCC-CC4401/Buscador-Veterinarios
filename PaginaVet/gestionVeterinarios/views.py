@@ -158,19 +158,25 @@ def catalogoVeterinarios(request):
         print(busqueda)
         if busqueda:
             veterinarios = Veterinario.objects.raw('''
-            SELECT v.id, v.nombre, v.apellido, v.region, v.comuna, v.urgencias, v.visitas_a_domicilio, AVG(r.evaluacion) as prom_evaluacion
+            SELECT id, Q.nombre, Q.apellido, Q.region, Q.comuna, Q.urgencias, Q.visitas_a_domicilio, Q.prom_evaluacion
+            FROM (
+            SELECT v.id, v.nombre, v.apellido, v.region, v.comuna, v.urgencias, v.visitas_a_domicilio, AVG(r.evaluacion) as prom_evaluacion,
+            v.nombre || ' ' || v.apellido as nc
             FROM gestionVeterinarios_veterinario v, gestionVeterinarios_reseña r
             WHERE v.id = r.id_veterinario_id
-            AND v.nombre LIKE "%'''+ busqueda +'''%"
-            GROUP BY v.id
+            GROUP BY v.id) as Q
+            WHERE Q.nc LIKE "%'''+ busqueda +'''%"
             ''')
             veterinarios_sin_eval = Veterinario.objects.raw('''
-            SELECT v.id, v.nombre, v.apellido, v.region, v.comuna, v.urgencias, v.visitas_a_domicilio
+            SELECT id, Q.nombre, Q.apellido, Q.region, Q.comuna, Q.urgencias, Q.visitas_a_domicilio
+            FROM (
+            SELECT v.id, v.nombre, v.apellido, v.region, v.comuna, v.urgencias, v.visitas_a_domicilio, 
+            v.nombre || ' ' || v.apellido AS nc
             FROM gestionVeterinarios_veterinario v
             WHERE v.id NOT in 
             (SELECT r.id_veterinario_id
-            FROM gestionVeterinarios_reseña r)
-            AND v.nombre LIKE "%'''+ busqueda +'''%"
+            FROM gestionVeterinarios_reseña r)) as Q
+            WHERE Q.nc LIKE "%'''+ busqueda +'''%"
             ''')
 
         return render(request, "gestionVeterinarios/catalogodoc.html", {"veterinarios":veterinarios, "veterinarios_sin_eval": veterinarios_sin_eval, "reg":reg})
