@@ -145,20 +145,23 @@
 
             <div class="field">Especie:</div>
             <select name="especie">
-                <option value="domestico">Doméstico</option>
+                <option selected="" disabled="disabled">--</option>
+                <option value="domesticos">Doméstico</option>
                 <option value="ganado">Ganado</option>
-                <option value="equino">Equino</option>
-                <option value="exotico">Exótico</option>
+                <option value="equinos">Equinos</option>
+                <option value="exoticos">Exóticos</option>
             </select>
 
+            <!-- Hay que especificar esto bien en formVeterinario para poder implementarlo -->
             <div class="field">Especialidad:</div>
             <select name="especialidad">
+                <option selected="" disabled="disabled">--</option>
                 <option value="help">Ayuda uwu</option>
                 <option value="idk">q pongo aca</option>
             </select>
 
             <div class="field">Región:</div>
-            <select id="region" name="region" onchange="getRegion(this, regiones)" required>
+            <select id="region" name="region" onchange="getRegion(this, regiones)">
                 <option selected="" disabled="disabled">Seleccione una región</option>
                 <option value="XV">Arica y Parinacota</option>
                 <option value="I">Tarapacá</option>
@@ -179,7 +182,7 @@
             </select>
 
             <div class="field">Comuna:</div>
-            <select id="comuna" name="comuna" required>
+            <select id="comuna" name="comuna">
                 <option value="" selected="selected" disabled = "disabled">Seleccione una comuna</option>
             </select>
 

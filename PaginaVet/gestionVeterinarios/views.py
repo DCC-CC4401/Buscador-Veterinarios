@@ -152,6 +152,23 @@ def catalogoVeterinarios(request):
         FROM gestionVeterinarios_reseña r)
         ''')
 
+        especie = request.GET.get("especie")
+        especialidad = request.GET.get("especialidad")
+        region = request.GET.get("region")
+        comuna = request.GET.get("comuna")
+        domicilio = request.GET.get("domicilio")
+        urgencia = request.GET.get("urgencia")
+
+        print(especie)
+        print(especialidad)
+        print(region)
+        print(comuna)
+        print(domicilio)
+        print(urgencia)
+
+        if especie or especialidad or region or comuna or domicilio or urgencia:
+            print("filtros")
+
         busqueda = request.GET.get("buscar")
         print(busqueda)
         if busqueda:
