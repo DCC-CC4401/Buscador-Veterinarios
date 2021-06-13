@@ -5,6 +5,7 @@ from django.template import Template, Context # type: ignore
 from django.template.loader import get_template # type: ignore
 from django.db import connection # type: ignore
 from django.contrib.auth import authenticate, login,logout # type: ignore
+from django.db.models import Q # type: ignore
 # Create your views here.
 from gestionVeterinarios.models import Veterinario, Reseña, User # type: ignore
 
@@ -152,6 +153,26 @@ def catalogoVeterinarios(request):
         (SELECT r.id_veterinario_id
         FROM gestionVeterinarios_reseña r)
         ''')
+
+        busqueda = request.GET.get("buscar")
+        print(busqueda)
+        if busqueda:
+            veterinarios = Veterinario.objects.raw('''
+            SELECT v.id, v.nombre, v.apellido, v.region, v.comuna, v.urgencias, v.visitas_a_domicilio, AVG(r.evaluacion) as prom_evaluacion
+            FROM gestionVeterinarios_veterinario v, gestionVeterinarios_reseña r
+            WHERE v.id = r.id_veterinario_id
+            AND v.nombre LIKE '%s'
+            GROUP BY v.id
+            ''' % busqueda)
+            veterinarios_sin_eval = Veterinario.objects.raw('''
+            SELECT v.id, v.nombre, v.apellido, v.region, v.comuna, v.urgencias, v.visitas_a_domicilio
+            FROM gestionVeterinarios_veterinario v
+            WHERE v.id NOT in 
+            (SELECT r.id_veterinario_id
+            FROM gestionVeterinarios_reseña r)
+            AND v.nombre LIKE '%s'
+            ''' % busqueda)
+
 
         return render(request, "gestionVeterinarios/catalogodoc.html", {"veterinarios":veterinarios, "veterinarios_sin_eval": veterinarios_sin_eval, "reg":reg})
 
