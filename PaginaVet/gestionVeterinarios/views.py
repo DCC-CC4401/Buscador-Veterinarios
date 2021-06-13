@@ -173,7 +173,6 @@ def catalogoVeterinarios(request):
             AND v.nombre LIKE "%'''+ busqueda +'''%"
             ''')
 
-
         return render(request, "gestionVeterinarios/catalogodoc.html", {"veterinarios":veterinarios, "veterinarios_sin_eval": veterinarios_sin_eval, "reg":reg})
 
 def perfil(request, id_vet):

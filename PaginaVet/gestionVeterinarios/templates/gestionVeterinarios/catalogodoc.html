@@ -141,10 +141,10 @@
 
     <div class="filtros">
         <div class="titulo">Filtros de búsqueda</div>
-        <form method="POST" enctype="multipart/form-data">
+        <form method="get" enctype="multipart/form-data">
 
             <div class="field">Especie:</div>
-            <select>
+            <select name="especie">
                 <option value="domestico">Doméstico</option>
                 <option value="ganado">Ganado</option>
                 <option value="equino">Equino</option>
@@ -152,7 +152,7 @@
             </select>
 
             <div class="field">Especialidad:</div>
-            <select>
+            <select name="especialidad">
                 <option value="help">Ayuda uwu</option>
                 <option value="idk">q pongo aca</option>
             </select>
