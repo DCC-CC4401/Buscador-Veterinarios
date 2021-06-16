@@ -252,7 +252,38 @@ def editarPerfil(request, id_vet):
         WHERE id_veterinario_id = %s
         ''' % id_vet)
         return render(request, "gestionVeterinarios/editarPerfil.html", {"veterinario":veterinario, "evaluaciones":evaluaciones, "prom_evaluacion": prom_evaluacion, "dias": dias, "animales":animales, "region":region})
+    
+    elif request.method == "POST":
+        nombre = request.POST["nombre"]
+        apellidos = request.POST["apellidos"]
+        pronombre = request.POST["pronombre"]
+        descripcion = request.POST["descripcion"]
+        foto = request.FILES.get("foto")
+        nombre_consulta= request.POST["nombre_consulta"]
+        region = request.POST["region"]
+        comuna = request.POST["comuna"]
+        especialidad = request.POST["especialidad"]
+        animales_lista = request.POST.getlist("animales")
+        animales = ' '.join(animales_lista)
+        if request.POST["visitas_a_domicilio"] == "si":
+            visitas_a_domicilio = True
+        else:
+            visitas_a_domicilio = False
+        if request.POST["urgencias"] == "si":
+            urgencias = True
+        else:
+            urgencias = False
+        horario_atencion_lista = request.POST.getlist("horario_atencion")
+        horario_atencion = ' '.join(horario_atencion_lista)
+        if request.POST["telefono"]=="":
+            telefono=None
+        else:
+            telefono = request.POST["telefono"]
 
+        pagina_web = request.POST["pagina_web"]
+
+        
+        return redirect('/confirmacionRegistroVet')
 
 def formBusqueda(request):
     return render(request, "gestionVeterinarios/formBusqueda.html")

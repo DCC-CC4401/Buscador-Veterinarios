@@ -1,6 +1,5 @@
 from django.urls import path # type: ignore
 from . import views
-
 urlpatterns = [
   path('ingresoVeterinarios', views.formVeterinario),
   path('confirmacionRegistroVet/', views.confirmacionRegistroVet),
@@ -12,5 +11,5 @@ urlpatterns = [
   path('logout/', views.logout_user),
   path('', views.index),
   path('formBusqueda/', views.formBusqueda),
-  path('editarVeterinarios/<id_vet>/', views.editarPerfil, name="edit_vet"),
-]     
+  path('editarperfil/<id_vet>', views.editarPerfil, name="edit_vet"),
+]       
