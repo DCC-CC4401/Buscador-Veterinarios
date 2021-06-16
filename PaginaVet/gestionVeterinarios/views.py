@@ -236,5 +236,23 @@ def perfil(request, id_vet):
         ''' % id_vet)
         return render(request, "gestionVeterinarios/perfildoc.html", {"veterinario":veterinario, "evaluaciones":evaluaciones, "prom_evaluacion": prom_evaluacion, "dias": dias, "animales":animales, "region":region})
 
+def editarPerfil(request, id_vet):
+
+    if request.method == "GET":
+        veterinario=Veterinario.objects.get(id=id_vet)
+        region = reg[veterinario.region]
+        horario = veterinario.horario_atencion
+        dias = horario.split(' ')
+        stringAnimales = veterinario.animales
+        animales = stringAnimales.split(' ')
+        evaluaciones = Reseña.objects.filter(id_veterinario_id=id_vet)
+        prom_evaluacion = Reseña.objects.raw('''
+        SELECT id, AVG(evaluacion) as prom
+        FROM gestionVeterinarios_reseña
+        WHERE id_veterinario_id = %s
+        ''' % id_vet)
+        return render(request, "gestionVeterinarios/editarPerfil.html", {"veterinario":veterinario, "evaluaciones":evaluaciones, "prom_evaluacion": prom_evaluacion, "dias": dias, "animales":animales, "region":region})
+
+
 def formBusqueda(request):
     return render(request, "gestionVeterinarios/formBusqueda.html")

@@ -12,4 +12,5 @@ urlpatterns = [
   path('logout/', views.logout_user),
   path('', views.index),
   path('formBusqueda/', views.formBusqueda),
+  path('editarVeterinarios/<id_vet>/', views.formEvaluacion, name="edit_vet"),
 ]     

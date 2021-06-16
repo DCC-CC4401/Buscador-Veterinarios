@@ -78,7 +78,30 @@
                 display: inline;
             }
 
+            
             .review_button:hover {
+                background-color: #ffed80;
+                color: #089c6b;
+            }
+
+            .edit_button{
+                cursor: pointer;
+                border-radius: 10px;
+                padding: 15px 20px;
+                background-color: rgb(29, 187, 134);
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+                border: none;
+                color: white;
+                font-size: 16px;
+                transition-duration: 0.4s;
+                width: 200px;
+                font-size: 18;
+                font-weight: 60;
+                font-family: sans-serif;
+                display: inline;
+            }
+
+            .edit_button:hover {
                 background-color: #ffed80;
                 color: #089c6b;
             }
@@ -253,6 +276,8 @@
                 <div class="textbox">
                     <div>
                         <a href="{% url 'eval_vet' veterinario.id %}"><button class="review_button">Dejar una reseña</button></a>
+                    </a>
+                        <a href="{% url 'edit_vet' veterinario.id %}"><button class="edit_button">Editar tus datos</button></a>
                     </a>
                 </div>
 
