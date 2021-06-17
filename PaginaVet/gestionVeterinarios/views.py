@@ -49,9 +49,9 @@ def formVeterinario(request): #the index view
         region = request.POST["region"]
         comuna = request.POST["comuna"]
         especialidad_lista = request.POST.getlist("especialidad")
-        especialidad = ' '.join(especialidad_lista)
+        especialidad = ';'.join(especialidad_lista)
         animales_lista = request.POST.getlist("animales")
-        animales = ' '.join(animales_lista)
+        animales = ';'.join(animales_lista)
         if request.POST["visitas_a_domicilio"] == "si":
             visitas_a_domicilio = True
         else:
@@ -61,7 +61,7 @@ def formVeterinario(request): #the index view
         else:
             urgencias = False
         horario_atencion_lista = request.POST.getlist("horario_atencion")
-        horario_atencion = ' '.join(horario_atencion_lista)
+        horario_atencion = ';'.join(horario_atencion_lista)
         if request.POST["telefono"]=="":
             telefono=None
         else:
@@ -226,11 +226,11 @@ def perfil(request, id_vet):
         veterinario=Veterinario.objects.get(id=id_vet)
         region = reg[veterinario.region]
         horario = veterinario.horario_atencion
-        dias = horario.split(' ')
+        dias = horario.split(';')
         stringAnimales = veterinario.animales
-        animales = stringAnimales.split(' ')
+        animales = stringAnimales.split(';')
         stringEspecialidades = veterinario.especialidad
-        especialidades = stringEspecialidades.split(' ')
+        especialidades = stringEspecialidades.split(';')
         evaluaciones = Reseña.objects.filter(id_veterinario_id=id_vet)
         prom_evaluacion = Reseña.objects.raw('''
         SELECT id, AVG(evaluacion) as prom
