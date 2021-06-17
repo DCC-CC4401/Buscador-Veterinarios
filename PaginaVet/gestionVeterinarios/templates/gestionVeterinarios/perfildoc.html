@@ -225,7 +225,9 @@
         
                         <div class="caja bottombox">
                             <div><b>Especialización:</b></div>
-                            <div>{{veterinario.especialidad}}</div>
+                            {% for especialidad in especialidades %}
+                            <div>&#9679; {{especialidad}}</div>
+                            {% endfor %}
                         </div>
         
                     </div>

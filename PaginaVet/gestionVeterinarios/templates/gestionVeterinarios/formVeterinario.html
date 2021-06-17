@@ -100,10 +100,10 @@
             </div>
             
             <div class="etiqueta" >Contraseña <abbr title="Este campo es obligatorio">*</abbr></div>
-            <input type="password" id="password" name="password" size="60" maxlength="250" required>
+            <input type="password" id="password" name="password" size="60" maxlength="250" required onkeyup="check()">
 
             <div class="etiqueta" >Repetir Contraseña <abbr title="Este campo es obligatorio">*</abbr></div>
-            <input type="password" id="repeat_password" name="repeat_password" size="60" maxlength="250" required>
+            <input type="password" id="repeat_password" name="repeat_password" size="60" maxlength="250" required onkeyup="check()">
             <div id="message"></div>
             <div class="seccion">Datos Personales:</div>
             
@@ -178,7 +178,17 @@
 
             <div class="entrada">                
                 <div class="etiqueta">Especialidad Médica: <abbr title="Este campo es obligatorio">*</abbr></div>
-                <input type="text" id="especialidad" name="especialidad" size="60" maxlength="80" required>
+                <input type="checkbox" id="medicina_general" name="especialidad" value="Medicina general">
+                <label for="domesticos"> Medicina general</label><br>
+                <input type="checkbox" id="cardiologia" name="especialidad" value="Cardiología">
+                <label for="ganado"> Cardiología</label><br>
+                <input type="checkbox" id="neurologia" name="especialidad" value="Neurología">
+                <label for="equinos"> Neurología</label><br>
+                <input type="checkbox" id="fisioterapia" name="especialidad" value="Fisioterapia">
+                <label for="exoticos"> Fisioterapia</label><br>
+                <input type="checkbox" id="cirugia" name="especialidad" value="Cirugía">
+                <label for="exoticos"> Cirugía</label><br>
+
             </div>
 
             <div class="entrada">

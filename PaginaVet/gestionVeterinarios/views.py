@@ -48,7 +48,8 @@ def formVeterinario(request): #the index view
         nombre_consulta= request.POST["nombre_consulta"]
         region = request.POST["region"]
         comuna = request.POST["comuna"]
-        especialidad = request.POST["especialidad"]
+        especialidad_lista = request.POST.getlist("especialidad")
+        especialidad = ' '.join(especialidad_lista)
         animales_lista = request.POST.getlist("animales")
         animales = ' '.join(animales_lista)
         if request.POST["visitas_a_domicilio"] == "si":
@@ -228,13 +229,15 @@ def perfil(request, id_vet):
         dias = horario.split(' ')
         stringAnimales = veterinario.animales
         animales = stringAnimales.split(' ')
+        stringEspecialidades = veterinario.especialidad
+        especialidades = stringEspecialidades.split(' ')
         evaluaciones = Reseña.objects.filter(id_veterinario_id=id_vet)
         prom_evaluacion = Reseña.objects.raw('''
         SELECT id, AVG(evaluacion) as prom
         FROM gestionVeterinarios_reseña
         WHERE id_veterinario_id = %s
         ''' % id_vet)
-        return render(request, "gestionVeterinarios/perfildoc.html", {"veterinario":veterinario, "evaluaciones":evaluaciones, "prom_evaluacion": prom_evaluacion, "dias": dias, "animales":animales, "region":region})
+        return render(request, "gestionVeterinarios/perfildoc.html", {"veterinario":veterinario, "evaluaciones":evaluaciones, "prom_evaluacion": prom_evaluacion, "dias": dias, "animales":animales, "region":region, "especialidades": especialidades})
 
 def editarPerfil(request, id_vet):
 
