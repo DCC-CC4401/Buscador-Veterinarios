@@ -130,20 +130,25 @@
 
             <div class="field">¿De qué especie es tu mascota?</div>
             <select name="especie">
+                <option selected="" disabled="disabled">--</option>
                 <option value="Domesticos">Doméstico</option>
                 <option value="Ganado">Ganado</option>
-                <option value="Equinos">Equino</option>
-                <option value="Exoticos">Exótico</option>
+                <option value="Equinos">Equinos</option>
+                <option value="Exoticos">Exóticos</option>
             </select>
 
             <div class="field">¿Buscas algún tipo de atención en específico?</div>
             <select name="especialidad">
-                <option value="help">Ayuda uwu</option>
-                <option value="idk">q pongo aca</option>
+                <option selected="" disabled="disabled">--</option>
+                <option value="Medicina general">Medicina general</option>
+                <option value="Cardiología">Cardiología</option>
+                <option value="Neurología">Neurología</option>
+                <option value="Fisioterapia">Fisioterapia</option>
+                <option value="Cirugía">Cirugía</option>
             </select>
 
             <div class="field">¿Dónde quieres ser atendido?</div>
-            <select id="region" name="region" onchange="getRegion(this, regiones)" required>
+            <select id="region" name="region" onchange="getRegion(this, regiones)">
                 <option selected="" disabled="disabled">Seleccione una región</option>
                 <option value="XV">Arica y Parinacota</option>
                 <option value="I">Tarapacá</option>
@@ -164,7 +169,7 @@
             </select>
 
             <div class="field">Comuna:</div>
-            <select id="comuna" name="comuna" required>
+            <select id="comuna" name="comuna">
                 <option value="" selected="selected" disabled = "disabled">Seleccione una comuna</option>
             </select>
 
@@ -179,7 +184,7 @@
             </div>
 
             <div class="aplicar">
-                <a href="/catalogodoc">
+                <a href="/catalogoVeterinarios">
                     <button type="submit" class="botonperfil">Aplicar filtros</button>
                 </a>
             </div>

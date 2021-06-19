@@ -291,4 +291,62 @@ def editarPerfil(request, id_vet):
         return redirect('/confirmacionRegistroVet')
 
 def formBusqueda(request):
-    return render(request, "gestionVeterinarios/formBusqueda.html")
+    if request.method == "GET":
+
+        veterinarios = Veterinario.objects.raw('''
+        SELECT v.id, v.nombre, v.apellido, v.region, v.comuna, v.urgencias, v.visitas_a_domicilio, AVG(r.evaluacion) as prom_evaluacion
+        FROM gestionVeterinarios_veterinario v, gestionVeterinarios_reseña r
+        WHERE v.id = r.id_veterinario_id
+        GROUP BY v.id
+        ''')
+        veterinarios_sin_eval = Veterinario.objects.raw('''
+        SELECT v.id, v.nombre, v.apellido, v.region, v.comuna, v.urgencias, v.visitas_a_domicilio
+        FROM gestionVeterinarios_veterinario v
+        WHERE v.id NOT in 
+        (SELECT r.id_veterinario_id
+        FROM gestionVeterinarios_reseña r)
+        ''')
+
+        especie = request.GET.get("especie")
+        especialidad = request.GET.get("especialidad")
+        region = request.GET.get("region")
+        comuna = request.GET.get("comuna")
+        domicilio = request.GET.get("domicilio")
+        urgencia = request.GET.get("urgencia")
+
+        print(especie)
+        print(especialidad)
+        print(region)
+        print(comuna)
+        print(domicilio)
+        print(urgencia)
+
+        if especie or especialidad or region or comuna or domicilio or urgencia:
+            insert = ''''''
+            if especie:
+                insert += ''' AND v.animales LIKE "%''' + especie + '''%"'''
+            if especialidad:
+                insert += ''' AND v.especialidad LIKE "%''' + especialidad + '''%"'''
+            if region:
+                insert +=  ''' AND v.region LIKE "''' + region + '''"'''
+            if comuna:
+                insert += ''' AND v.comuna LIKE "''' + comuna + '''"'''
+            if domicilio == "si":
+                insert += ''' AND v.visitas_a_domicilio = True'''
+            if urgencia == "si":
+                insert += ''' AND v.urgencias = True'''
+
+            veterinarios = Veterinario.objects.raw('''
+            SELECT v.id, v.nombre, v.apellido, v.region, v.comuna, v.urgencias, v.visitas_a_domicilio, AVG(r.evaluacion) as prom_evaluacion
+            FROM gestionVeterinarios_veterinario v, gestionVeterinarios_reseña r
+            WHERE v.id = r.id_veterinario_id''' + insert + ''' GROUP BY v.id
+            ''')
+            veterinarios_sin_eval = Veterinario.objects.raw('''
+            SELECT v.id, v.nombre, v.apellido, v.region, v.comuna, v.urgencias, v.visitas_a_domicilio
+            FROM gestionVeterinarios_veterinario v
+            WHERE v.id NOT in 
+            (SELECT r.id_veterinario_id
+            FROM gestionVeterinarios_reseña r)''' + insert)
+
+            return render(request, "gestionVeterinarios/catalogodoc.html", {"veterinarios":veterinarios, "veterinarios_sin_eval": veterinarios_sin_eval, "reg":reg})
+        return render(request, "gestionVeterinarios/formBusqueda.html")
