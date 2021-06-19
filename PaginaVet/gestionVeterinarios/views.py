@@ -160,6 +160,8 @@ def catalogoVeterinarios(request):
         domicilio = request.GET.get("domicilio")
         urgencia = request.GET.get("urgencia")
 
+        filtros = {}
+
         print(especie)
         print(especialidad)
         print(region)
@@ -171,16 +173,22 @@ def catalogoVeterinarios(request):
             insert = ''''''
             if especie:
                 insert += ''' AND v.animales LIKE "%''' + especie + '''%"'''
+                filtros['especie'] = especie
             if especialidad:
                 insert += ''' AND v.especialidad LIKE "%''' + especialidad + '''%"'''
+                filtros['especialidad'] = especialidad
             if region:
                 insert +=  ''' AND v.region LIKE "''' + region + '''"'''
+                filtros['region'] = region
             if comuna:
                 insert += ''' AND v.comuna LIKE "''' + comuna + '''"'''
+                filtros['comuna'] = comuna
             if domicilio == "si":
                 insert += ''' AND v.visitas_a_domicilio = True'''
+                filtros['domicilio'] = domicilio
             if urgencia == "si":
                 insert += ''' AND v.urgencias = True'''
+                filtros['urgencia'] = urgencia
 
             veterinarios = Veterinario.objects.raw('''
             SELECT v.id, v.nombre, v.apellido, v.region, v.comuna, v.urgencias, v.visitas_a_domicilio, AVG(r.evaluacion) as prom_evaluacion
@@ -198,6 +206,7 @@ def catalogoVeterinarios(request):
         busqueda = request.GET.get("buscar")
         print(busqueda)
         if busqueda:
+            filtros['busqueda'] = busqueda
             veterinarios = Veterinario.objects.raw('''
             SELECT id, Q.nombre, Q.apellido, Q.region, Q.comuna, Q.urgencias, Q.visitas_a_domicilio, Q.prom_evaluacion
             FROM (
@@ -220,7 +229,7 @@ def catalogoVeterinarios(request):
             WHERE Q.nc LIKE "%'''+ busqueda +'''%"
             ''')
 
-        return render(request, "gestionVeterinarios/catalogodoc.html", {"veterinarios":veterinarios, "veterinarios_sin_eval": veterinarios_sin_eval, "reg":reg})
+        return render(request, "gestionVeterinarios/catalogodoc.html", {"veterinarios":veterinarios, "veterinarios_sin_eval": veterinarios_sin_eval, "reg":reg, "filtros":filtros})
 
 def perfil(request, id_vet):
 

@@ -139,6 +139,7 @@
     {% include  "gestionVeterinarios/barra.html" %}
     {% load static %}
 
+    <!-- Filtros -->
     <div class="filtros">
         <div class="titulo">Filtros de búsqueda</div>
         <form method="get" enctype="multipart/form-data">
@@ -152,7 +153,6 @@
                 <option value="Exoticos">Exóticos</option>
             </select>
 
-            <!-- Hay que especificar esto bien en formVeterinario para poder implementarlo -->
             <div class="field">Especialidad:</div>
             <select name="especialidad">
                 <option selected="" disabled="disabled">--</option>
@@ -209,6 +209,7 @@
 
     <div class="mainbody">
 
+        <!-- Barra de búsqueda -->
         <div class="caja" name="busqueda">
             <div class="row">
                 <div class="search">
@@ -227,13 +228,24 @@
             </div>
         </div>
 
+
+        <!-- Falta aplicarle estilo -->
+        {% if filtros.busqueda %}
+        <p>Está buscando por nombre y/o apellido "{{filtros.busqueda}}"</p>
+
+        {% endif %}
+
+        <!-- Falta imprimir las busquedas de los filtros -->
+
+        <!-- Si no se encuentran resultados, imprimir que no se encontraron -->
+
         {% for veterinario in veterinarios %}
 
         <div class="caja" name="item">
     
             <div class="textbox" name="foto">
                 
-                {% if veterinario.foto%}    
+                {% if veterinario.foto %}    
                     <img src="{{ veterinario.foto.url }}" width="150" height="150">
                 {% else %}
                     <img src="{% static 'gestionVeterinarios/imagen1.png' %}" width="150" height="150">
