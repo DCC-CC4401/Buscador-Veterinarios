@@ -171,6 +171,8 @@ def catalogoVeterinarios(request):
             insert = ''''''
             if especie:
                 insert += ''' AND v.animales LIKE "%''' + especie + '''%"'''
+            if especialidad:
+                insert += ''' AND v.especialidad LIKE "%''' + especialidad + '''%"'''
             if region:
                 insert +=  ''' AND v.region LIKE "''' + region + '''"'''
             if comuna:
