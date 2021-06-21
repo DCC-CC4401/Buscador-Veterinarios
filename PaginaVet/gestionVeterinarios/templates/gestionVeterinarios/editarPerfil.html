@@ -234,7 +234,36 @@
 
             <div class="entrada">                
                 <div class="etiqueta">Especialidad Médica: <abbr title="Este campo es obligatorio">*</abbr></div>
-                <input value="{{veterinario.especialidad}}" type="text" id="especialidad" name="especialidad" size="60" maxlength="80" required>
+                {% if 'Medicina general' in veterinario.especialidad %}
+                <input type="checkbox" id="medicina_general" name="especialidad" value="Medicina general" checked>
+                {% else %}
+                <input type="checkbox" id="medicina_general" name="especialidad" value="Medicina general">
+                {% endif %} 
+                <label for="medicina_general"> Medicina general</label><br> 
+                {% if 'Cardiología' in veterinario.especialidad %}
+                <input type="checkbox" id="cardiologia" name="especialidad" value="Cardiología" checked>
+                {% else %}
+                <input type="checkbox" id="cardiologia" name="especialidad" value="Cardiología">
+                {% endif %} 
+                <label for="cardiologia"> Cardiología</label><br>
+                {% if 'Neurología' in veterinario.especialidad %}
+                <input type="checkbox" id="neurologia" name="especialidad" value="Neurología" checked>
+                {% else %}
+                <input type="checkbox" id="neurologia" name="especialidad" value="Neurología">
+                {% endif %}
+                <label for="neurologia"> Neurología</label><br>
+                {% if 'Fisioterapia' in veterinario.especialidad %}
+                <input type="checkbox" id="fisioterapia" name="especialidad" value="Fisioterapia" checked>
+                {% else %}
+                <input type="checkbox" id="fisioterapia" name="especialidad" value="Fisioterapia">
+                {% endif %}
+                <label for="fisioterapia"> Fisioterapia</label><br>
+                {% if 'Cirugía' in veterinario.especialidad %}
+                <input type="checkbox" id="cirugia" name="especialidad" value="Cirugía" checked>
+                {% else %}
+                <input type="checkbox" id="cirugia" name="especialidad" value="Cirugía">
+                {% endif %}
+                <label for="cirugia"> Cirugía</label><br>           
             </div>
 
             <div class="entrada">
