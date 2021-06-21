@@ -254,61 +254,59 @@ def perfil(request, id_vet):
         else:
             return render(request, "gestionVeterinarios/perfildoc.html", {"veterinario":veterinario, "evaluaciones":evaluaciones, "prom_evaluacion": prom_evaluacion, "dias": dias, "animales":animales, "region":region, "especialidades": especialidades, "user_vet_id": None})
 
-def editarPerfil(request, id_vet):
+def editarPerfil(request):
 
     if request.method == "GET":
         if request.user.is_authenticated:
-            user_vet = request.user.veterinario.id
-            if int(user_vet) == int(id_vet):
-                veterinario=Veterinario.objects.get(id=id_vet)
-                region = reg[veterinario.region]
-                horario = veterinario.horario_atencion
-                dias = horario.split(' ')
-                stringAnimales = veterinario.animales
-                animales = stringAnimales.split(' ')
-                evaluaciones = Reseña.objects.filter(id_veterinario_id=id_vet)
-                prom_evaluacion = Reseña.objects.raw('''
-                SELECT id, AVG(evaluacion) as prom
-                FROM gestionVeterinarios_reseña
-                WHERE id_veterinario_id = %s
-                ''' % id_vet)
-                return render(request, "gestionVeterinarios/editarPerfil.html", {"veterinario":veterinario, "evaluaciones":evaluaciones, "prom_evaluacion": prom_evaluacion, "dias": dias, "animales":animales, "region":region})     
-            else:
-                return HttpResponseRedirect('../perfil/'+str(user_vet))  
+            veterinario = request.user.veterinario
+            region = reg[veterinario.region]
+            horario = veterinario.horario_atencion
+            dias = horario.split(' ')
+            stringAnimales = veterinario.animales
+            animales = stringAnimales.split(' ')
+            evaluaciones = Reseña.objects.filter(id_veterinario_id=veterinario.id)
+            prom_evaluacion = Reseña.objects.raw('''
+            SELECT id, AVG(evaluacion) as prom
+            FROM gestionVeterinarios_reseña
+            WHERE id_veterinario_id = %s
+            ''' % veterinario.id)
+            return render(request, "gestionVeterinarios/editarPerfil.html", {"veterinario":veterinario, "evaluaciones":evaluaciones, "prom_evaluacion": prom_evaluacion, "dias": dias, "animales":animales, "region":region})     
         else:
             return HttpResponseRedirect('../ingresoVeterinarios')
         
     elif request.method == "POST":
-        nombre = request.POST["nombre"]
-        apellidos = request.POST["apellidos"]
-        pronombre = request.POST["pronombre"]
-        descripcion = request.POST["descripcion"]
-        foto = request.FILES.get("foto")
-        nombre_consulta= request.POST["nombre_consulta"]
-        region = request.POST["region"]
-        comuna = request.POST["comuna"]
-        especialidad = request.POST["especialidad"]
+        user_vet = request.user.veterinario
+        user_vet.nombre = request.POST["nombre"]
+        user_vet.apellido = request.POST["apellidos"]
+        user_vet.pronombre = request.POST["pronombre"]
+        user_vet.descripcion = request.POST["descripcion"]
+        #user_vet.foto = request.FILES.get("foto")
+        user_vet.nombre_consulta= request.POST["nombre_consulta"]
+        user_vet.region = request.POST["region"]
+        user_vet.comuna = request.POST["comuna"]
+        especialidad_lista = request.POST.getlist("especialidad")
+        user_vet.especialidad = ';'.join(especialidad_lista)
         animales_lista = request.POST.getlist("animales")
-        animales = ' '.join(animales_lista)
+        user_vet.animales = ' '.join(animales_lista)
         if request.POST["visitas_a_domicilio"] == "si":
-            visitas_a_domicilio = True
+            user_vet.visitas_a_domicilio = True
         else:
-            visitas_a_domicilio = False
+            user_vet.visitas_a_domicilio = False
         if request.POST["urgencias"] == "si":
-            urgencias = True
+            user_vet.urgencias = True
         else:
-            urgencias = False
+            user_vet.urgencias = False
         horario_atencion_lista = request.POST.getlist("horario_atencion")
-        horario_atencion = ' '.join(horario_atencion_lista)
+        user_vet.horario_atencion = ' '.join(horario_atencion_lista)
         if request.POST["telefono"]=="":
-            telefono=None
+            user_vet.telefono=None
         else:
-            telefono = request.POST["telefono"]
+            user_vet.telefono = request.POST["telefono"]
 
-        pagina_web = request.POST["pagina_web"]
-
+        user_vet.pagina_web = request.POST["pagina_web"]
+        user_vet.save()
         
-        return redirect('/confirmacionRegistroVet')
+        return redirect('/perfil/'+str(user_vet.id))
 
 def formBusqueda(request):
     if request.method == "GET":

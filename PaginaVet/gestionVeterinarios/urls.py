@@ -11,5 +11,5 @@ urlpatterns = [
   path('logout/', views.logout_user),
   path('', views.index),
   path('formBusqueda/', views.formBusqueda),
-  path('editarperfil/<id_vet>', views.editarPerfil, name="edit_vet"),
+  path('editarperfil', views.editarPerfil, name="edit_vet"),
 ]       
