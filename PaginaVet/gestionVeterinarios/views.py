@@ -248,25 +248,36 @@ def perfil(request, id_vet):
         FROM gestionVeterinarios_reseña
         WHERE id_veterinario_id = %s
         ''' % id_vet)
-        return render(request, "gestionVeterinarios/perfildoc.html", {"veterinario":veterinario, "evaluaciones":evaluaciones, "prom_evaluacion": prom_evaluacion, "dias": dias, "animales":animales, "region":region, "especialidades": especialidades})
+        if request.user.is_authenticated:
+            user_vet_id = int(request.user.veterinario.id)
+            return render(request, "gestionVeterinarios/perfildoc.html", {"veterinario":veterinario, "evaluaciones":evaluaciones, "prom_evaluacion": prom_evaluacion, "dias": dias, "animales":animales, "region":region, "especialidades": especialidades, "user_vet_id": user_vet_id})
+        else:
+            return render(request, "gestionVeterinarios/perfildoc.html", {"veterinario":veterinario, "evaluaciones":evaluaciones, "prom_evaluacion": prom_evaluacion, "dias": dias, "animales":animales, "region":region, "especialidades": especialidades, "user_vet_id": None})
 
 def editarPerfil(request, id_vet):
 
     if request.method == "GET":
-        veterinario=Veterinario.objects.get(id=id_vet)
-        region = reg[veterinario.region]
-        horario = veterinario.horario_atencion
-        dias = horario.split(' ')
-        stringAnimales = veterinario.animales
-        animales = stringAnimales.split(' ')
-        evaluaciones = Reseña.objects.filter(id_veterinario_id=id_vet)
-        prom_evaluacion = Reseña.objects.raw('''
-        SELECT id, AVG(evaluacion) as prom
-        FROM gestionVeterinarios_reseña
-        WHERE id_veterinario_id = %s
-        ''' % id_vet)
-        return render(request, "gestionVeterinarios/editarPerfil.html", {"veterinario":veterinario, "evaluaciones":evaluaciones, "prom_evaluacion": prom_evaluacion, "dias": dias, "animales":animales, "region":region})
-    
+        if request.user.is_authenticated:
+            user_vet = request.user.veterinario.id
+            if int(user_vet) == int(id_vet):
+                veterinario=Veterinario.objects.get(id=id_vet)
+                region = reg[veterinario.region]
+                horario = veterinario.horario_atencion
+                dias = horario.split(' ')
+                stringAnimales = veterinario.animales
+                animales = stringAnimales.split(' ')
+                evaluaciones = Reseña.objects.filter(id_veterinario_id=id_vet)
+                prom_evaluacion = Reseña.objects.raw('''
+                SELECT id, AVG(evaluacion) as prom
+                FROM gestionVeterinarios_reseña
+                WHERE id_veterinario_id = %s
+                ''' % id_vet)
+                return render(request, "gestionVeterinarios/editarPerfil.html", {"veterinario":veterinario, "evaluaciones":evaluaciones, "prom_evaluacion": prom_evaluacion, "dias": dias, "animales":animales, "region":region})     
+            else:
+                return HttpResponseRedirect('../perfil/'+str(user_vet))  
+        else:
+            return HttpResponseRedirect('../ingresoVeterinarios')
+        
     elif request.method == "POST":
         nombre = request.POST["nombre"]
         apellidos = request.POST["apellidos"]

@@ -277,8 +277,13 @@
 
                 <div class="textbox">
                     <div>
-                        <a href="{% url 'eval_vet' veterinario.id %}"><button class="review_button">Dejar una reseña</button></a>                    
+                        {% if user_vet_id == veterinario.id%}
                         <a href="{% url 'edit_vet' veterinario.id %}"><button class="edit_button">Editar mis datos</button></a>
+                        {% else %}
+                        <a href="{% url 'eval_vet' veterinario.id %}"><button class="review_button">Dejar una reseña</button></a>
+                        {% endif %}
+                                          
+                        
                 </div>
 
             </div>
