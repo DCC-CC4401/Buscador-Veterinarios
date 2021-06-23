@@ -130,7 +130,7 @@
 
             <div class="field">¿De qué especie es tu mascota?</div>
             <select name="especie">
-                <option selected="" disabled="disabled">--</option>
+                <option selected="" value="Any">Cualquiera</option>
                 <option value="Domesticos">Doméstico</option>
                 <option value="Ganado">Ganado</option>
                 <option value="Equinos">Equinos</option>
@@ -139,7 +139,7 @@
 
             <div class="field">¿Buscas algún tipo de atención en específico?</div>
             <select name="especialidad">
-                <option selected="" disabled="disabled">--</option>
+                <option selected="" value="Any">Cualquiera</option>
                 <option value="Medicina general">Medicina general</option>
                 <option value="Cardiología">Cardiología</option>
                 <option value="Neurología">Neurología</option>
@@ -184,9 +184,7 @@
             </div>
 
             <div class="aplicar">
-                <a href="/catalogoVeterinarios">
-                    <button type="submit" class="botonperfil">Aplicar filtros</button>
-                </a>
+                <button type="submit" class="botonperfil">Aplicar filtros</button>
             </div>
             
         </form>
