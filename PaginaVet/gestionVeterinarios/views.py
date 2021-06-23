@@ -261,9 +261,9 @@ def editarPerfil(request):
             veterinario = request.user.veterinario
             region = reg[veterinario.region]
             horario = veterinario.horario_atencion
-            dias = horario.split(' ')
+            dias = horario.split(';')
             stringAnimales = veterinario.animales
-            animales = stringAnimales.split(' ')
+            animales = stringAnimales.split(';')
             evaluaciones = Reseña.objects.filter(id_veterinario_id=veterinario.id)
             prom_evaluacion = Reseña.objects.raw('''
             SELECT id, AVG(evaluacion) as prom
@@ -280,14 +280,15 @@ def editarPerfil(request):
         user_vet.apellido = request.POST["apellidos"]
         user_vet.pronombre = request.POST["pronombre"]
         user_vet.descripcion = request.POST["descripcion"]
-        #user_vet.foto = request.FILES.get("foto")
+        if request.FILES.get("foto"):
+            user_vet.foto = request.FILES.get("foto")
         user_vet.nombre_consulta= request.POST["nombre_consulta"]
         user_vet.region = request.POST["region"]
         user_vet.comuna = request.POST["comuna"]
         especialidad_lista = request.POST.getlist("especialidad")
         user_vet.especialidad = ';'.join(especialidad_lista)
         animales_lista = request.POST.getlist("animales")
-        user_vet.animales = ' '.join(animales_lista)
+        user_vet.animales = ';'.join(animales_lista)
         if request.POST["visitas_a_domicilio"] == "si":
             user_vet.visitas_a_domicilio = True
         else:
@@ -297,7 +298,7 @@ def editarPerfil(request):
         else:
             user_vet.urgencias = False
         horario_atencion_lista = request.POST.getlist("horario_atencion")
-        user_vet.horario_atencion = ' '.join(horario_atencion_lista)
+        user_vet.horario_atencion = ';'.join(horario_atencion_lista)
         if request.POST["telefono"]=="":
             user_vet.telefono=None
         else:
