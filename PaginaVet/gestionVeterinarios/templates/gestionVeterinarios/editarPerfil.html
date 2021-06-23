@@ -101,7 +101,7 @@
             
             <div class="entrada">
                 <div class="etiqueta">Fotografía:</div>
-                <input type="file" id="foto" name="foto" accept="image/*">
+                <input type="file" id="foto" name="foto" onchange="document.getElementById('foto_actual').src = window.URL.createObjectURL(this.files[0])" accept="image/*">
             </div>
 
             <div class="entrada">
