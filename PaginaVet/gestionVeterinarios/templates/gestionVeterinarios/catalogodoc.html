@@ -235,9 +235,28 @@
 
         {% endif %}
 
-        <!-- Falta imprimir las busquedas de los filtros -->
+        <!-- Falta arreglarlo un poco -->
+        {% if filtros.especie or filtros.especialidad or filtros.region or filtros.comuna or filtros.domicilio or filtros.urgencia %}
+        <p>Está buscando por:</p>
+        {% endif %}
+        
+        <p>{{filtros.especie}}</p>
+        <p>{{filtros.especialidad}}</p>
+        {% if filtros.region %}
+        <p>Región {{filtros.region}}</p>
+        {% endif %}
+        {% if filtros.comuna %}
+        <p>Comuna de {{filtros.comuna}}</p>
+        {% endif %}
+        {% if filtros.domicilio %}
+        <p>Atención a domicilio</p>
+        {% endif %}
+        {% if filtros.urgencia %}
+        <p>Atención de urgencias</p>
+        {% endif %}
 
-        <!-- Si no se encuentran resultados, imprimir que no se encontraron -->
+
+        <!-- ¿Si no se encuentran resultados, imprimir que no se encontraron? -->
 
         {% for veterinario in veterinarios %}
 
