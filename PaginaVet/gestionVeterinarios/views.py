@@ -191,10 +191,10 @@ def catalogoVeterinarios(request, f):
             if especie or especialidad or region or comuna or domicilio or urgencia:
                 insert = ''''''
 
-                if especie and especie != None:
+                if especie and especie != "Any":
                     insert += ''' AND v.animales LIKE "%''' + especie + '''%"'''
                     filtros['especie'] = dic_especies[especie]
-                if especialidad and especialidad != None:
+                if especialidad and especialidad != "Any":
                     insert += ''' AND v.especialidad LIKE "%''' + especialidad + '''%"'''
                     filtros['especialidad'] = dic_especialidad[especialidad]
                 if region:
