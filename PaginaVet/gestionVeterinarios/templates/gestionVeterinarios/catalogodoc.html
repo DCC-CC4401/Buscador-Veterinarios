@@ -231,30 +231,15 @@
 
         <!-- Falta aplicarle estilo -->
         {% if filtros.busqueda %}
-        <p>Está buscando por nombre y/o apellido "{{filtros.busqueda}}"</p>
+        <div class="caja"><b>Búsqueda por nombre:</b> "{{filtros.busqueda}}"</div>
 
         {% endif %}
 
         <!-- Falta arreglarlo un poco -->
         {% if filtros.especie or filtros.especialidad or filtros.region or filtros.comuna or filtros.domicilio or filtros.urgencia %}
-        <p>Está buscando por:</p>
+        <div class="caja"><b>Filtros aplicados:</b> Atiende {{filtros.especie}}{% if filtros.especialidad %}, especializado en {{filtros.especialidad}}{% endif %}{% if filtros.region %}, ubicado en {{filtros.region}} región{% endif %}{% if filtros.comuna %}, comuna de {{filtros.comuna}}{% endif %}{% if filtros.domicilio %}, ofrece atención a domicilio{% endif %}{% if filtros.urgencia %}, atiende urgencias{% endif %}.
+        </div>
         {% endif %}
-        
-        <p>{{filtros.especie}}</p>
-        <p>{{filtros.especialidad}}</p>
-        {% if filtros.region %}
-        <p>Región {{filtros.region}}</p>
-        {% endif %}
-        {% if filtros.comuna %}
-        <p>Comuna de {{filtros.comuna}}</p>
-        {% endif %}
-        {% if filtros.domicilio %}
-        <p>Atención a domicilio</p>
-        {% endif %}
-        {% if filtros.urgencia %}
-        <p>Atención de urgencias</p>
-        {% endif %}
-
 
         <!-- ¿Si no se encuentran resultados, imprimir que no se encontraron? -->
 

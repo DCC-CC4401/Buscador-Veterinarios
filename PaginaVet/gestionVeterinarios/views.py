@@ -155,6 +155,20 @@ def catalogoVeterinarios(request, f):
 
     filtros = {}
 
+    dic_especies = {"Any":"cualquier especie",
+                "Domesticos":"domésticos",
+                "Ganado":"ganado",
+                "Equinos":"equinos",
+                "Exoticos":"exóticos"}
+
+    dic_especialidad = {"Any":None,
+                "Medicina general":"medicina general",
+                "Cardiología":"cardiología",
+                "Neurología":"neurología",
+                "Fisioterapia":"fisioterapia",
+                "Cirugía":"cirugía"}
+
+
     especie = request.GET.get("especie")
     especialidad = request.GET.get("especialidad")
     region = request.GET.get("region")
@@ -176,19 +190,13 @@ def catalogoVeterinarios(request, f):
 
             if especie or especialidad or region or comuna or domicilio or urgencia:
                 insert = ''''''
-                
-                if especie == 'Any':
-                    especie = None
 
-                if especialidad == 'Any':
-                    especialidad = None
-
-                if especie:
+                if especie and especie != None:
                     insert += ''' AND v.animales LIKE "%''' + especie + '''%"'''
-                    filtros['especie'] = especie
-                if especialidad:
+                    filtros['especie'] = dic_especies[especie]
+                if especialidad and especialidad != None:
                     insert += ''' AND v.especialidad LIKE "%''' + especialidad + '''%"'''
-                    filtros['especialidad'] = especialidad
+                    filtros['especialidad'] = dic_especialidad[especialidad]
                 if region:
                     insert +=  ''' AND v.region LIKE "''' + region + '''"'''
                     filtros['region'] = region
