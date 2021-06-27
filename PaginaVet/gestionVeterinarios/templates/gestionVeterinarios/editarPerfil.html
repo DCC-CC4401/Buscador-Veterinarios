@@ -131,7 +131,11 @@
 
             <div class="entrada">
                 <div class="etiqueta">Descripción:</div>
+                {% if veterinario.descripcion %}
                 <textarea id="descripción" name="descripcion" cols="60" rows="7" style="resize: none;">{{veterinario.descripcion}}</textarea>
+                {% else %}
+                <textarea id="descripción" name="descripcion" cols="60" rows="7" style="resize: none;"></textarea>
+                {% endif %}
             </div>
 
         </div>
@@ -141,7 +145,11 @@
             
             <div class="entrada">
                 <div class="etiqueta">Nombre Consulta o Institución:</div>
+                {% if veterinario.nombre_consulta %}
                 <input value="{{veterinario.nombre_consulta}}" type="text" id="nombre_consulta" name="nombre_consulta" size="60" maxlength="250">
+                {% else %}
+                <input type="text" id="nombre_consulta" name="nombre_consulta" size="60" maxlength="250">
+                {% endif %}
             </div>
 
             <div class="entrada">
@@ -384,11 +392,19 @@
 
             <div class="entrada">
                 <div class="etiqueta">Teléfono:</div>
+                {% if veterinario.telefono %}
                 <input value={{veterinario.telefono}} type="tel" id="telefono" name="telefono" pattern="[0-9]{9}" size="60">
+                {% else %}
+                <input type="tel" id="telefono" name="telefono" pattern="[0-9]{9}" size="60">
+                {% endif %}
             </div>
             <div class="entrada">
                 <div class="etiqueta">Página web:</div>
+                {% if veterinario.pagina_web %}
                 <input value={{veterinario.pagina_web}} type="url" id="pagina_web" name="pagina_web" size="60">
+                {% else %}
+                <input type="url" id="pagina_web" name="pagina_web" size="60">
+                {% endif %}
             </div>
         </div> 
         <div class="botonRegistro">
