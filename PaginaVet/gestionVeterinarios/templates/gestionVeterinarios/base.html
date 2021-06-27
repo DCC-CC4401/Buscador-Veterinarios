@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!-- 
+
+Template base de la página
+Para templates que hereden:
+{% extends base.html %}
+{% block title %} *Título cambiante* {% endblock %}
+{% block content %} 
+*Bloque cambiante*
+{% endblock %}
+
+-->
+<html>
+<head>
+	<title>
+		{% block title %}  {% endblock %}
+	</title>
+</head>
+<body>
+	{% include  "gestionVeterinarios/barra.html" %}
+
+	{% block content %} 
+
+
+
+	{% endblock %}
+
+</body>
+</html>

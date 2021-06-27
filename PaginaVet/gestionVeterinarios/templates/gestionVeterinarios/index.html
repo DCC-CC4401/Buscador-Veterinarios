@@ -6,12 +6,16 @@
             .descripcion{
                 color:white;
                 text-align: center;
-                padding: 30px 50px;
+                padding-top: 30px;
+                padding-left: 50px;
+                padding-right: 50px;
                 font-family: sans-serif;
             }
 
             .boton_index{
                 text-align: center;
+                margin-top: 20px;
+                margin-bottom: 15px;
             }
 
             .caja{
@@ -35,8 +39,8 @@
                 con el fin de ayudarte a encontrar el mejor servicio para tu mascota según tus necesidades.</p>
         </div>
         <div class="boton_index">
-            <a href="/catalogoVeterinarios">
-                <button action="catalogoVeterinarios" id="boton_buscar" class="button" name="listado">Buscar Veterinario</button>
+            <a href="{% url 'catalogo_vet' 1 %}">
+                <button action="formBusqueda" id="boton_buscar" class="button" name="listado">Buscar Veterinario</button>
             </a>
         </div>
         

@@ -53,10 +53,25 @@
             </a>
         </div>
         <div>
+
+            {% if user.is_authenticated %}
+            <a href="/logout">
+                <button class="button boton_barra" type="submit" name="informar">Cerrar sesión</button>
+            </a>
+            <a href="{% url 'perfil_vet' user.veterinario.id %}">
+                <button class="button boton_barra" type="submit" name="informar">Mi perfil</button>
+            </a>
+
+            {% else %}
+            <a href="/login">
+                <button class="button boton_barra" type="submit" name="informar">Iniciar sesión</button>
+            </a>
             <a href="/ingresoVeterinarios">
                 <button class="button boton_barra" type="submit" name="informar">Registrarse</button>
             </a>
-            <a href="/catalogoVeterinarios">   
+            {% endif %}
+            
+            <a href="{% url 'catalogo_vet' 0 %}">   
                 <button class="button boton_barra" type="submit" name="listado">Veterinarios</button>
             </a>    
         </div>   

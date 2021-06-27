@@ -1,0 +1,418 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {% load static %}
+    <script>
+        let regiones = "{% static 'gestionVeterinarios/regiones.json' %}"
+    </script>
+    <script src="{% static 'gestionVeterinarios/functions.js' %}"></script>
+    
+    <title>PetCare</title>
+
+    <style>
+        .caja{
+            background-color: #089c6b;
+            border-radius: 15px;
+            margin-left: 25%;
+            margin-right: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-right: 30px;
+            padding-left: 30px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            color: white;
+            font-family: sans-serif;
+            font-size: 14;
+            width: 50%;
+        }
+
+        .seccion{
+            font-family: sans-serif;
+            font-size: 26;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .etiqueta{
+            font-family: sans-serif;
+            font-size: 18;
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+
+        .registro{
+                cursor: pointer;
+                border-radius: 10px;
+                padding: 15px 20px;
+                background-color: rgb(29, 187, 134);
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+                border: none;
+                color: white;
+                font-size: 16px;
+                transition-duration: 0.4s;
+                width: 150px;
+                font-size: 18;
+                font-weight: 60;
+                font-family: sans-serif;
+                display: inline;
+                margin-top: 15px;
+            }
+
+            .registro:hover {
+                background-color: #ffed80;
+                color: #089c6b;
+            }
+
+            .botonRegistro{
+                text-align: center;
+            }
+
+            .entrada{
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+
+
+    </style>
+
+</head>
+
+<body>
+    {% include  "gestionVeterinarios/barra.html" %}
+    {% load static %}
+
+<div class="caja">
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            
+            <div class="seccion">Datos Personales:</div>
+
+            {% if veterinario.foto%}    
+            <img id="foto_actual" src="{{ veterinario.foto.url }}" width="180" height="180">
+            {% else %}
+            <img id="foto_actual" src="{% static 'gestionVeterinarios/imagen1.png' %}" width="180" height="180">
+            {% endif %}
+            
+            <div class="entrada">
+                <div class="etiqueta">Fotografía:</div>
+                <input type="file" id="foto" name="foto" onchange="document.getElementById('foto_actual').src = window.URL.createObjectURL(this.files[0])" accept="image/*">
+            </div>
+
+            <div class="entrada">
+                <div class="etiqueta">Pronombre:</div>
+                {% if veterinario.pronombre == 'Dr.'%}
+                <input type="radio" id="doctor" name="pronombre" value="Dr." checked>
+                <label for="doctor"> Dr. </label>
+                <input type="radio" id="doctora" name="pronombre" value="Dra.">
+                {% else %}
+                <input type="radio" id="doctor" name="pronombre" value="Dr.">
+                <label for="doctor"> Dr. </label>
+                <input type="radio" id="doctora" name="pronombre" value="Dra."checked>
+                {% endif %}
+                <label for="doctora"> Dra.</label>
+                
+            </div>
+
+            <div class="entrada">
+                <div class="etiqueta">Nombre <abbr title="Este campo es obligatorio">*</abbr></div>
+                <input value="{{veterinario.nombre}}" type="text" id="nombre" name="nombre" size="60" maxlength="250" required>
+            </div>
+
+            <div class="entrada">
+                <div class="etiqueta">Apellidos <abbr title="Este campo es obligatorio">*</abbr></div>
+                <input value="{{veterinario.apellido}}" type="text" id="apellidos" name="apellidos" size="60" maxlength="250" required>
+            </div>
+
+            <div class="entrada">
+                <div class="etiqueta">Descripción:</div>
+                {% if veterinario.descripcion %}
+                <textarea id="descripción" name="descripcion" cols="60" rows="7" style="resize: none;">{{veterinario.descripcion}}</textarea>
+                {% else %}
+                <textarea id="descripción" name="descripcion" cols="60" rows="7" style="resize: none;"></textarea>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <div>
+            <div class="seccion">Datos de trabajo:</div>
+            
+            <div class="entrada">
+                <div class="etiqueta">Nombre Consulta o Institución:</div>
+                {% if veterinario.nombre_consulta %}
+                <input value="{{veterinario.nombre_consulta}}" type="text" id="nombre_consulta" name="nombre_consulta" size="60" maxlength="250">
+                {% else %}
+                <input type="text" id="nombre_consulta" name="nombre_consulta" size="60" maxlength="250">
+                {% endif %}
+            </div>
+
+            <div class="entrada">
+                <div class="etiqueta">Región: <abbr title="Este campo es obligatorio">*</abbr></div>
+
+                <select id="region" name="region" onchange="getRegion(this, regiones)" required>
+                    {% if veterinario.region == "XV" %}
+                    <option value="XV" selected>Arica y Parinacota</option>
+                    {% else %}
+                    <option value="XV"> Arica y Parinacota</option>
+                    {% endif %}
+                    {% if veterinario.region == "I" %}
+                    <option selected value="I">Tarapacá</option>
+                    {% else %}
+                    <option value="I">Tarapacá</option>
+                    {% endif %}
+                    {% if veterinario.region == "II" %}
+                    <option selected value="II">Antofagasta</option>
+                    {% else %}
+                    <option value="II">Antofagasta</option>
+                    {% endif %}
+                    {% if veterinario.region == "III" %}
+                    <option selected value="III">Atacama</option>
+                    {% else %}
+                    <option value="III">Atacama</option>
+                    {% endif %}
+                    {% if veterinario.region == "IV" %}
+                    <option selected value="IV">Coquimbo</option>
+                    {% else %}
+                    <option value="IV">Coquimbo</option>
+                    {% endif %}
+                    {% if veterinario.region == "V" %}
+                    <option selected value="V">Valparaíso</option>
+                    {% else %}
+                    <option value="V">Valparaíso</option>
+                    {% endif %}
+                    {% if veterinario.region == "RM" %}
+                    <option selected value="RM">Metropolitana de Santiago</option>
+                    {% else %}
+                    <option value="RM">Metropolitana de Santiago</option>
+                    {% endif %}
+                    {% if veterinario.region == "VI" %}
+                    <option selected value="VI">Libertador Gral. Bernardo O’Higgins</option>
+                    {% else %}
+                    <option value="VI">Libertador Gral. Bernardo O’Higgins</option>
+                    {% endif %}
+                    {% if veterinario.region == "VII" %}
+                    <option selected value="VII">Maule</option>
+                    {% else %}
+                    <option value="VII">Maule</option>
+                    {% endif %}
+                    {% if veterinario.region == "XVI" %}
+                    <option selected value="XVI">Ñuble</option>
+                    {% else %}
+                    <option value="XVI">Ñuble</option>
+                    {% endif %}
+                    {% if veterinario.region == "VIII" %}
+                    <option selected value="VIII">Biobío</option>
+                    {% else %}
+                    <option value="VIII">Biobío</option>
+                    {% endif %}
+                    {% if veterinario.region == "IX" %}
+                    <option selected value="IX">Araucanía</option>
+                    {% else %}
+                    <option value="IX">Araucanía</option>
+                    {% endif %}
+                    {% if veterinario.region == "XIV" %}
+                    <option selected value="XIV">Los Ríos</option>
+                    {% else %}
+                    <option value="XIV">Los Ríos</option>
+                    {% endif %}
+                    {% if veterinario.region == "X" %}
+                    <option selected value="X">Los Lagos</option>
+                    {% else %}
+                    <option value="X">Los Lagos</option>
+                    {% endif %}
+                    {% if veterinario.region == "XI" %}
+                    <option selected value="XI">Aisén del Gral. Carlos Ibáñez del Campo</option>
+                    {% else %}
+                    <option value="XI">Aisén del Gral. Carlos Ibáñez del Campo</option>
+                    {% endif %}
+                    {% if veterinario.region == "XII" %}
+                    <option selected value="XII">Magallanes y de la Antártica Chilena</option>
+                    {% else %}
+                    <option value="XII">Magallanes y de la Antártica Chilena</option>
+                    {% endif %}
+                    
+                </select>
+            </div>
+
+            <div class="entrada">
+                <div class="etiqueta">Comuna: <abbr title="Este campo es obligatorio">*</abbr></div>
+                <select id="comuna" name="comuna" required>
+                    <option value="{{veterinario.comuna}}" selected="selected">{{veterinario.comuna}}</option>
+                </select>
+            </div>
+
+            <div class="entrada">                
+                <div class="etiqueta">Especialidad Médica: <abbr title="Este campo es obligatorio">*</abbr></div>
+                {% if 'Medicina general' in veterinario.especialidad %}
+                <input type="checkbox" id="medicina_general" name="especialidad" value="Medicina general" checked>
+                {% else %}
+                <input type="checkbox" id="medicina_general" name="especialidad" value="Medicina general">
+                {% endif %} 
+                <label for="medicina_general"> Medicina general</label><br> 
+                {% if 'Cardiología' in veterinario.especialidad %}
+                <input type="checkbox" id="cardiologia" name="especialidad" value="Cardiología" checked>
+                {% else %}
+                <input type="checkbox" id="cardiologia" name="especialidad" value="Cardiología">
+                {% endif %} 
+                <label for="cardiologia"> Cardiología</label><br>
+                {% if 'Neurología' in veterinario.especialidad %}
+                <input type="checkbox" id="neurologia" name="especialidad" value="Neurología" checked>
+                {% else %}
+                <input type="checkbox" id="neurologia" name="especialidad" value="Neurología">
+                {% endif %}
+                <label for="neurologia"> Neurología</label><br>
+                {% if 'Fisioterapia' in veterinario.especialidad %}
+                <input type="checkbox" id="fisioterapia" name="especialidad" value="Fisioterapia" checked>
+                {% else %}
+                <input type="checkbox" id="fisioterapia" name="especialidad" value="Fisioterapia">
+                {% endif %}
+                <label for="fisioterapia"> Fisioterapia</label><br>
+                {% if 'Cirugía' in veterinario.especialidad %}
+                <input type="checkbox" id="cirugia" name="especialidad" value="Cirugía" checked>
+                {% else %}
+                <input type="checkbox" id="cirugia" name="especialidad" value="Cirugía">
+                {% endif %}
+                <label for="cirugia"> Cirugía</label><br>           
+            </div>
+
+            <div class="entrada">
+                <div class="etiqueta">Atención de animales:</div>
+                {% if 'Domesticos' in veterinario.animales %}
+                <input type="checkbox" id="domesticos" name="animales" value="Domesticos" checked>
+                {% else %}
+                <input type="checkbox" id="domesticos" name="animales" value="Domesticos">
+                {% endif %}
+                <label for="domesticos"> Domesticos</label><br>
+                {% if 'Ganado' in veterinario.animales %}
+                <input type="checkbox" id="ganado" name="animales" value="Ganado" checked>
+                {% else %}
+                <input type="checkbox" id="ganado" name="animales" value="Ganado">
+                {% endif %}
+                <label for="ganado"> Ganado</label><br>
+                {% if 'Equinos' in veterinario.animales %}
+                <input type="checkbox" id="equinos" name="animales" value="Equinos" checked>
+                {% else %}
+                <input type="checkbox" id="equinos" name="animales" value="Equinos">
+                {% endif %}  
+                <label for="equinos"> Equinos</label><br>
+                {% if 'Exoticos' in veterinario.animales %}
+                <input type="checkbox" id="exoticos" name="animales" value="Exoticos" checked>
+                {% else %}
+                <input type="checkbox" id="exoticos" name="animales" value="Exoticos">
+                {% endif %}                
+                
+                <label for="exoticos"> Exóticos</label><br>
+            </div>
+
+            <div class="entrada">
+                <div class="etiqueta">Atención a domicilio:</div>
+                {% if veterinario.visitas_a_domicilio%}
+                <input type="radio" id="si_domicilio" name="visitas_a_domicilio" value="si" checked>
+                <label for="si_domicilio">Si</label>
+                <input type="radio" id="no_domicilio" name="visitas_a_domicilio" value="no">
+                {% else %}
+                <input type="radio" id="si_domicilio" name="visitas_a_domicilio" value="si">
+                <label for="si_domicilio">Si</label>
+                <input type="radio" id="no_domicilio" name="visitas_a_domicilio" value="no"checked>
+                {% endif %}
+                <label for="no_domicilio">No</label>
+            </div>
+
+            <div class="entrada">
+                <div class="etiqueta">Atención de urgencias:</div>
+                {% if veterinario.urgencias%}
+                <input type="radio" id="si_urgencias" name="urgencias" value="si" checked>
+                <label for="si_urgencias">Si</label>
+                <input type="radio" id="no_urgencias" name="urgencias" value="no">
+                {% else %}
+                <input type="radio" id="si_urgencias" name="urgencias" value="si">
+                <label for="si_urgencias">Si</label>
+                <input type="radio" id="no_urgencias" name="urgencias" value="no" checked>
+                {% endif %}
+                <label for="no_urgencias">No</label>
+            </div>
+
+
+        </div>
+
+        <div>
+            <div class="seccion">Datos de contacto:</div>
+
+            <div class="entrada">
+                <div class="etiqueta">Días de atención:</div>
+                {% if 'Lunes' in veterinario.horario_atencion %}
+                <input type="checkbox" id="lunes" name="horario_atencion" value="Lunes" checked>
+                {% else %}
+                <input type="checkbox" id="lunes" name="horario_atencion" value="Lunes">
+                {% endif %}
+                <label for="lunes"> Lunes</label><br>
+                {% if 'Martes' in veterinario.horario_atencion %}
+                <input type="checkbox" id="martes" name="horario_atencion" value="Martes" checked> 
+                {% else %}
+                <input type="checkbox" id="martes" name="horario_atencion" value="Martes">
+                {% endif %}
+                <label for="martes"> Martes</label><br>
+                {% if 'Miercoles' in veterinario.horario_atencion %}
+                <input type="checkbox" id="miercoles" name="horario_atencion" value="Miercoles" checked>
+                {% else %}
+                <input type="checkbox" id="miercoles" name="horario_atencion" value="Miercoles">
+                {% endif %}
+                <label for="miercoles"> Miércoles</label><br>
+                {% if 'Jueves' in veterinario.horario_atencion %}
+                <input type="checkbox" id="jueves" name="horario_atencion" value="Jueves" checked>
+                {% else %}
+                <input type="checkbox" id="jueves" name="horario_atencion" value="Jueves">
+                {% endif %}
+                <label for="jueves"> Jueves</label><br>
+                {% if 'Viernes' in veterinario.horario_atencion %}
+                <input type="checkbox" id="viernes" name="horario_atencion" value="Viernes" checked> 
+                {% else %}
+                <input type="checkbox" id="viernes" name="horario_atencion" value="Viernes">
+                {% endif %}
+                <label for="viernes"> Viernes</label><br>
+                {% if 'Sabado' in veterinario.horario_atencion %}
+                <input type="checkbox" id="sabado" name="horario_atencion" value="Sabado" checked>
+                {% else %}  
+                <input type="checkbox" id="sabado" name="horario_atencion" value="Sabado">
+                {% endif %}
+                <label for="sabado"> Sábado</label><br>
+                {% if 'Domingo' in veterinario.horario_atencion %}
+                <input type="checkbox" id="domingo" name="horario_atencion" value="Domingo" checked>
+                {% else %}
+                <input type="checkbox" id="domingo" name="horario_atencion" value="Domingo">
+                {% endif %}
+                <label for="domingo"> Domingo</label><br>          
+            </div>
+
+            <div class="entrada">
+                <div class="etiqueta">Teléfono:</div>
+                {% if veterinario.telefono %}
+                <input value={{veterinario.telefono}} type="tel" id="telefono" name="telefono" pattern="[0-9]{9}" size="60">
+                {% else %}
+                <input type="tel" id="telefono" name="telefono" pattern="[0-9]{9}" size="60">
+                {% endif %}
+            </div>
+            <div class="entrada">
+                <div class="etiqueta">Página web:</div>
+                {% if veterinario.pagina_web %}
+                <input value={{veterinario.pagina_web}} type="url" id="pagina_web" name="pagina_web" size="60">
+                {% else %}
+                <input type="url" id="pagina_web" name="pagina_web" size="60">
+                {% endif %}
+            </div>
+        </div> 
+        <div class="botonRegistro">
+            <button type="submit" class="registro">Guardar Datos</button>
+        </div>
+    </form>
+</div>
+
+</body>
+
+</html>

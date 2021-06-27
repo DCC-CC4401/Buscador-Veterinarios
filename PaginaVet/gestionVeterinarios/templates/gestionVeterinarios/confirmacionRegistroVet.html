@@ -1,13 +1,52 @@
 <html>
     <head>
+        <meta charset="UTF-8">
         <title>PetCare</title>
+
+        <style>
+
+            .caja{
+                align-items: center;
+                background-color: #089c6b;
+                width: 30%;
+                margin-left: 35%;
+                padding-bottom: 20px;
+                margin-top: 50px;
+                border-radius: 15px;
+            }
+
+            .mensaje{
+                color:white;
+                font-size: 30px;
+                text-align: center;
+                padding-top: 30px;
+                padding-left: 50px;
+                padding-right: 50px;
+                font-family: sans-serif;
+            }
+
+            .boton_index{
+                text-align: center;
+                margin-top: 20px;
+                margin-bottom: 15px;
+            }
+
+        </style>
 
     </head>
     <body>
         {% include  "gestionVeterinarios/barra.html" %}
-        <p>Registro Exitoso!</p>
-        <a href="/">   
-            <button type="button">Volver a pagina principal</button>
-        </a>
+
+        <div class="caja">
+            <div class="mensaje">
+                ¡Registro exitoso!
+            </div>
+            <div class="boton_index">
+                <a href="/">
+                    <button type="button" class="button" name="volver">Página Principal</button>
+                </a>
+            </div>
+            
+        </div>
     </body>
 </html>

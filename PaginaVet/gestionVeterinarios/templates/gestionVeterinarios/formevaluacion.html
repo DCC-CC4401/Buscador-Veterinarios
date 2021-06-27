@@ -159,7 +159,7 @@
                         </div>
     
                         <div class="entrada">
-                            <div class="etiqueta">Evalúe su experiencia con este doctor: <abbr title="Este campo es obligatorio">*</abbr></div>
+                            <div class="etiqueta">Evalúe su experiencia con este veterinario/a: <abbr title="Este campo es obligatorio">*</abbr></div>
                             <p class="clasificacion">
                                 <input id="radio1" type="radio" name="estrellas" value="5" required>
                                 <label for="radio1" name="estrellas">★</label>
@@ -188,13 +188,13 @@
     
                         <div class="doctor_evaluado">
                             <div class="cajafoto" name="foto">   
-                                {% if doctor.foto%}    
-                                    <img src="{{ doctor.foto.url }}" width="180" height="180">
+                                {% if veterinario.foto%}    
+                                    <img src="{{ veterinario.foto.url }}" width="300" height="300">
                                 {% else %}
-                                    <img src="{% static 'gestionVeterinarios/imagen1.png' %}" width="180" height="180">
+                                    <img src="{% static 'gestionVeterinarios/imagen1.png' %}" width="300" height="300">
                                 {% endif %}
                             </div>
-                            <div class="etiqueta">{{doctor.pronombre}} {{doctor.nombre}} {{doctor.apellido}}</div>
+                            <div class="etiqueta">{{veterinario.pronombre}} {{veterinario.nombre}} {{veterinario.apellido}}</div>
                         </div>
                         
                     </div>

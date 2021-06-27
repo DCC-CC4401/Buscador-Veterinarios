@@ -17,5 +17,18 @@ function getRegion(tag, regiones) {
         });
 
     });
+}
 
+function check() {
+    var pass1= document.getElementById('password').value;
+    var pass2= document.getElementById('repeat_password').value;
+    if(pass1 == pass2) {
+        document.getElementById('message').innerHTML = "Las contraseñas coinciden";
+        document.getElementById('message').style.color = "white";
+        document.getElementById('message').style.fontSize = "20px";
+    } else {
+        document.getElementById('message').innerHTML = "Las contraseñas no coinciden";
+        document.getElementById('message').style.color = "#ffed80";
+        document.getElementById('message').style.fontSize = "20px";
+    }
 }

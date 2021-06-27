@@ -39,42 +39,42 @@
 
         .etiqueta{
             font-family: sans-serif;
-            font-size: 18;
+            font-size: 18px;
             margin-top: 4px;
             margin-bottom: 4px;
         }
 
         .registro{
-                cursor: pointer;
-                border-radius: 10px;
-                padding: 15px 20px;
-                background-color: rgb(29, 187, 134);
-                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-                border: none;
-                color: white;
-                font-size: 16px;
-                transition-duration: 0.4s;
-                width: 150px;
-                font-size: 18;
-                font-weight: 60;
-                font-family: sans-serif;
-                display: inline;
-                margin-top: 15px;
-            }
+            cursor: pointer;
+            border-radius: 10px;
+            padding: 15px 20px;
+            background-color: rgb(29, 187, 134);
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            border: none;
+            color: white;
+            font-size: 16px;
+            transition-duration: 0.4s;
+            width: 150px;
+            font-size: 18;
+            font-weight: 60;
+            font-family: sans-serif;
+            display: inline;
+            margin-top: 15px;
+        }
 
-            .registro:hover {
-                background-color: #ffed80;
-                color: #089c6b;
-            }
+        .registro:hover {
+            background-color: #ffed80;
+            color: #089c6b;
+        }
 
-            .botonRegistro{
-                text-align: center;
-            }
+        .botonRegistro{
+            text-align: center;
+        }
 
-            .entrada{
-                margin-top: 15px;
-                margin-bottom: 15px;
-            }
+        .entrada{
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
 
 
     </style>
@@ -89,6 +89,22 @@
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div>
+            <div class="seccion">Datos de Usuario:</div>
+            
+            <div class="etiqueta">Nombre de usuario: <abbr title="Este campo es obligatorio">*</abbr></div>
+            <input type="text" id="username" name="username" size="60" maxlength="250" required>
+
+            <div class="entrada">
+                <div class="etiqueta">Correo: <abbr title="Este campo es obligatorio">*</abbr></div>
+                <input type="email" id="email" name="email" size="60" required>
+            </div>
+            
+            <div class="etiqueta" >Contraseña: <abbr title="Este campo es obligatorio">*</abbr></div>
+            <input type="password" id="password" name="password" size="60" maxlength="250" required onkeyup="check()">
+
+            <div class="etiqueta" >Repetir Contraseña: <abbr title="Este campo es obligatorio">*</abbr></div>
+            <input type="password" id="repeat_password" name="repeat_password" size="60" maxlength="250" required onkeyup="check()">
+            <div id="message"></div>
             <div class="seccion">Datos Personales:</div>
             
             <div class="entrada">
@@ -105,12 +121,12 @@
             </div>
 
             <div class="entrada">
-                <div class="etiqueta">Nombre <abbr title="Este campo es obligatorio">*</abbr></div>
+                <div class="etiqueta">Nombre: <abbr title="Este campo es obligatorio">*</abbr></div>
                 <input type="text" id="nombre" name="nombre" size="60" maxlength="250" required>
             </div>
 
             <div class="entrada">
-                <div class="etiqueta">Apellidos <abbr title="Este campo es obligatorio">*</abbr></div>
+                <div class="etiqueta">Apellidos: <abbr title="Este campo es obligatorio">*</abbr></div>
                 <input type="text" id="apellidos" name="apellidos" size="60" maxlength="250" required>
             </div>
 
@@ -162,7 +178,17 @@
 
             <div class="entrada">                
                 <div class="etiqueta">Especialidad Médica: <abbr title="Este campo es obligatorio">*</abbr></div>
-                <input type="text" id="especialidad" name="especialidad" size="60" maxlength="80" required>
+                <input type="checkbox" id="medicina_general" name="especialidad" value="Medicina general">
+                <label for="domesticos"> Medicina general</label><br>
+                <input type="checkbox" id="cardiologia" name="especialidad" value="Cardiología">
+                <label for="ganado"> Cardiología</label><br>
+                <input type="checkbox" id="neurologia" name="especialidad" value="Neurología">
+                <label for="equinos"> Neurología</label><br>
+                <input type="checkbox" id="fisioterapia" name="especialidad" value="Fisioterapia">
+                <label for="exoticos"> Fisioterapia</label><br>
+                <input type="checkbox" id="cirugia" name="especialidad" value="Cirugía">
+                <label for="exoticos"> Cirugía</label><br>
+
             </div>
 
             <div class="entrada">
@@ -219,15 +245,11 @@
             </div>
 
             <div class="entrada">
-                <div class="etiqueta">Teléfono</div>
+                <div class="etiqueta">Teléfono:</div>
                 <input type="tel" id="telefono" name="telefono" pattern="[0-9]{9}" size="60">
             </div>
             <div class="entrada">
-                <div class="etiqueta">Correo <abbr title="Este campo es obligatorio">*</abbr></div>
-                <input type="email" id="email" name="email" size="60" required>
-            </div>
-            <div class="entrada">
-                <div class="etiqueta">Página web</div>
+                <div class="etiqueta">Página web:</div>
                 <input type="url" id="pagina_web" name="pagina_web" size="60">
             </div>
         </div> 

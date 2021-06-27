@@ -78,7 +78,30 @@
                 display: inline;
             }
 
+            
             .review_button:hover {
+                background-color: #ffed80;
+                color: #089c6b;
+            }
+
+            .edit_button{
+                cursor: pointer;
+                border-radius: 10px;
+                padding: 15px 20px;
+                background-color: rgb(29, 187, 134);
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+                border: none;
+                color: white;
+                font-size: 16px;
+                transition-duration: 0.4s;
+                width: 200px;
+                font-size: 18;
+                font-weight: 60;
+                font-family: sans-serif;
+                display: inline;
+            }
+
+            .edit_button:hover {
                 background-color: #ffed80;
                 color: #089c6b;
             }
@@ -90,6 +113,82 @@
             .resena{
                 margin-top: 15px;
                 margin-bottom: 15px;
+            }
+            #myImg {
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            }
+            #myImg:hover {opacity: 0.7;}
+            /* The Modal (background) */
+            .modal {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Sit on top */
+                padding-top: 100px; /* Location of the box */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+            }
+            /* Modal Content (imagen) */
+            .modal-content {
+                margin: auto;
+                display: block;
+                width: 800px;
+                max-width: 800px;
+                height: 600px
+            }
+            /* Caption de la imagen */
+            #caption {
+                margin: auto;
+                display: block;
+                width: 800px;
+                max-width: 800px;
+                text-align: center;
+                color: #ccc;
+                padding: 10px 0;
+                height: 600px;
+            }
+            /* Animación */
+            .modal-content, #caption {  
+                -webkit-animation-name: zoom;
+                -webkit-animation-duration: 0.6s;
+                animation-name: zoom;
+                animation-duration: 0.6s;
+            }
+            @-webkit-keyframes zoom {
+                from {-webkit-transform:scale(0)} 
+                to {-webkit-transform:scale(1)}
+            }
+            @keyframes zoom {
+                from {transform:scale(0)} 
+                to {transform:scale(1)}
+            }
+            /* Botón para cerrar */
+            .close {
+                position: absolute;
+                top: 15px;
+                right: 35px;
+                color: #f1f1f1;
+                font-size: 40px;
+                font-weight: bold;
+                transition: 0.3s;
+            }
+            .close:hover,
+            .close:focus {
+                color: #bbb;
+                text-decoration: none;
+                cursor: pointer;
+            }
+            /* 100% Image Width para pantallas más pequeñas */
+            @media only screen and (max-width: 700px){
+            .modal-content {
+                    width: 100%;
+            }
             }
 
         </style>
@@ -108,15 +207,44 @@
 
                     <div class="caja">
                         <div class='textbox'>
-                        {% if doctor.foto%}    
-                            <img src="{{ doctor.foto.url }}" width="180" height="180">
+                        {% if veterinario.foto%}    
+                            <img id="myImg" alt="{{veterinario.pronombre}} {{veterinario.nombre}} {{veterinario.apellido}}" src="{{ veterinario.foto.url }}" width="180" height="180">
+                            <div id="myModal" class="modal">
+                                <span class="close">&times;</span>
+                                <img class="modal-content" alt="{{veterinario.pronombre}} {{veterinario.nombre}} {{veterinario.apellido}}" src="{{ veterinario.foto.url }}" id="img01">
+                                <div id="caption"></div>
+                            </div>
                         {% else %}
                             <img src="{% static 'gestionVeterinarios/imagen1.png' %}" width="180" height="180">
+                            <div id="myModal" class="modal">
+                                <span class="close">&times;</span>
+                                <img class="modal-content" alt="{{veterinario.pronombre}} {{veterinario.nombre}} {{veterinario.apellido}}" src="{% static 'gestionVeterinarios/imagen1.png' %}" id="img01">
+                                <div id="caption"></div>
+                            </div>
                         {% endif %}
                         </div>
+                        <script>
+                            
+                            var modal = document.getElementById("myModal");
+                            var img = document.getElementById("myImg");
+                            var modalImg = document.getElementById("img01");
+                            var captionText = document.getElementById("caption");
+                            img.onclick = function(){
+                                modal.style.display = "block";
+                                modalImg.src = this.src;
+                                captionText.innerHTML = this.alt;
+                            }
+                    
+                            var span = document.getElementsByClassName("close")[0];
+                    
+                            span.onclick = function() { 
+                                modal.style.display = "none";
+                            }
+                            
+                        </script>
                         <div class='textbox'>
-                            <div><b>{{doctor.pronombre}} {{doctor.nombre}} {{doctor.apellido}}</b></div>
-                            <i>{{doctor.nombre_consulta}}</i>
+                            <div><b>{{veterinario.pronombre}} {{veterinario.nombre}} {{veterinario.apellido}}</b></div>
+                            <i>{{veterinario.nombre_consulta}}</i>
                             {% for prom in prom_evaluacion %}
                             {% if prom.prom %}
                                 {% if prom.prom <= 1.5 %}
@@ -143,7 +271,7 @@
     
                     <div class="caja">
                         <div><b>Descripción:</b></div>
-                        <div>{{doctor.descripcion}}</div>
+                        <div>{{veterinario.descripcion}}</div>
                     </div>
 
                     <!-- Datos de Contacto -->
@@ -151,10 +279,10 @@
                     <div class="caja">
                         <div><b>Datos de Contacto:</b></div>
                         <div>Región: {{region}}</div>
-                        <div>Comuna: {{doctor.comuna}}</div>
-                        <div>Teléfono: {{doctor.telefono}}</div>
-                        <div>Correo: {{doctor.email}}</div>
-                        <div>Sitio Web: {{doctor.pagina_web}}</div>
+                        <div>Comuna: {{veterinario.comuna}}</div>
+                        <div>Teléfono: {{veterinario.telefono}}</div>
+                        <div>Correo: {{veterinario.email}}</div>
+                        <div>Sitio Web: {{veterinario.pagina_web}}</div>
                     </div>  
     
                 </div>
@@ -165,13 +293,13 @@
     
                     <div class="caja">
                         <div><b>Servicios</b></div>
-                            {% if doctor.urgencias %}
+                            {% if veterinario.urgencias %}
                                 <div>&#x2611; Atiende urgencias</div>
                             {% else %}
                                 <div>&#x2610; No atiende urgencias</div>
                             {% endif %}
 
-                            {% if doctor.visitas_a_domicilio %}
+                            {% if veterinario.visitas_a_domicilio %}
                                 <div>&#x2611; Realiza visitas a domicilio</div>
                             {% else %}
                                 <div>&#x2610; No realiza visitas a domicilio</div>
@@ -202,7 +330,9 @@
         
                         <div class="caja bottombox">
                             <div><b>Especialización:</b></div>
-                            <div>{{doctor.especialidad}}</div>
+                            {% for especialidad in especialidades %}
+                            <div>&#9679; {{especialidad}}</div>
+                            {% endfor %}
                         </div>
         
                     </div>
@@ -252,8 +382,13 @@
 
                 <div class="textbox">
                     <div>
-                        <a href="{% url 'eval_vet' doctor.id %}"><button class="review_button">Dejar una reseña</button></a>
-                    </a>
+                        {% if user_vet_id == veterinario.id%}
+                        <a href="{% url 'edit_vet' %}"><button class="edit_button">Editar mis datos</button></a>
+                        {% else %}
+                        <a href="{% url 'eval_vet' veterinario.id %}"><button class="review_button">Dejar una reseña</button></a>
+                        {% endif %}
+                                          
+                        
                 </div>
 
             </div>
